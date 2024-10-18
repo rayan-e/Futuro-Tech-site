@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futuro Tech</title>
     <style>
+        /* Style pour le menu de navigation */
+        nav {
+            background-color: #000000;
+            overflow: hidden;
+            position: sticky;
+            top: 0; /* La barre "colle" en haut de la page */
+            z-index: 1000; /* Pour s'assurer que la barre est toujours au-dessus du contenu */
+        }
+
         nav a {
             float: left;
             display: block;
@@ -13,9 +22,10 @@
             padding: 14px 20px;
             text-decoration: none;
         }
+
         nav a:hover {
             background-color: #ddd;
-            color: rgb(43, 43, 43);
+            color: black;
         }
 
         /* Style pour la section avec l'image de fond */
@@ -43,14 +53,46 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
         .linkedin-button:hover {
             background-color: #005582;
+        }
+
+        /* Style pour l'image supplémentaire */
+        .additional-image {
+            display: block;
+            margin: 50px auto; /* Centrer l'image avec auto */
+            width: 100%; /* L'image prend toute la largeur de la page */
+            max-width: 562px; /* Limite la largeur maximale */
+            height: 241px; /* Hauteur spécifique */
+        }
+
+        /* Media Queries pour les petits écrans */
+        @media (max-width: 600px) {
+            nav a {
+                float: none; /* Supprime le flottement pour les petits écrans */
+                text-align: left; /* Aligne le texte à gauche */
+                padding: 10px; /* Ajuste le rembourrage */
+            }
+
+            .container {
+                padding: 20px; /* Réduit le rembourrage sur les petits écrans */
+            }
+
+            .background-image {
+                height: 300px; /* Ajuste la hauteur de l'image de fond */
+            }
         }
     </style>
 </head>
 <body>
 
-
+    <!-- Menu de navigation -->
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="contact.html">Contact</a>
+        <a href="about.html">À propos</a>
+    </nav>
 
     <!-- Section avec l'image de fond -->
     <div class="background-image">
@@ -60,12 +102,20 @@
     <!-- Contenu principal -->
     <div class="container">
         <h1>Bienvenue sur Futuro Tech</h1>
-        <p></p>
+        <p>Futuro Tech est une entreprise spécialisée dans le développement de logiciels personnalisés
+            destinés aux PME, aux startups et aux particuliers. Nous concevons des solutions sur mesure pour
+            répondre aux besoins spécifiques de nos clients, en optimisant leurs processus internes grâce à des
+            technologies adaptées et innovantes.</p>
         
         <!-- Lien vers LinkedIn -->
         <a href="https://www.linkedin.com/company/futuro-tech/about/?viewAsMember=true" target="_blank" class="linkedin-button">
             Mon profil LinkedIn
         </a>
+    </div>
+
+    <!-- Deuxième image en bas -->
+    <div class="container">
+        <img src="additional-image.png" alt="Description de l'image" class="additional-image">
     </div>
 
 </body>
