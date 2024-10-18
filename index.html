@@ -7,7 +7,7 @@
     <style>
         /* Style pour le menu de navigation */
         nav {
-            background-color: #000000;
+            background-color: #333;
             overflow: hidden;
             position: sticky;
             top: 0; /* La barre "colle" en haut de la page */
@@ -44,27 +44,43 @@
             padding: 50px;
         }
 
-        /* Bouton LinkedIn */
-        .linkedin-button {
-            margin-top: 20px;
-            background-color: #000000;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+        /* Section des images */
+        .image-gallery {
+            display: flex;
+            justify-content: center; /* Centrer les images */
+            flex-wrap: wrap; /* Pour que les images s'ajustent sur les petits écrans */
+            gap: 20px; /* Espace entre les images */
+            margin: 20px auto; /* Marge automatique pour centrer */
         }
 
-        .linkedin-button:hover {
-            background-color: #005582;
+        .image-container {
+            position: relative; /* Pour positionner le bouton en absolu */
+            width: 100%; /* Prendre toute la largeur disponible */
+            max-width: 200px; /* Largeur maximale pour chaque image */
         }
 
-        /* Style pour l'image supplémentaire */
-        .additional-image {
-            display: block;
-            margin: 50px auto; /* Centrer l'image avec auto */
-            width: 100%; /* L'image prend toute la largeur de la page */
-            max-width: 562px; /* Limite la largeur maximale */
-            height: 241px; /* Hauteur spécifique */
+        .image-container img {
+            width: 100%; /* L'image prend toute la largeur du conteneur */
+            height: auto; /* Hauteur automatique pour garder la proportion */
+            border-radius: 8px; /* Coins arrondis pour les images */
+        }
+
+        .discover-button {
+            display: none; /* Masquer le bouton par défaut */
+            position: absolute; /* Positionner le bouton en haut de l'image */
+            bottom: 10px; /* À 10px du bas de l'image */
+            left: 50%; /* Centrer horizontalement */
+            transform: translateX(-50%); /* Centrer le bouton par rapport à son point de départ */
+            background-color: rgba(0, 0, 0, 0.7); /* Fond noir avec transparence */
+            color: white; /* Couleur du texte */
+            padding: 10px 15px; /* Rembourrage autour du texte */
+            border-radius: 5px; /* Coins arrondis pour le bouton */
+            text-decoration: none; /* Pas de soulignement */
+        }
+
+        /* Afficher le bouton lors du survol */
+        .image-container:hover .discover-button {
+            display: block; /* Afficher le bouton au survol */
         }
 
         /* Media Queries pour les petits écrans */
@@ -113,9 +129,20 @@
         </a>
     </div>
 
-    <!-- Deuxième image en bas -->
-    <div class="container">
-        <img src="additional-image.png" alt="Description de l'image" class="additional-image">
+    <!-- Galerie d'images -->
+    <div class="image-gallery">
+        <div class="image-container">
+            <img src="image1.png" alt="Image 1">
+            <a href="link1.html" class="discover-button">Découvrir</a>
+        </div>
+        <div class="image-container">
+            <img src="image2.png" alt="Image 2">
+            <a href="link2.html" class="discover-button">Découvrir</a>
+        </div>
+        <div class="image-container">
+            <img src="image3.png" alt="Image 3">
+            <a href="link3.html" class="discover-button">Découvrir</a>
+        </div>
     </div>
 
 </body>
