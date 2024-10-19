@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        /* Style pour le menu de navigation */
+        nav {
+            background-color: #000000;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 15px; /* Espacement réduit pour PC */
+            text-decoration: none;
+            float: left; /* Disposition en ligne sur PC */
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Menu burger pour mobile */
+        .menu-icon {
+            display: none; /* Caché par défaut pour PC */
+            float: right;
+            padding: 14px 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Style pour le contenu principal */
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Bouton LinkedIn */
+        .linkedin-button {
+            margin-top: 20px;
+            background-color: #000000;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .linkedin-button:hover {
+            background-color: #005582;
+        }
+
+        /* Styles spécifiques pour les smartphones */
+        @media (max-width: 768px) {
+            nav a {
+                display: none; /* Cacher les liens sur mobile */
+                float: none;
+            }
+            .menu-icon {
+                display: block; /* Afficher l'icône du menu burger */
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #000;
+            }
+            .nav-links.active {
+                display: flex; /* Montrer les liens lorsque l'icône est cliquée */
+            }
+            .nav-links a {
+                display: block;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            /* Adapter le contenu principal pour mobile */
+            .container {
+                padding: 20px; /* Réduire l'espacement sur les côtés */
+            }
+            .container h1 {
+                font-size: 50px; /* Taille de police plus petite pour les titres */
+            }
+            .container p {
+                font-size: 16px; /* Réduire la taille de la police */
+            }
+        }
+
+        /* Styles pour les tablettes */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .container h1 {
+                font-size: 28px; /* Ajustement taille titre tablette */
+            }
+            .container p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu de navigation -->
+    <nav id="navbar">
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Accueil</a>
+            <a href="contact.html" onclick="closeMenu()">Contact</a>
+            <a href="about.html" onclick="closeMenu()">À propos</a>
+            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
+            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
+            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <h1>Futuro Tech Automative</h1>
+    </div>
+
+    <!-- Script pour basculer le menu burger et fermer après un clic -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active'); // Fermer le menu après clic
+        }
+    </script>
+
+</body>
+</html>
