@@ -252,6 +252,20 @@
         .contact-button:hover {
             background-color: #000000; /* couleur bleue plus foncée */
         }
+        .ouvre-button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #000000; /* couleur bleue */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .ouvre-button:hover {
+            background-color: #000000; /* couleur bleue plus foncée */
+        }
 
         footer {
             margin-top: 20px;
@@ -331,7 +345,8 @@
                     <p class="car-price">Prix: 2600€</p>
                     
                     <p class="car-description">Caractéristiques principales :</p>
-                    <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                    <a href="CarD1.html" class="ouvre-button">Plus de details</a>
+                    
                     <div class="more-info">
                         <ul>
                             <li>Kilométrage : 241 000 km</li>
@@ -350,7 +365,7 @@
                     </div>
                 </div>
             </div>
-                <div class="car-card">
+                <div class="car-card" >
                     <div class="carousel">
                         <div class="carousel-images">
                             <img src="car.png" alt="Voiture 2 - Image 1">
@@ -362,10 +377,10 @@
                     </div>
                     <div class="car-info">
                         <p>Coming Soon </p>
-                        <p class="car-price">Prix:-----€</p>
-                        
+                        <p class="car-price">Prix:-----€</p>           
                         <p class="car-description">Caractéristiques principales :</p>
                         <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                        
                         <div class="more-info">
                             <ul>
                                 <li>Kilométrage : ------ km</li>
