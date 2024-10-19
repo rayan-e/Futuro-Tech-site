@@ -16,12 +16,12 @@
             transition: background-color 0.3s;
         }
         nav a {
-            float: left;
             display: block;
             color: white;
             text-align: center;
             padding: 14px 20px;
             text-decoration: none;
+            float: left; /* Pour afficher les éléments sur une seule ligne sur PC */
         }
         nav a:hover {
             background-color: #ddd;
@@ -30,7 +30,7 @@
 
         /* Menu burger pour mobile */
         .menu-icon {
-            display: none; /* Caché par défaut */
+            display: none; /* Caché par défaut pour PC */
             float: right;
             padding: 14px 20px;
             color: white;
@@ -38,10 +38,15 @@
             cursor: pointer;
         }
 
-        /* Cacher les liens dans le menu en version mobile */
+        /* Liste des liens de navigation en version mobile */
         .nav-links {
             display: flex;
-            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
         }
 
         /* Style pour l'image de fond */
@@ -110,28 +115,28 @@
             background-color: #005582;
         }
 
-        /* Styles adaptatifs pour les petits écrans */
+        /* Styles spécifiques pour les smartphones */
         @media (max-width: 768px) {
             nav a {
                 display: none; /* Cacher les liens sur mobile */
-            }
-            nav.active a {
-                display: block; /* Afficher les liens quand le menu est actif */
-                float: none; /* Supprimer le flottement sur petits écrans */
-                text-align: center;
-                padding: 10px;
+                float: none; /* Supprimer le float pour les versions mobiles */
             }
             .menu-icon {
                 display: block; /* Afficher l'icône du menu burger */
             }
-            .background-image {
-                height: 300px;
-            }
-            .image-wrapper {
+            .nav-links {
+                display: none; /* Cacher les liens par défaut sur mobile */
+                flex-direction: column; /* Les liens s'alignent en colonne sur mobile */
                 width: 100%;
+                background-color: #000; /* Garder la barre en noir pour les liens */
             }
-            .container {
-                padding: 20px;
+            .nav-links.active {
+                display: flex; /* Montrer les liens lorsque l'icône est cliquée */
+            }
+            .nav-links a {
+                display: block;
+                padding: 10px 0;
+                text-align: center;
             }
         }
     </style>
@@ -141,13 +146,13 @@
     <!-- Menu de navigation -->
     <nav id="navbar">
         <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
-        <div class="nav-links">
-            <a href="index.html">Accueil</a>
-            <a href="contact.html">Contact</a>
-            <a href="about.html">À propos</a>
-            <a href="FuturoTech_Solution.html">Futuro Tech Solution</a>
-            <a href="FuturoTech_Automative.html">Futuro Tech Automative</a>
-            <a href="FuturoTech_Accessoires.html">Futuro Tech Accessoires</a>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Accueil</a>
+            <a href="contact.html" onclick="closeMenu()">Contact</a>
+            <a href="about.html" onclick="closeMenu()">À propos</a>
+            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
+            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
+            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
         </div>
     </nav>
 
@@ -187,11 +192,16 @@
         </div>
     </div>
 
-    <!-- Script pour basculer le menu burger -->
+    <!-- Script pour basculer le menu burger et fermer après un clic -->
     <script>
         function toggleMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('active');
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active'); // Fermer le menu après clic
         }
     </script>
 
