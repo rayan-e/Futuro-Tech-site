@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <title>Page avec Vidéo</title>
     <style>
-        /* Style pour le menu de navigation */
-        nav {
+         /* Style pour le menu de navigation */
+         nav {
             background-color: #000000;
             overflow: hidden;
             position: fixed;
@@ -112,10 +112,48 @@
                 font-size: 18px;
             }
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
-
+    
     <!-- Menu de navigation -->
     <nav id="navbar">
         <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
@@ -129,23 +167,26 @@
         </div>
     </nav>
 
-    <!-- Contenu principal -->
-    <div class="container">
+    <header>
         <h1>Futuro Tech Solution</h1>
+    </header>
+
+    <div class="video-container">
+        <h2>Système Anti Incendie</h2>
+
+        <!-- Vidéo avec démarrage automatique -->
+        <video controls autoplay muted>
+            <source src="video.mp4" type="video/mp4">
+            <source src="video.webm" type="video/webm">
+            <source src="video.ogg" type="video/ogg">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+
     </div>
 
-    <!-- Script pour basculer le menu burger et fermer après un clic -->
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active'); // Afficher/masquer la liste
-        }
-
-        function closeMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.remove('active'); // Fermer le menu après clic
-        }
-    </script>
+    <footer>
+        <p>&copy; Futuro Tech Solution</p>
+    </footer>
 
 </body>
 </html>
