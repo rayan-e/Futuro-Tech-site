@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <title>À propos</title>
     <style>
         /* Style pour le menu de navigation */
         nav {
@@ -16,16 +16,38 @@
             transition: background-color 0.3s; /* Transition pour le changement de couleur */
         }
         nav a {
-            float: left;
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 20px;
+            padding: 14px 15px; /* Espacement réduit pour PC */
             text-decoration: none;
+            float: left; /* Disposition en ligne sur PC */
         }
         nav a:hover {
             background-color: #ddd;
             color: black;
+        }
+
+        /* Menu burger pour mobile */
+        .menu-icon {
+            display: none; /* Caché par défaut pour PC */
+            float: right;
+            padding: 14px 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-links.active {
+            display: flex;
+            flex-direction: column; /* Affichage en colonne quand actif */
+            width: 100%;
+            background-color: #000;
         }
 
         /* Style pour le contenu principal */
@@ -34,78 +56,101 @@
             padding: 50px;
         }
 
-        /* Style pour les images supplémentaires */
-        .image-container {
-            display: flex; /* Utiliser flexbox pour aligner les images */
-            justify-content: center; /* Centrer les images */
-            gap: 20px; /* Espacement entre les images */
-            margin-bottom: 50px; /* Espacement en bas */
-        }
-        .image-wrapper {
-            position: relative; /* Pour le bouton qui apparaîtra au survol */
-        }
-        .additional-image {
-            width: 200px; /* Ajuster la largeur selon vos besoins */
-            height: auto; /* Hauteur automatique pour garder le ratio */
-            transition: transform 0.3s; /* Animation au survol */
-        }
-        .additional-image:hover {
-            transform: scale(1.05); /* Légère augmentation de la taille au survol */
-        }
-        .discover-button {
-            display: none; /* Masquer le bouton par défaut */
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #000;
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .image-wrapper:hover .discover-button {
-            display: block; /* Afficher le bouton au survol */
+        /* Styles spécifiques pour les smartphones */
+        @media (max-width: 768px) {
+            nav a {
+                display: none; /* Cacher les liens sur mobile */
+                float: none; /* Éliminer le flottement pour mobile */
+            }
+            .menu-icon {
+                display: block; /* Afficher l'icône du menu burger */
+            }
+            .nav-links {
+                display: none; /* Cacher les liens par défaut sur mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: #000;
+            }
+            .nav-links.active {
+                display: flex; /* Montrer les liens lorsque l'icône est cliquée */
+            }
+            .nav-links a {
+                display: block;
+                padding: 10px 0; /* Espacement pour mobile */
+                text-align: center;
+            }
+
+            /* Adapter le contenu principal pour mobile */
+            .container {
+                padding: 20px; /* Réduire l'espacement sur les côtés */
+            }
+            .container h1 {
+                font-size: 24px; /* Taille de police plus petite pour les titres */
+            }
+            .container p {
+                font-size: 16px; /* Réduire la taille de la police */
+            }
         }
 
+        /* Styles pour les tablettes */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .container h1 {
+                font-size: 28px; /* Ajustement taille titre tablette */
+            }
+            .container p {
+                font-size: 18px; /* Ajustement de la taille de police */
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- Menu de navigation -->
-    <nav>
-        <a href="index.html">Accueil</a>
-        <a href="contact.html">Contact</a>
-        <a href="about.html">À propos</a>
-        <a href="FuturoTech_Solution.html">Futuro Tech Solution</a>
-        <a href="FuturoTech_Automative.html">Futuro Tech Automative</a>
-        <a href="FuturoTech_Accessoires.html">Futuro Tech Accessoires</a>
+    <nav id="navbar">
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Accueil</a>
+            <a href="contact.html" onclick="closeMenu()">Contact</a>
+            <a href="about.html" onclick="closeMenu()">À propos</a>
+            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
+            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
+            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
+        </div>
     </nav>
-
 
     <!-- Contenu principal -->
     <div class="container">
-        <h1>About Futuro Tech</h1>
-        <P> Futuro Tech est une entreprise spécialisée dans le développement de logiciels personnalisés 
-            destinés aux PME, aux startups et aux particuliers. Nous concevons des solutions sur mesure pour 
-            répondre aux besoins spécifiques de nos clients, en optimisant leurs processus internes grâce à des 
-            technologies adaptées et innovantes.
-            En parallèle, Futuro Tech propose des services de conseil pour accompagner les entreprises dans 
-            le développement et l'intégration de solutions logicielles. Ces services visent à améliorer 
-            l'efficacité des entreprises en facilitant la mise en œuvre de systèmes logiciels performants.
-            Enfin, Futuro Tech se diversifie dans l’achat et la revente de véhicules d'occasion et de 
-            composants électroniques via des plateformes en ligne, apportant une source supplémentaire de 
-            revenus et permettant de capter des opportunités dans ces marchés.</P>
-            
-            <h1>Futuro Tech SOLUTIONS  </h1>
-            
-                <p>Secteur</P>
-                    <p>Services et conseil en informatique </P>
-                        <p>Taille de l’entreprise : 2-10 employés </P>
-                            <p>Siège social : Toulouse, Occitanie </P>
-                                <p>Fondée par Rayane Abdelaziz SAYAH en 2022 </p>
+        <h1>À propos de Futuro Tech</h1>
+        <p>
+            Futuro Tech est une entreprise spécialisée dans le développement de logiciels personnalisés destinés aux PME, aux startups et aux particuliers. Nous concevons des solutions sur mesure pour répondre aux besoins spécifiques de nos clients, en optimisant leurs processus internes grâce à des technologies adaptées et innovantes.
+        </p>
+        <p>
+            En parallèle, Futuro Tech propose des services de conseil pour accompagner les entreprises dans le développement et l'intégration de solutions logicielles. Ces services visent à améliorer l'efficacité des entreprises en facilitant la mise en œuvre de systèmes logiciels performants.
+        </p>
+        <p>
+            Enfin, Futuro Tech se diversifie dans l’achat et la revente de véhicules d'occasion et de composants électroniques via des plateformes en ligne, apportant une source supplémentaire de revenus et permettant de capter des opportunités dans ces marchés.
+        </p>
+        
+        <h2>Futuro Tech SOLUTIONS</h2>
+        <p>Secteur : Services et conseil en informatique</p>
+        <p>Taille de l’entreprise : 2-10 employés</p>
+        <p>Siège social : Toulouse, Occitanie</p>
+        <p>Fondée par Rayane Abdelaziz SAYAH en 2022</p>
         <p>(+33) 07 45 55 49 22</p>
     </div>
+
+    <!-- Script pour basculer le menu burger et fermer après un clic -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active'); // Fermer le menu après clic
+        }
+    </script>
 
 </body>
 </html>
