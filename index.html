@@ -19,9 +19,9 @@
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 20px;
+            padding: 14px 15px; /* Espacement réduit entre les éléments pour PC */
             text-decoration: none;
-            float: left; /* Pour afficher les éléments sur une seule ligne sur PC */
+            float: left; /* Pour une disposition en ligne sur PC */
         }
         nav a:hover {
             background-color: #ddd;
@@ -38,7 +38,6 @@
             cursor: pointer;
         }
 
-        /* Liste des liens de navigation en version mobile */
         .nav-links {
             display: flex;
             justify-content: space-around;
@@ -126,9 +125,9 @@
             }
             .nav-links {
                 display: none; /* Cacher les liens par défaut sur mobile */
-                flex-direction: column; /* Les liens s'alignent en colonne sur mobile */
+                flex-direction: column;
                 width: 100%;
-                background-color: #000; /* Garder la barre en noir pour les liens */
+                background-color: #000;
             }
             .nav-links.active {
                 display: flex; /* Montrer les liens lorsque l'icône est cliquée */
@@ -137,6 +136,37 @@
                 display: block;
                 padding: 10px 0;
                 text-align: center;
+            }
+
+            /* Adapter le contenu principal pour mobile */
+            .container {
+                padding: 20px; /* Réduire l'espacement sur les côtés */
+            }
+            .container h1 {
+                font-size: 24px; /* Taille de police plus petite pour les titres */
+            }
+            .container p {
+                font-size: 16px; /* Réduire la taille de la police */
+            }
+
+            /* Adapter les images supplémentaires pour mobile */
+            .image-wrapper {
+                width: 90%; /* Chaque image occupe une grande partie de la largeur sur mobile */
+            }
+            .additional-image {
+                width: 100%;
+            }
+
+            /* Réduire la hauteur de l'image de fond sur mobile */
+            .background-image {
+                height: 250px;
+            }
+        }
+
+        /* Styles pour les tablettes */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .image-wrapper {
+                width: 45%; /* Ajuster la taille des images pour tablettes */
             }
         }
     </style>
