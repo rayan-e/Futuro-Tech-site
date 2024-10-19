@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventes de Voitures - Futuro Tech</title>
     <style>
-          /* Style pour le menu de navigation */
-          nav {
+        /* Style pour le menu de navigation */
+        nav {
             background-color: #000000;
             overflow: hidden;
             position: fixed;
@@ -96,10 +96,23 @@
                 padding: 20px; /* Réduire l'espacement sur les côtés */
             }
             .container h1 {
-                font-size: 50px; /* Taille de police plus petite pour les titres */
+                font-size: 28px; /* Taille de police plus petite pour les titres */
+            }
+            .container h2 {
+                font-size: 24px; /* Taille de police pour le sous-titre */
             }
             .container p {
-                font-size: 16px; /* Réduire la taille de la police */
+                font-size: 14px; /* Réduire la taille de la police */
+            }
+
+            .car-card {
+                width: 90%; /* Réduire la largeur des cartes de voitures */
+                margin: 10px auto; /* Centrer les cartes sur mobile */
+            }
+
+            .toggle-button {
+                width: 100%; /* Rendre le bouton "Voir plus" plein écran */
+                margin-top: 10px;
             }
         }
 
@@ -108,10 +121,17 @@
             .container h1 {
                 font-size: 28px; /* Ajustement taille titre tablette */
             }
+            .container h2 {
+                font-size: 24px; /* Ajustement titre pour sous-titre tablette */
+            }
             .container p {
-                font-size: 18px;
+                font-size: 16px; /* Ajustement pour le texte des paragraphes */
+            }
+            .car-card {
+                width: 45%; /* Deux cartes par ligne sur tablette */
             }
         }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -171,6 +191,7 @@
             display: flex;
             transition: transform 0.5s ease;
             width: 100%;
+            /* change the width to accommodate all images */
         }
 
         .carousel-images img {
@@ -278,125 +299,174 @@
     <header>
         <h1>Ventes de Voitures - Futuro Tech</h1>
     </header>
-<!-- Script pour basculer le menu burger et fermer après un clic -->
-<script>
-    function toggleMenu() {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.classList.toggle('active'); // Afficher/masquer la liste
-    }
 
-    function closeMenu() {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.classList.remove('active'); // Fermer le menu après clic
-    }
-</script>
+    <!-- Script pour basculer le menu burger et fermer après un clic -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active'); // Fermer le menu
+        }
+    </script>
+
     <div class="container">
-        <h2>Nos Voitures à Vendre</h2>
-
+        <h2>Nos voitures à vendre</h2>
         <div class="car-listing">
             <div class="car-card">
                 <div class="carousel">
-                    <button class="carousel-button left" onclick="moveSlide(-1)">&#10094;</button>
-                    <div class="carousel-images" id="carousel-images-1">
+                    <div class="carousel-images">
                         <img src="car1-1.jpeg" alt="Voiture 1 - Image 1">
                         <img src="car1-2.jpeg" alt="Voiture 1 - Image 2">
                         <img src="car1-3.jpeg" alt="Voiture 1 - Image 3">
                     </div>
-                    <button class="carousel-button right" onclick="moveSlide(1)">&#10095;</button>
+                    <button class="carousel-button left" onclick="prevSlide(this)">&#10094;</button>
+                    <button class="carousel-button right" onclick="nextSlide(this)">&#10095;</button>
                 </div>
                 <div class="car-info">
-                    <h2>Citroën C3 1.4 HDi 95cv - 2006 | Très Bon État</h2>
-                    <p>Marque: Citroen</p>
-                    <p>Modèle: C3 Hdi</p>
-                    <p>Année: 2006</p>
-                    <p class="car-price">Prix: 2 600 €</p>
-                    <p>Caractéristiques principales :</p>
-                    <ul>
-                        <li>Kilométrage : 241 000 km</li>
-                        <li>Moteur : Diesel 1.4 L, 95 chevaux</li>
-                        <li>Boîte de vitesse : Manuelle</li>
-                        <li>Couleur extérieure : Bleu</li>
-                        <li>Couleur intérieure : Noir</li>
-                        <li>Portes : 5</li>
-                        <li>Climatisation : Oui</li>
-                        <li>Équipements : Vitres électriques, direction assistée, écran d’infodivertissement avec Wi-Fi, Bluetooth et lecture vidéo YouTube, caméra de recul intégrée</li>
-                    </ul>
+                    <p>Citroën C3 1.4 HDi 95cv - 2006 | Très Bon État</p>
+                    <p>-----------------------------</p>
+                    <p class="car-price">€2600</p>
+                    
+                    <p class="car-description">Caractéristiques principales :</p>
                     <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
                     <div class="more-info">
+                        <ul>
+                            <li>Kilométrage : 241 000 km</li>
+                            <li>Moteur : Diesel 1.4 L, 95 chevaux</li>
+                            <li>Boîte de vitesse : Manuelle</li>
+                            <li>Couleur extérieure : Bleu</li>
+                            <li>Couleur intérieure : Noir</li>
+                            <li>Portes : 5</li>
+                            <li>Climatisation : Oui</li>
+                            <li>Équipements : Vitres électriques, direction assistée, écran d’infodivertissement avec Wi-Fi, Bluetooth et lecture vidéo YouTube, caméra de recul intégrée</li>
+                        </ul>
                         <p>Citroën C3 de 2006 est en excellent état. Elle est équipée d’un écran d’infodivertissement, Wi-Fi, Bluetooth pour connecter votre téléphone, vidéos YouTube. De plus, la caméra de recul. Idéale pour les trajets quotidiens et les longs voyages, cette voiture offre une conduite agréable et économique.</p>
                         <p>Prix compétitif pour une voiture bien entretenue, Système multimédia. Entretien à jour, pneus avant neufs. Prête à rouler sans frais supplémentaires.</p>
                         <p>Contactez-moi pour planifier une visite ou un essai.</p>
                     </div>
-                    <a href="contact.html" class="contact-button">Contactez-nous</a>
                 </div>
             </div>
-
-            <div class="car-card">
-                <img src="car.png" alt="Voiture " class="car-image">
-                <div class="car-info">
-                    <h2>Voiture </h2>
-                    <p>Marque: --------------- ?</p>
-                    <p>Modèle: --------------- ?</p>
-                    <p>Année: --------------- ?</p>
-                    <p class="car-price">Prix: 0,000 €</p>
-                    <p>Description: -----------.</p>
-                    <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
-                    <div class="more-info">
-                        <p>Description détaillée de la Renault Clio, ses caractéristiques, et son historique.</p>
+                <div class="car-card">
+                    <div class="carousel">
+                        <div class="carousel-images">
+                            <img src="car.png" alt="Voiture 2 - Image 1">
+                            <img src="car.png" alt="Voiture 2 - Image 2">
+                            <img src="car.png" alt="Voiture 2 - Image 3">
+                        </div>
+                        <button class="carousel-button left" onclick="prevSlide(this)">&#10094;</button>
+                        <button class="carousel-button right" onclick="nextSlide(this)">&#10095;</button>
                     </div>
-                    <a href="contact.html" class="contact-button">Contactez-nous</a>
-                </div>
-            </div>
-
-            <div class="car-card">
-                <img src="car.png" alt="Voiture " class="car-image">
-                <div class="car-info">
-                    <h2>Voiture</h2>
-                    <p>Marque: --------------- ?</p>
-                    <p>Modèle: --------------- ?</p>
-                    <p>Année: --------------- ?</p>
-                    <p class="car-price">Prix: 0,000 €</p>
-                    <p>Description: --------------- </p>
-                    <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
-                    <div class="more-info">
-                        <p>Description détaillée de la Ford Fiesta, ses caractéristiques, et son historique.</p>
+                    <div class="car-info">
+                        <p>Coming Soon </p>
+                        <p>-----------------------------</p>
+                        <p class="car-price">€-----</p>
+                        
+                        <p class="car-description">Caractéristiques principales :</p>
+                        <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                        <div class="more-info">
+                            <ul>
+                                <li>Kilométrage : ------ km</li>
+                                <li>Moteur : ------</li>
+                                <li>Boîte de vitesse : ------</li>
+                                <li>Couleur extérieure : ------</li>
+                                <li>Couleur intérieure : ------</li>
+                                <li>Portes : ------</li>
+                                <li>Climatisation : ------</li>
+                                <li>Équipements : ------</li>
+                            </ul>
+                            <p>--------------------------------</p>
+                            <p>--------------------------------</p>
+                            <p>Contactez-moi pour planifier une visite ou un essai.</p>
+                        </div>
                     </div>
-                    <a href="contact.html" class="contact-button">Contactez-nous</a>
+                </div>
+                <div class="car-card">
+                    <div class="carousel">
+                        <div class="carousel-images">
+                            <img src="car.png" alt="Voiture 3 - Image 1">
+                            <img src="car.png" alt="Voiture 3 - Image 2">
+                            <img src="car.png" alt="Voiture 3 - Image 3">
+                        </div>
+                        <button class="carousel-button left" onclick="prevSlide(this)">&#10094;</button>
+                        <button class="carousel-button right" onclick="nextSlide(this)">&#10095;</button>
+                    </div>
+                    <div class="car-info">
+                        <p>Coming Soon </p>
+                        <p>-----------------------------</p>
+                        <p class="car-price">€-----</p>
+                        
+                        <p class="car-description">Caractéristiques principales :</p>
+                        <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                        <div class="more-info">
+                            <ul>
+                                <li>Kilométrage : ------ km</li>
+                                <li>Moteur : ------</li>
+                                <li>Boîte de vitesse : ------</li>
+                                <li>Couleur extérieure : ------</li>
+                                <li>Couleur intérieure : ------</li>
+                                <li>Portes : ------</li>
+                                <li>Climatisation : ------</li>
+                                <li>Équipements : ------</li>
+                            </ul>
+                            <p>--------------------------------</p>
+                            <p>--------------------------------</p>
+                            <p>Contactez-moi pour planifier une visite ou un essai.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        <footer>
+            <p>&copy; 2024 Futuro Tech. Tous droits réservés.</p>
+        </footer>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Futuro Tech | Tous droits réservés</p>
-    </footer>
-
+    <!-- Script pour gérer les descriptions des voitures -->
     <script>
-        let currentSlide = 0;
-
-        function moveSlide(direction) {
-            const images = document.querySelectorAll('#carousel-images-1 img');
-            currentSlide += direction;
-
-            if (currentSlide < 0) {
-                currentSlide = images.length - 1;
-            } else if (currentSlide >= images.length) {
-                currentSlide = 0;
-            }
-
-            const offset = -currentSlide * 100; // décalage en pourcentage
-            document.getElementById('carousel-images-1').style.transform = `translateX(${offset}%)`;
-        }
-
         function toggleDescription(button) {
             const moreInfo = button.nextElementSibling;
-            if (moreInfo.style.display === "none" || moreInfo.style.display === "") {
-                moreInfo.style.display = "block"; // Afficher la description
-                button.textContent = "Voir moins"; // Changer le texte du bouton
+            if (moreInfo.style.display === "block") {
+                moreInfo.style.display = "none"; // Cacher
+                button.innerText = "Voir plus"; // Changer le texte
             } else {
-                moreInfo.style.display = "none"; // Masquer la description
-                button.textContent = "Voir plus"; // Changer le texte du bouton
+                moreInfo.style.display = "block"; // Montrer
+                button.innerText = "Voir moins"; // Changer le texte
             }
+        }
+
+        // Fonction pour le carrousel
+        function nextSlide(button) {
+            const carousel = button.parentElement;
+            const images = carousel.querySelector('.carousel-images');
+            const slides = images.children;
+            const totalSlides = slides.length;
+
+            images.style.transition = 'transform 0.5s ease';
+            images.style.transform = 'translateX(-100%)'; // Déplacer à gauche
+
+            setTimeout(() => {
+                images.appendChild(slides[0]); // Mettre l'image à la fin
+                images.style.transition = 'none';
+                images.style.transform = 'translateX(0)'; // Réinitialiser la position
+            }, 500); // Attendre la fin de l'animation
+        }
+
+        function prevSlide(button) {
+            const carousel = button.parentElement;
+            const images = carousel.querySelector('.carousel-images');
+            const slides = images.children;
+
+            images.style.transition = 'none'; // Désactiver la transition
+            images.insertBefore(slides[slides.length - 1], slides[0]); // Déplacer le dernier au début
+            images.style.transform = 'translateX(-100%)'; // Préparer pour l'animation
+
+            setTimeout(() => {
+                images.style.transition = 'transform 0.5s ease';
+                images.style.transform = 'translateX(0)'; // Réinitialiser la position
+            }, 10); // Un court délai pour activer l'animation
         }
     </script>
 
