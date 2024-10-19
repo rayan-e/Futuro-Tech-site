@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        /* Style pour le menu de navigation */
+        nav {
+            background-color: #000000;
+            overflow: hidden;
+            position: fixed; /* Fixer la barre de navigation */
+            top: 0; /* Positionner en haut de la page */
+            width: 100%; /* Largueur totale */
+            z-index: 1000; /* Placer au-dessus d'autres éléments */
+            transition: background-color 0.3s; /* Transition pour le changement de couleur */
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Style pour le contenu principal */
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Style pour les images supplémentaires */
+        .image-container {
+            display: flex; /* Utiliser flexbox pour aligner les images */
+            justify-content: center; /* Centrer les images */
+            gap: 20px; /* Espacement entre les images */
+            margin-bottom: 50px; /* Espacement en bas */
+        }
+        .image-wrapper {
+            position: relative; /* Pour le bouton qui apparaîtra au survol */
+        }
+        .additional-image {
+            width: 200px; /* Ajuster la largeur selon vos besoins */
+            height: auto; /* Hauteur automatique pour garder le ratio */
+            transition: transform 0.3s; /* Animation au survol */
+        }
+        .additional-image:hover {
+            transform: scale(1.05); /* Légère augmentation de la taille au survol */
+        }
+        .discover-button {
+            display: none; /* Masquer le bouton par défaut */
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .image-wrapper:hover .discover-button {
+            display: block; /* Afficher le bouton au survol */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Menu de navigation -->
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="contact.html">Contact</a>
+        <a href="about.html">À propos</a>
+        <a href="FuturoTech_Solution.html">Futuro Tech Solution</a>
+        <a href="FuturoTech_Automative.html">Futuro Tech Automative</a>
+        <a href="FuturoTech_Accessoires.html">Futuro Tech Accessoires</a>
+    </nav>
+
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <h1>Contact Futuro Tech</h1>
+        <p>rayanesaya.contact@futuro-tech.org</p>
+        <p>(+33) 07 45 55 49 22</p>
+    </div>
+
+</body>
+</html>
