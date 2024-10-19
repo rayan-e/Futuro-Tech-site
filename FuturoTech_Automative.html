@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <title>Ventes de Voitures - Futuro Tech</title>
     <style>
-        /* Style pour le menu de navigation */
-        nav {
+          /* Style pour le menu de navigation */
+          nav {
             background-color: #000000;
             overflow: hidden;
             position: fixed;
@@ -112,6 +112,152 @@
                 font-size: 18px;
             }
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .car-listing {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .car-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 30%;
+            background-color: #fff;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .car-card:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .left {
+            left: 10px;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        .car-info {
+            padding: 15px;
+        }
+
+        .car-info h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .car-info p {
+            margin: 5px 0;
+        }
+
+        .car-price {
+            font-size: 1.2em;
+            color: #d9534f; /* couleur rouge */
+        }
+
+        .contact-button {
+            display: block;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #000000; /* couleur bleue */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .contact-button:hover {
+            background-color: #000000; /* couleur bleue plus foncée */
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        .more-info {
+            display: none; /* Cacher la description par défaut */
+            margin-top: 10px;
+        }
+
+        .toggle-button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .toggle-button:hover {
+            background-color: #000000;
+        }
     </style>
 </head>
 <body>
@@ -129,21 +275,128 @@
         </div>
     </nav>
 
-    <!-- Contenu principal -->
+    <header>
+        <h1>Ventes de Voitures - Futuro Tech</h1>
+    </header>
+<!-- Script pour basculer le menu burger et fermer après un clic -->
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('active'); // Afficher/masquer la liste
+    }
+
+    function closeMenu() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.remove('active'); // Fermer le menu après clic
+    }
+</script>
     <div class="container">
-        <h1>Futuro Tech Automative</h1>
+        <h2>Nos Voitures à Vendre</h2>
+
+        <div class="car-listing">
+            <div class="car-card">
+                <div class="carousel">
+                    <button class="carousel-button left" onclick="moveSlide(-1)">&#10094;</button>
+                    <div class="carousel-images" id="carousel-images-1">
+                        <img src="car1-1.jpeg" alt="Voiture 1 - Image 1">
+                        <img src="car1-2.jpeg" alt="Voiture 1 - Image 2">
+                        <img src="car1-3.jpeg" alt="Voiture 1 - Image 3">
+                    </div>
+                    <button class="carousel-button right" onclick="moveSlide(1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h2>Citroën C3 1.4 HDi 95cv - 2006 | Très Bon État</h2>
+                    <p>Marque: Citroen</p>
+                    <p>Modèle: C3 Hdi</p>
+                    <p>Année: 2006</p>
+                    <p class="car-price">Prix: 2 600 €</p>
+                    <p>Caractéristiques principales :</p>
+                    <ul>
+                        <li>Kilométrage : 241 000 km</li>
+                        <li>Moteur : Diesel 1.4 L, 95 chevaux</li>
+                        <li>Boîte de vitesse : Manuelle</li>
+                        <li>Couleur extérieure : Bleu</li>
+                        <li>Couleur intérieure : Noir</li>
+                        <li>Portes : 5</li>
+                        <li>Climatisation : Oui</li>
+                        <li>Équipements : Vitres électriques, direction assistée, écran d’infodivertissement avec Wi-Fi, Bluetooth et lecture vidéo YouTube, caméra de recul intégrée</li>
+                    </ul>
+                    <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                    <div class="more-info">
+                        <p>Citroën C3 de 2006 est en excellent état. Elle est équipée d’un écran d’infodivertissement, Wi-Fi, Bluetooth pour connecter votre téléphone, vidéos YouTube. De plus, la caméra de recul. Idéale pour les trajets quotidiens et les longs voyages, cette voiture offre une conduite agréable et économique.</p>
+                        <p>Prix compétitif pour une voiture bien entretenue, Système multimédia. Entretien à jour, pneus avant neufs. Prête à rouler sans frais supplémentaires.</p>
+                        <p>Contactez-moi pour planifier une visite ou un essai.</p>
+                    </div>
+                    <a href="contact.html" class="contact-button">Contactez-nous</a>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="car.png" alt="Voiture " class="car-image">
+                <div class="car-info">
+                    <h2>Voiture </h2>
+                    <p>Marque: --------------- ?</p>
+                    <p>Modèle: --------------- ?</p>
+                    <p>Année: --------------- ?</p>
+                    <p class="car-price">Prix: 0,000 €</p>
+                    <p>Description: -----------.</p>
+                    <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                    <div class="more-info">
+                        <p>Description détaillée de la Renault Clio, ses caractéristiques, et son historique.</p>
+                    </div>
+                    <a href="contact.html" class="contact-button">Contactez-nous</a>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="car.png" alt="Voiture " class="car-image">
+                <div class="car-info">
+                    <h2>Voiture</h2>
+                    <p>Marque: --------------- ?</p>
+                    <p>Modèle: --------------- ?</p>
+                    <p>Année: --------------- ?</p>
+                    <p class="car-price">Prix: 0,000 €</p>
+                    <p>Description: --------------- </p>
+                    <button class="toggle-button" onclick="toggleDescription(this)">Voir plus</button>
+                    <div class="more-info">
+                        <p>Description détaillée de la Ford Fiesta, ses caractéristiques, et son historique.</p>
+                    </div>
+                    <a href="contact.html" class="contact-button">Contactez-nous</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Script pour basculer le menu burger et fermer après un clic -->
+    <footer>
+        <p>&copy; 2024 Futuro Tech | Tous droits réservés</p>
+    </footer>
+
     <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        let currentSlide = 0;
+
+        function moveSlide(direction) {
+            const images = document.querySelectorAll('#carousel-images-1 img');
+            currentSlide += direction;
+
+            if (currentSlide < 0) {
+                currentSlide = images.length - 1;
+            } else if (currentSlide >= images.length) {
+                currentSlide = 0;
+            }
+
+            const offset = -currentSlide * 100; // décalage en pourcentage
+            document.getElementById('carousel-images-1').style.transform = `translateX(${offset}%)`;
         }
 
-        function closeMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.remove('active'); // Fermer le menu après clic
+        function toggleDescription(button) {
+            const moreInfo = button.nextElementSibling;
+            if (moreInfo.style.display === "none" || moreInfo.style.display === "") {
+                moreInfo.style.display = "block"; // Afficher la description
+                button.textContent = "Voir moins"; // Changer le texte du bouton
+            } else {
+                moreInfo.style.display = "none"; // Masquer la description
+                button.textContent = "Voir plus"; // Changer le texte du bouton
+            }
         }
     </script>
 
