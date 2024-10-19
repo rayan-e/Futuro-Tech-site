@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À propos</title>
+    <title>Contact</title>
     <style>
         /* Style pour le menu de navigation */
         nav {
             background-color: #000000;
             overflow: hidden;
-            position: fixed; /* Fixer la barre de navigation */
-            top: 0; /* Positionner en haut de la page */
-            width: 100%; /* Largueur totale */
-            z-index: 1000; /* Placer au-dessus d'autres éléments */
-            transition: background-color 0.3s; /* Transition pour le changement de couleur */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s;
         }
         nav a {
             display: block;
@@ -45,9 +45,7 @@
         }
         .nav-links.active {
             display: flex;
-            flex-direction: column; /* Affichage en colonne quand actif */
-            width: 100%;
-            background-color: #000;
+            flex-direction: column;
         }
 
         /* Style pour le contenu principal */
@@ -56,17 +54,30 @@
             padding: 50px;
         }
 
+        /* Bouton LinkedIn */
+        .linkedin-button {
+            margin-top: 20px;
+            background-color: #000000;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .linkedin-button:hover {
+            background-color: #005582;
+        }
+
         /* Styles spécifiques pour les smartphones */
         @media (max-width: 768px) {
             nav a {
                 display: none; /* Cacher les liens sur mobile */
-                float: none; /* Éliminer le flottement pour mobile */
+                float: none;
             }
             .menu-icon {
                 display: block; /* Afficher l'icône du menu burger */
             }
             .nav-links {
-                display: none; /* Cacher les liens par défaut sur mobile */
+                display: none;
                 flex-direction: column;
                 width: 100%;
                 background-color: #000;
@@ -76,7 +87,7 @@
             }
             .nav-links a {
                 display: block;
-                padding: 10px 0; /* Espacement pour mobile */
+                padding: 10px 0;
                 text-align: center;
             }
 
@@ -98,7 +109,7 @@
                 font-size: 28px; /* Ajustement taille titre tablette */
             }
             .container p {
-                font-size: 18px; /* Ajustement de la taille de police */
+                font-size: 18px;
             }
         }
     </style>
@@ -120,23 +131,7 @@
 
     <!-- Contenu principal -->
     <div class="container">
-        <h1>À propos de Futuro Tech</h1>
-        <p>
-            Futuro Tech est une entreprise spécialisée dans le développement de logiciels personnalisés destinés aux PME, aux startups et aux particuliers. Nous concevons des solutions sur mesure pour répondre aux besoins spécifiques de nos clients, en optimisant leurs processus internes grâce à des technologies adaptées et innovantes.
-        </p>
-        <p>
-            En parallèle, Futuro Tech propose des services de conseil pour accompagner les entreprises dans le développement et l'intégration de solutions logicielles. Ces services visent à améliorer l'efficacité des entreprises en facilitant la mise en œuvre de systèmes logiciels performants.
-        </p>
-        <p>
-            Enfin, Futuro Tech se diversifie dans l’achat et la revente de véhicules d'occasion et de composants électroniques via des plateformes en ligne, apportant une source supplémentaire de revenus et permettant de capter des opportunités dans ces marchés.
-        </p>
-        
-        <h2>Futuro Tech SOLUTIONS</h2>
-        <p>Secteur : Services et conseil en informatique</p>
-        <p>Taille de l’entreprise : 2-10 employés</p>
-        <p>Siège social : Toulouse, Occitanie</p>
-        <p>Fondée par Rayane Abdelaziz SAYAH en 2022</p>
-        <p>(+33) 07 45 55 49 22</p>
+        <h1>Futuro Tech Solution</h1>
     </div>
 
     <!-- Script pour basculer le menu burger et fermer après un clic -->
