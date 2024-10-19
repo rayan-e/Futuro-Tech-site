@@ -170,6 +170,18 @@
     <header>
         <h1>Futuro Tech Solution</h1>
     </header>
+    <!-- Script pour basculer le menu burger et fermer après un clic -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active'); // Fermer le menu après clic
+        }
+    </script>
 
     <div class="video-container">
         <h2>Système Anti Incendie</h2>
