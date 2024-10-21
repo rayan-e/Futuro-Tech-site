@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page avec Vidéo</title>
+    <title>Futuro Tech</title>
     <style>
-         /* Style pour le menu de navigation */
-         nav {
-            background-color: #000000;
+        /* Style pour le menu de navigation */
+        nav {
+            background-color: #2c436f9f;
             overflow: hidden;
             position: fixed;
             top: 0;
@@ -15,55 +16,23 @@
             z-index: 1000;
             transition: background-color 0.3s;
         }
+
         nav a {
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 15px; /* Espacement réduit pour PC */
+            padding: 14px 15px;
             text-decoration: none;
-            float: left; /* Disposition en ligne sur PC */
-        }
-        /* Menu burger pour mobile */
-        .menu-icon {
-            display: none; /* Caché par défaut pour PC */
-            float: right;
-            padding: 14px 20px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .nav-links {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .nav-links.active {
-            display: flex;
-            flex-direction: column;
+            float: left;
         }
 
-        /* Style pour le contenu principal */
-        .container {
-            text-align: center;
-            padding: 50px;
-        }
-                /* Style pour les images supplémentaires */
-        nav a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 15px; /* Espacement réduit entre les éléments pour PC */
-            text-decoration: none;
-            float: left; /* Pour une disposition en ligne sur PC */
-        }
         nav a:hover {
             background-color: #ddd;
-            color: rgb(0, 0, 0);
+            color: black;
         }
 
-        /* Menu burger pour mobile */
         .menu-icon {
-            display: none; /* Caché par défaut pour PC */
+            display: none;
             float: right;
             padding: 14px 20px;
             color: white;
@@ -76,26 +45,28 @@
             justify-content: space-around;
             align-items: center;
         }
+
         .nav-links.active {
             display: flex;
             flex-direction: column;
         }
 
-        /* Style pour l'image de fond */
-        .background-image {
-            background-image: url('background.png');
+        /* Style pour le diaporama en background */
+        .slideshow-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
             background-size: cover;
             background-position: center;
-            height: 410px;
-            width: 100%;
-            position: relative;
             margin-top: 50px;
+            animation: fade 5s infinite;
         }
 
-        /* Style pour le contenu principal */
-        .container {
-            text-align: center;
-            padding: 50px;
+        @keyframes fade {
+            0% { background-image: url('slide1.png'); }
+            33% { background-image: url('slide2.png'); }
+            66% { background-image: url('slide3.png'); }
+            100% { background-image: url('slide1.png'); }
         }
 
         /* Style pour les images supplémentaires */
@@ -104,32 +75,37 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 20px;
-            margin-bottom: 50px;
+            margin: 50px 0;
         }
+
         .image-wrapper {
             position: relative;
             width: 30%;
         }
+
         .additional-image {
             width: 100%;
             height: auto;
             transition: transform 0.3s;
         }
+
         .additional-image:hover {
             transform: scale(1.05);
         }
+
         .discover-button {
             display: none;
             position: absolute;
             bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #e4723e;
-            color: rgb(255, 255, 255);
+            background-color: #2c436f;
+            color: white;
             padding: 10px;
             text-decoration: none;
-            border-radius: 20px;
+            border-radius: 5px;
         }
+
         .image-wrapper:hover .discover-button {
             display: block;
         }
@@ -137,130 +113,55 @@
         /* Styles spécifiques pour les smartphones */
         @media (max-width: 768px) {
             nav a {
-                display: none; /* Cacher les liens sur mobile */
-                float: none; /* Supprimer le float pour les versions mobiles */
+                display: none;
+                float: none;
             }
+
             .menu-icon {
-                display: block; /* Afficher l'icône du menu burger */
+                display: block;
             }
+
             .nav-links {
-                display: none; /* Cacher les liens par défaut sur mobile */
+                display: none;
                 flex-direction: column;
                 width: 100%;
-                background-color: #000000;
+                background-color: #005582;
             }
+
             .nav-links.active {
-                display: flex; /* Montrer les liens lorsque l'icône est cliquée */
+                display: flex;
             }
+
             .nav-links a {
                 display: block;
                 padding: 10px 0;
                 text-align: center;
-            }
-
-            /* Adapter le contenu principal pour mobile */
-            .container {
-                padding: 20px; /* Réduire l'espacement sur les côtés */
-            }
-            .container h1 {
-                font-size: 24px; /* Taille de police plus petite pour les titres */
-            }
-            .container p {
-                font-size: 16px; /* Réduire la taille de la police */
             }
 
             /* Adapter les images supplémentaires pour mobile */
             .image-wrapper {
-                width: 90%; /* Chaque image occupe une grande partie de la largeur sur mobile */
-            }
-            .additional-image {
-                width: 100%;
+                width: 90%;
             }
 
-            /* Réduire la hauteur de l'image de fond sur mobile */
-            .background-image {
-                height: 250px;
+            /* Réduire la hauteur du diaporama pour mobile */
+            .slideshow-container {
+                height: 200px;
             }
         }
 
-        /* Styles pour les tablettes */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .image-wrapper {
-                width: 45%; /* Ajuster la taille des images pour tablettes */
-            }
-        }
-
-
-        /* Styles spécifiques pour les smartphones */
-        @media (max-width: 768px) {
-            nav a {
-                display: none; /* Cacher les liens sur mobile */
-                float: none;
-            }
-            .menu-icon {
-                display: block; /* Afficher l'icône du menu burger */
-            }
-
-            .nav-links.active {
-                display: flex; /* Montrer les liens lorsque l'icône est cliquée */
-            }
-            .nav-links a {
-                display: block;
-                padding: 10px 0;
-                text-align: center;
-            }
-
-            /* Adapter le contenu principal pour mobile */
-            .container {
-                padding: 20px; /* Réduire l'espacement sur les côtés */
-            }
-            .container h1 {
-                font-size: 50px; /* Taille de police plus petite pour les titres */
-            }
-            .container p {
-                font-size: 16px; /* Réduire la taille de la police */
-            }
-        }
-
-        /* Styles pour les tablettes */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .container h1 {
-                font-size: 28px; /* Ajustement taille titre tablette */
-            }
-            .container p {
-                font-size: 18px;
-            }
-        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        footer {
-            margin-top: 30px;
-            color: #555;
         }
     </style>
 </head>
+
 <body>
-    
+
     <!-- Menu de navigation -->
     <nav id="navbar">
-        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
         <div class="nav-links" id="nav-links">
             <a href="index.html" onclick="closeMenu()">Accueil</a>
             <a href="contact.html" onclick="closeMenu()">Contact</a>
@@ -270,39 +171,39 @@
             <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
         </div>
     </nav>
- <!-- Trois images avec boutons découvrir -->
- <div class="image-container">
-    <div class="image-wrapper">
-        <img src="imagefs2.png" alt="Image 1" class="additional-image">
-        <a href="Ai&compute_vision.html" class="discover-button">Découvrir</a>
+
+    <!-- Diaporama automatique en arrière-plan -->
+    <div class="slideshow-container"></div>
+
+    <!-- Trois images avec boutons découvrir -->
+    <div class="image-container">
+        <div class="image-wrapper">
+            <img src="imagefs1.png" alt="Image 1" class="additional-image">
+            <a href="SystemeAnti_incendie.html" class="discover-button">Découvrir</a>
+        </div>
+        <div class="image-wrapper">
+            <img src="imagefs2.png" alt="Image 2" class="additional-image">
+            <a href="FuturoTech_Solution.html" class="discover-button">Découvrir</a>
+        </div>
+        <div class="image-wrapper">
+            <img src="imagefs3.png" alt="Image 3" class="additional-image">
+            <a href="FuturoTech_Solution.html" class="discover-button">Découvrir</a>
+        </div>
     </div>
-    <div class="image-wrapper">
-        <img src="imagefs3.png" alt="Image 2" class="additional-image">
-        <a href="IHM.html" class="discover-button">Découvrir</a>
-    </div>
-    <div class="image-wrapper">
-        <img src="imagefs1.png" alt="Image 3" class="additional-image">
-        <a href="SystemeAnti_incendie.html" class="discover-button">Découvrir</a>
-    </div>
-</div>
+
     <!-- Script pour basculer le menu burger et fermer après un clic -->
     <script>
         function toggleMenu() {
             const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+            navLinks.classList.toggle('active');
         }
 
         function closeMenu() {
             const navLinks = document.getElementById('nav-links');
-            navLinks.classList.remove('active'); // Fermer le menu après clic
+            navLinks.classList.remove('active');
         }
     </script>
 
-    
-
-    <footer>
-        <p>&copy; Futuro Tech Solution</p>
-    </footer>
-
 </body>
+
 </html>
