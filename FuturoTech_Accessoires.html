@@ -1,151 +1,244 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <title>Vente de Voitures</title>
     <style>
-        /* Style pour le menu de navigation */
-        nav {
-            background-color: #000000;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
+        /* Style global */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Diaporama en arrière-plan */
+        .slideshow-container {
+            height: 300;
             width: 100%;
-            z-index: 1000;
-            transition: background-color 0.3s;
-        }
-        nav a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 15px; /* Espacement réduit pour PC */
-            text-decoration: none;
-            float: left; /* Disposition en ligne sur PC */
-        }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
+            background-size: cover;
+            background-position: center;
+            animation: slideBackground 10s infinite;
+            position: relative;
         }
 
-        /* Menu burger pour mobile */
-        .menu-icon {
-            display: none; /* Caché par défaut pour PC */
-            float: right;
-            padding: 14px 20px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
+        @keyframes slideBackground {
+            0% { background-image: url('accessoire1-1.png'); }
+            33% { background-image: url('accessoire1-2.png'); }
+            66% { background-image: url('accessoire1-3.png'); }
+            100% { background-image: url('accessoire1-1.png'); }
         }
-
-        .nav-links {
+            /* Réduire la hauteur du diaporama pour mobile */
+        .slideshow-container {
+                height: 140px;
+            }
+        /* Conteneur pour les cartes des voitures */
+        .car-container {
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .nav-links.active {
-            display: flex;
-            flex-direction: column;
+            overflow-x: scroll;
+            gap: 20px;
+            padding: 20px;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory;
         }
 
-        /* Style pour le contenu principal */
-        .container {
+        /* Style pour chaque voiture (carte) */
+        .car-card {
+            flex: 0 0 auto;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
-            padding: 50px;
+            padding: 10px;
+            scroll-snap-align: start;
         }
 
-        /* Bouton LinkedIn */
-        .linkedin-button {
-            margin-top: 20px;
-            background-color: #000000;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+        .car-slider {
+            display: flex;
+            overflow-x: scroll;
+            gap: 10px;
+            padding-bottom: 10px;
         }
-        .linkedin-button:hover {
+
+        .car-slider img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .car-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .car-slider::-webkit-scrollbar-thumb {
             background-color: #005582;
+            border-radius: 4px;
         }
 
-        /* Styles spécifiques pour les smartphones */
+        .car-slider::-webkit-scrollbar-track {
+            background-color: #ccc;
+        }
+
+        .car-card h3 {
+            margin: 10px 0 5px;
+        }
+
+        .car-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .car-card .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        /* Bouton pour en savoir plus */
+        .car-card .details-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #005582;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .car-card .details-btn:hover {
+            background-color: #003d58;
+        }
+
+        /* Styles pour smartphones */
         @media (max-width: 768px) {
-            nav a {
-                display: none; /* Cacher les liens sur mobile */
-                float: none;
-            }
-            .menu-icon {
-                display: block; /* Afficher l'icône du menu burger */
-            }
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: #000;
-            }
-            .nav-links.active {
-                display: flex; /* Montrer les liens lorsque l'icône est cliquée */
-            }
-            .nav-links a {
-                display: block;
-                padding: 10px 0;
-                text-align: center;
+            .car-card {
+                width: 80%; /* Les cartes occuperont 80% de la largeur sur mobile */
             }
 
-            /* Adapter le contenu principal pour mobile */
-            .container {
-                padding: 20px; /* Réduire l'espacement sur les côtés */
-            }
-            .container h1 {
-                font-size: 50px; /* Taille de police plus petite pour les titres */
-            }
-            .container p {
-                font-size: 16px; /* Réduire la taille de la police */
+            .car-slider img {
+                width: 100%; /* Ajustement des images pour mobile */
             }
         }
 
-        /* Styles pour les tablettes */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .container h1 {
-                font-size: 28px; /* Ajustement taille titre tablette */
-            }
-            .container p {
-                font-size: 18px;
-            }
+        /* Indicateurs de défilement */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
         }
+
+        .scroll-indicator span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .scroll-indicator span.active {
+            opacity: 1;
+        }
+
+        /* Personnalisation de la barre de défilement (pour PC) */
+        .car-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .car-container::-webkit-scrollbar-thumb {
+            background-color: #005582;
+            border-radius: 10px;
+        }
+
+        .car-container::-webkit-scrollbar-track {
+            background-color: #ddd;
+        }
+
     </style>
 </head>
+
 <body>
 
-    <!-- Menu de navigation -->
-    <nav id="navbar">
-        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
-        <div class="nav-links" id="nav-links">
-            <a href="index.html" onclick="closeMenu()">Accueil</a>
-            <a href="contact.html" onclick="closeMenu()">Contact</a>
-            <a href="about.html" onclick="closeMenu()">À propos</a>
-            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
-            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
-            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
-        </div>
-    </nav>
+    <!-- Diaporama en arrière-plan -->
+    <div class="slideshow-container"></div>
 
-    <!-- Contenu principal -->
-    <div class="container">
-        <h1>Futuro Tech Accessoires</h1>
+    <!-- Conteneur des cartes de voitures -->
+    <div class="car-container">
+        <div class="car-card">
+            <!-- Slider pour plusieurs images de la voiture -->
+            <div class="car-slider">
+                <img src="accessoire1.jpg" alt="Voiture 1 Image 1">
+            </div>
+            <h3>Nettoyant pour jantes</h3>
+            <p>Référence principale : 83 12 5 A1D 0F4<br>Nettoyant spécial pour le lavage en profondeur</p>
+            <p class="price">37,00 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car.png" alt="Voiture 2 Image 1">
+                <img src="car.png" alt="Voiture 2 Image 2">
+                <img src="car.png" alt="Voiture 2 Image 3">
+            </div>
+            <h3>Voiture Modèle B</h3>
+            <p>Année : 2021<br>Kilométrage : 15,000 km</p>
+            <p class="price">22,000 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car.png" alt="Voiture 3 Image 1">
+                <img src="car.png" alt="Voiture 3 Image 2">
+                <img src="car.png" alt="Voiture 3 Image 3">
+            </div>
+            <h3>Voiture Modèle C</h3>
+            <p>Année : 2020<br>Kilométrage : 30,000 km</p>
+            <p class="price">19,000 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car.png" alt="Voiture 4 Image 1">
+                <img src="car.png" alt="Voiture 4 Image 2">
+                <img src="car.png" alt="Voiture 4 Image 3">
+            </div>
+            <h3>Voiture Modèle D</h3>
+            <p>Année : 2023<br>Kilométrage : 5,000 km</p>
+            <p class="price">30,000 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
     </div>
 
-    <!-- Script pour basculer le menu burger et fermer après un clic -->
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active'); // Afficher/masquer la liste
-        }
+    <!-- Indicateurs de défilement -->
+    <div class="scroll-indicator">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-        function closeMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.remove('active'); // Fermer le menu après clic
-        }
+    <!-- Script pour synchroniser les indicateurs de défilement (facultatif) -->
+    <script>
+        const carContainer = document.querySelector('.car-container');
+        const indicators = document.querySelectorAll('.scroll-indicator span');
+
+        carContainer.addEventListener('scroll', () => {
+            const scrollPosition = carContainer.scrollLeft;
+            const cardWidth = carContainer.querySelector('.car-card').offsetWidth + 20; // Taille de la carte + gap
+            const index = Math.round(scrollPosition / cardWidth);
+
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+        });
     </script>
 
 </body>
+
 </html>
