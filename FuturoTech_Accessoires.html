@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vente de Voitures</title>
+    <style>
+        /* Style global */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Diaporama en arrière-plan */
+        .slideshow-container {
+<<<<<<< HEAD
+            height: 300px;
+=======
+            height: 200px;
+>>>>>>> 47cb9cf (mise a jour FT site web)
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: slideBackground 10s infinite;
+            position: relative;
+        }
+<<<<<<< HEAD
+=======
+                    /* Réduire la hauteur du diaporama pour mobile */
+        .slideshow-container {
+                height: 140px;
+            }
+>>>>>>> 47cb9cf (mise a jour FT site web)
+
+        @keyframes slideBackground {
+            0% { background-image: url('accessoire1-1.png'); }
+            33% { background-image: url('accessoire1-2.png'); }
+            66% { background-image: url('accessoire1-1.png'); }
+            100% { background-image: url('accessoire1-1.png'); }
+        }
+
+        /* Conteneur pour les cartes des voitures */
+        .car-container {
+            display: flex;
+            overflow-x: scroll;
+            gap: 20px;
+            padding: 20px;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory;
+        }
+
+        /* Style pour chaque voiture (carte) */
+        .car-card {
+            flex: 0 0 auto;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 10px;
+            scroll-snap-align: start;
+        }
+
+        .car-slider {
+            display: flex;
+            overflow-x: scroll;
+            gap: 10px;
+            padding-bottom: 10px;
+        }
+
+        .car-slider img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .car-card h3 {
+            margin: 10px 0 5px;
+        }
+
+        .car-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .car-card .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        /* Bouton pour en savoir plus */
+        .car-card .details-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #005582;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .car-card .details-btn:hover {
+            background-color: #003d58;
+        }
+
+        /* Indicateurs de défilement */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .scroll-indicator span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .scroll-indicator span.active {
+            opacity: 1;
+        }
+
+        /* Bouton "Vérifier mon panier" */
+        #view-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Diaporama en arrière-plan -->
+    <div class="slideshow-container"></div>
+
+    <!-- Conteneur des cartes de voitures -->
+    <div class="car-container">
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="poch_acc.jpg" alt="Voiture 4 Image 1">
+            </div>
+            <h3>Etui porte-clés M Performance</h3>
+            <p>Référence principale : 82 29 2 355 519<br>Disponibilité : En stock</p>
+            <p class="price">83,00 €</p>
+            <a href="#" class="details-btn">Ajouter au panier</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="Ecran-acc.jpg" alt="Voiture 4 Image 1">
+            </div>
+            <h3>protection-verre-ecran central </h3>
+            <p>Référence principale : 65 50 2 475 154<br>Disponibilité : En stock</p>
+            <p class="price">76,95 €</p>
+            <a href="#" class="details-btn">Ajouter au panier</a>
+        </div>
+        
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="led_acc.jpg" alt="Voiture 3 Image 1">
+            </div>
+            <h3>Eclairage de coffre LED</h3>
+            <p>Référence principale : 63 31 2 348 803<br>Disponibilité : En stock</p>
+            <p class="price">59,00 €</p>
+            <a href="#" class="details-btn">Ajouter au panier</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="accessoire1.jpg" alt="Voiture 1 Image 1">
+            </div>
+            <h3>Nettoyant pour jantes</h3>
+            <p>Référence principale : 83 12 5 A1D 0F4<br>Disponibilité : En stock</p>
+            <p class="price">37,00 €</p>
+            <a href="#" class="details-btn">Ajouter au panier</a>
+        </div>
+    </div>
+
+    <!-- Bouton pour vérifier le panier -->
+    <a href="panier.html" id="view-cart">Vérifier mon panier</a>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Fonction pour ajouter des articles au panier
+        function addToCart(name, price, quantity = 1) {
+            if (cart[name]) {
+                cart[name].quantity += quantity;
+            } else {
+                cart[name] = { price: price, quantity: quantity };
+            }
+            updateCartDisplay();
+            localStorage.setItem('cart', JSON.stringify(cart));  // Sauvegarder dans localStorage
+        }
+
+        // Fonction pour mettre à jour l'affichage du panier
+        function updateCartDisplay() {
+            const cartCount = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('view-cart').style.display = cartCount > 0 ? 'inline-block' : 'none';
+        }
+
+        // Ajouter un événement à chaque bouton d'ajout au panier
+        document.querySelectorAll('.details-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const card = button.closest('.car-card');
+                const name = card.querySelector('h3').textContent;
+                const price = parseFloat(card.querySelector('.price').textContent.replace('€', '').replace(',', '.'));
+                addToCart(name, price);
+            });
+        });
+
+        // Mise à jour initiale de l'affichage du panier
+        updateCartDisplay();
+    </script>
+
+</body>
+
+</html>

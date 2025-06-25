@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Panier</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .cart-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .cart-item h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .cart-item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-container button {
+            background-color: #005582;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .quantity-container button:hover {
+            background-color: #003d58;
+        }
+
+        .quantity {
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .pay-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .pay-button:hover {
+            background-color: #218838;
+        }
+
+        .clear-cart-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .clear-cart-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h2>Mon Panier</h2>
+
+        <!-- Contenu du panier -->
+        <div id="cartItems"></div>
+
+        <!-- Affichage du prix total -->
+        <div class="total-price" id="totalPrice">Total: 0€</div>
+
+        <!-- Boutons d'action -->
+        <div class="action-buttons">
+            <button class="pay-button" onclick="payer()">Payer</button>
+            <button class="clear-cart-button" onclick="clearCart()">Abandonner le Panier</button>
+        </div>
+    </div>
+
+    <script>
+        // Récupération du panier dans le localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Fonction de mise à jour de l'affichage du panier
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById("cartItems");
+            cartItemsContainer.innerHTML = "";
+
+            let total = 0;
+
+            Object.keys(cart).forEach((key, index) => {
+                const item = cart[key];
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const itemElement = document.createElement("div");
+                itemElement.classList.add("cart-item");
+                itemElement.innerHTML = `
+                    <div>
+                        <h3>${key}</h3>
+                        <p>Prix unitaire: ${item.price.toFixed(2)}€</p>
+                    </div>
+                    <div class="quantity-container">
+                        <button onclick="changeQuantity('${key}', -1)">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button onclick="changeQuantity('${key}', 1)">+</button>
+                    </div>
+                    <p class="price">${itemTotal.toFixed(2)}€</p>
+                `;
+
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            document.getElementById("totalPrice").textContent = `Total: ${total.toFixed(2)}€`;
+        }
+
+        // Fonction de modification de la quantité
+        function changeQuantity(name, amount) {
+            if (cart[name]) {
+                cart[name].quantity += amount;
+                if (cart[name].quantity < 1) cart[name].quantity = 1;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+
+        // Fonction pour vider le panier
+        function clearCart() {
+            cart = {};
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartDisplay();
+            alert("Votre panier a été vidé.");
+        }
+
+        // Fonction pour rediriger vers la page de paiement
+        function payer() {
+            window.location.href = "payment.html";
+        }
+
+        // Mise à jour initiale de l'affichage
+        updateCartDisplay();
+    </script>
+</body>
+</html>

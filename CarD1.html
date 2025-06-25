@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Voiture 1 - Futuro Tech</title>
+    <style>
+        /* Style pour le menu de navigation */
+        nav {
+            background-color: #000000;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 15px; /* Espacement réduit pour PC */
+            text-decoration: none;
+            float: left; /* Disposition en ligne sur PC */
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Menu burger pour mobile */
+        .menu-icon {
+            display: none; /* Caché par défaut pour PC */
+            float: right;
+            padding: 14px 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Style pour le contenu principal */
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .left {
+            left: 10px;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        .car-info {
+            padding: 15px;
+        }
+
+        .car-info h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .car-info p {
+            margin: 5px 0;
+        }
+
+        .car-price {
+            font-size: 1.2em;
+            color: #d9534f; /* couleur rouge */
+        }
+
+        .contact-button {
+            display: block;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #000000; /* couleur bleue */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .contact-button:hover {
+            background-color: #005582; /* couleur bleue plus foncée */
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        .more-info {
+            display: none; /* Cacher la description par défaut */
+            margin-top: 10px;
+        }
+
+        .toggle-button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .toggle-button:hover {
+            background-color: #005582;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu de navigation -->
+    <nav id="navbar">
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" onclick="closeMenu()">Accueil</a>
+            <a href="contact.html" onclick="closeMenu()">Contact</a>
+            <a href="about.html" onclick="closeMenu()">À propos</a>
+<<<<<<< HEAD
+            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
+            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
+            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
+=======
+
+>>>>>>> 47cb9cf (mise a jour FT site web)
+        </div>
+    </nav>
+
+    <header>
+        <h1>Détails de la Voiture 1</h1>
+    </header>
+
+    <!-- Script pour basculer le menu burger et fermer après un clic -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active'); // Afficher/masquer la liste
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.remove('active'); // Fermer le menu
+        }
+    </script>
+
+    <div class="container">
+        <h2>Citroën C3 1.4 HDi 95cv - 2006 | Très Bon État</h2>
+        <div class="carousel">
+            <div class="carousel-images">
+                <img src="car1-1.jpeg" alt="Voiture 1 - Image 1">
+                <img src="car1-2.jpeg" alt="Voiture 1 - Image 2">
+                <img src="car1-3.jpeg" alt="Voiture 1 - Image 3">
+            </div>
+            <button class="carousel-button left" onclick="prevSlide(this)">&#10094;</button>
+            <button class="carousel-button right" onclick="nextSlide(this)">&#10095;</button>
+        </div>
+        <p class="car-price">Prix: 2600€</p>
+        <p class="car-description">Caractéristiques principales :</p>               
+        <div class="more-info">
+            <ul>
+                <li>Kilométrage : 241 000 km</li>
+                <li>Moteur : Diesel 1.4 L, 95 chevaux</li>
+                <li>Boîte de vitesse : Manuelle</li>
+                <li>Couleur extérieure : Bleu</li>
+                <li>Couleur intérieure : Noir</li>
+                <li>Portes : 5</li>
+                <li>Climatisation : Oui</li>
+                <li>Équipements : Vitres électriques, direction assistée, écran d’infodivertissement avec Wi-Fi, Bluetooth et lecture vidéo YouTube, caméra de recul intégrée</li>
+            </ul>
+            <p>Citroën C3 de 2006 est en excellent état. Elle est équipée d’un écran d’infodivertissement, Wi-Fi, Bluetooth pour connecter votre téléphone, vidéos YouTube. De plus, la caméra de recul. Idéale pour les trajets quotidiens et les longs voyages, cette voiture offre une conduite agréable et économique.</p>
+            <p>Prix compétitif pour une voiture bien entretenue, Système multimédia. Entretien à jour, pneus avant neufs. Prête à rouler sans frais supplémentaires.</p>
+            <p>Contactez-moi pour planifier une visite ou un essai.</p>
+            <a href="contact.html" class="contact-button">Contactez-nous</a>
+        </div>
+    </div>
+
+    <!-- Script pour gérer le carrousel -->
+    <script>
+        function nextSlide(button) {
+            const carousel = button.parentElement;
+            const images = carousel.querySelector('.carousel-images');
+            const slides = images.children;
+
+            images.style.transition = 'transform 0.5s ease';
+            images.style.transform = 'translateX(-100%)'; // Déplacer à gauche
+
+            setTimeout(() => {
+                images.appendChild(slides[0]); // Mettre l'image à la fin
+                images.style.transition = 'none';
+                images.style.transform = 'translateX(0)'; // Réinitialiser la position
+            }, 500); // Attendre la fin de l'animation
+        }
+
+        function prevSlide(button) {
+            const carousel = button.parentElement;
+            const images = carousel.querySelector('.carousel-images');
+            const slides = images.children;
+
+            images.style.transition = 'transform 0.5s ease';
+            images.insertBefore(slides[slides.length - 1], slides[0]); // Déplacer la dernière image au début
+            images.style.transform = 'translateX(-100%)'; // Déplacer à gauche
+
+            setTimeout(() => {
+                images.style.transition = 'none';
+                images.style.transform = 'translateX(0)'; // Réinitialiser la position
+            }, 0); // Immédiatement après
+        }
+
+        // Afficher/masquer plus d'informations
+        const toggleButton = document.createElement('button');
+        toggleButton.innerText = 'Plus d\'informations';
+        toggleButton.className = 'toggle-button';
+        toggleButton.onclick = function() {
+            const moreInfo = document.querySelector('.more-info');
+            moreInfo.style.display = moreInfo.style.display === 'none' ? 'block' : 'none';
+            toggleButton.innerText = moreInfo.style.display === 'none' ? 'Plus d\'informations' : 'Moins d\'informations';
+        };
+        document.querySelector('.container').appendChild(toggleButton);
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Futuro Tech. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vente de Voitures</title>
+    <style>
+        /* Style global */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Diaporama en arrière-plan */
+        .slideshow-container {
+            height: 300;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: slideBackground 10s infinite;
+            position: relative;
+        }
+
+        @keyframes slideBackground {
+            0% { background-image: url('slide1-2.png'); }
+            33% { background-image: url('slide2-2.png'); }
+            66% { background-image: url('slide2-3.png'); }
+            100% { background-image: url('slide1-2.png'); }
+        }
+            /* Réduire la hauteur du diaporama pour mobile */
+        .slideshow-container {
+                height: 140px;
+            }
+        /* Conteneur pour les cartes des voitures */
+        .car-container {
+            display: flex;
+            overflow-x: scroll;
+            gap: 20px;
+            padding: 20px;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory;
+        }
+
+        /* Style pour chaque voiture (carte) */
+        .car-card {
+            flex: 0 0 auto;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 10px;
+            scroll-snap-align: start;
+        }
+
+        .car-slider {
+            display: flex;
+            overflow-x: scroll;
+            gap: 10px;
+            padding-bottom: 10px;
+        }
+
+        .car-slider img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .car-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .car-slider::-webkit-scrollbar-thumb {
+            background-color: #005582;
+            border-radius: 4px;
+        }
+
+        .car-slider::-webkit-scrollbar-track {
+            background-color: #ccc;
+        }
+
+        .car-card h3 {
+            margin: 10px 0 5px;
+        }
+
+        .car-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .car-card .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        /* Bouton pour en savoir plus */
+        .car-card .details-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #005582;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .car-card .details-btn:hover {
+            background-color: #003d58;
+        }
+
+        /* Styles pour smartphones */
+        @media (max-width: 768px) {
+            .car-card {
+                width: 80%; /* Les cartes occuperont 80% de la largeur sur mobile */
+            }
+
+            .car-slider img {
+                width: 100%; /* Ajustement des images pour mobile */
+            }
+        }
+
+        /* Indicateurs de défilement */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .scroll-indicator span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .scroll-indicator span.active {
+            opacity: 1;
+        }
+
+        /* Personnalisation de la barre de défilement (pour PC) */
+        .car-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .car-container::-webkit-scrollbar-thumb {
+            background-color: #005582;
+            border-radius: 10px;
+        }
+
+        .car-container::-webkit-scrollbar-track {
+            background-color: #ddd;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Diaporama en arrière-plan -->
+    <div class="slideshow-container"></div>
+
+    <!-- Conteneur des cartes de voitures -->
+    <div class="car-container">
+
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car2-1.jpeg" alt="Voiture 2 Image 1">
+                <img src="car2-2.jpeg" alt="Voiture 2 Image 2">
+                <img src="car2-3.jpeg" alt="Voiture 2 Image 3">
+            </div>
+            <h3>BMW SERIE 1 120DA M SPORT</h3>
+            <p>Année : 2023<br>Kilométrage : 6 000 km</p>
+            <p>boîte : Auto <br> Carburant : Diesel</p>
+            <p class="price">39,990 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car4-1.jpg" alt="Voiture 4 Image 1">
+                <img src="car4-2.jpg" alt="Voiture 4 Image 2">
+                <img src="car4-3.jpg" alt="Voiture 4 Image 3">
+                <img src="car4-4.jpg" alt="Voiture 4 Image 4">
+                <img src="car4-5.jpg" alt="Voiture 4 Image 5">
+                <img src="car4-6.jpg" alt="Voiture 4 Image 6">
+                <img src="car4-7.jpg" alt="Voiture 4 Image 7">
+                <img src="car4-8.jpg" alt="Voiture 4 Image 8">
+            </div>
+            <h3>BMW SERIE 1 118DA M SPORT</h3>
+            <p>Année : 2024<br>Kilométrage : 5 646km</p>
+            <p>boîte : Auto <br> Carburant : Diesel</p>
+            <p class="price">36,140 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car3-1.jpg" alt="Voiture 3 Image 1">
+                <img src="car3-2.jpg" alt="Voiture 3 Image 2">
+                <img src="car3-3.jpg" alt="Voiture 3 Image 3">
+                <img src="car3-4.jpg" alt="Voiture 3 Image 4">
+                <img src="car3-5.jpg" alt="Voiture 3 Image 5">
+                <img src="car3-6.jpg" alt="Voiture 3 Image 6">
+                <img src="car3-7.jpg" alt="Voiture 3 Image 7">
+            </div>
+            <h3>FIAT 500 1.0 70CH BSG S&S</h3>
+            <p>Année : 2023<br>Kilométrage : 11 913 km</p>
+            <p>Carburant : Essence</p>
+            <p class="price">14,490 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car6-1.jpg" alt="Voiture 6 Image 1">
+                <img src="car6-2.jpg" alt="Voiture 6 Image 2">
+                <img src="car6-3.jpg" alt="Voiture 6 Image 3">
+                <img src="car6-4.jpg" alt="Voiture 6 Image 4">
+                <img src="car6-5.jpg" alt="Voiture 6 Image 5">
+                <img src="car6-6.jpg" alt="Voiture 6 Image 6">
+                <img src="car6-7.jpg" alt="Voiture 6 Image 7">
+            </div>
+            <h3>PEUGEOT 208</h3>
+            <p>Année : 2023<br>Kilométrage : 28 477 km</p>
+            <p>boîte : Manuelle <br> Carburant : Essence</p>
+            <p class="price">17,990 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <div class="car-slider">
+                <img src="car5-1.jpg" alt="Voiture 5 Image 1">
+                <img src="car5-2.jpg" alt="Voiture 5 Image 2">
+                <img src="car5-3.jpg" alt="Voiture 5 Image 3">
+                <img src="car5-4.jpg" alt="Voiture 5 Image 4">
+                <img src="car5-5.jpg" alt="Voiture 5 Image 5">
+                <img src="car5-6.jpg" alt="Voiture 5 Image 6">
+                <img src="car5-7.jpg" alt="Voiture 5 Image 7">
+            </div>
+            <h3>BMW X1 M SPORT</h3>
+            <p>Année : 2023<br>Kilométrage : 50 660 km</p>
+            <p>boîte : Auto <br> Carburant : Diesel</p>
+            <p class="price">44,900 €</p>
+            <a href="#" class="details-btn">Détails</a>
+        </div>
+        <div class="car-card">
+            <!-- Slider pour plusieurs images de la voiture -->
+            <div class="car-slider">
+                <img src="car1-1.jpeg" alt="Voiture 1 Image 1">
+                <img src="car1-2.jpeg" alt="Voiture 1 Image 2">
+                <img src="car1-3.jpeg" alt="Voiture 1 Image 3">
+            </div>
+            <h3>Citroën C3 1.4 HDi</h3>
+            <p>Année : 2006<br>Kilométrage : 246 000 km</p>
+            <p> Carburant : Diesel</p>
+            <p class="price">2,600 €</p>
+            <a href="CarD1.html" class="details-btn">Détails</a>
+        </div>
+        
+    </div>
+
+    <!-- Indicateurs de défilement -->
+    <div class="scroll-indicator">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Script pour synchroniser les indicateurs de défilement (facultatif) -->
+    <script>
+        const carContainer = document.querySelector('.car-container');
+        const indicators = document.querySelectorAll('.scroll-indicator span');
+
+        carContainer.addEventListener('scroll', () => {
+            const scrollPosition = carContainer.scrollLeft;
+            const cardWidth = carContainer.querySelector('.car-card').offsetWidth + 20; // Taille de la carte + gap
+            const index = Math.round(scrollPosition / cardWidth);
+
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Paiement</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .payment-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-container h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .pay-button, .paypal-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .pay-button {
+            background-color: #007bff;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .pay-button:hover {
+            background-color: #0056b3;
+        }
+
+        .paypal-button {
+            background-color: #ffc439;
+            color: #000;
+            margin-top: 10px;
+        }
+
+        .paypal-button:hover {
+            background-color: #e5ac00;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Paiement</h2>
+        <form id="paymentForm">
+            <!-- Informations de carte bancaire -->
+            <div class="form-group">
+                <label for="cardName">Nom sur la carte</label>
+                <input type="text" id="cardName" required>
+            </div>
+            <div class="form-group">
+                <label for="cardNumber">Numéro de carte</label>
+                <input type="text" id="cardNumber" pattern="\\d{16}" placeholder="1234 5678 9012 3456" required>
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Date d'expiration</label>
+                <input type="text" id="expiryDate" placeholder="MM/AA" pattern="\\d{2}/\\d{2}" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" pattern="\\d{3}" placeholder="123" required>
+            </div>
+
+            <!-- Bouton de paiement par carte -->
+            <button type="button" class="pay-button" onclick="processPayment()">Payer par carte</button>
+        </form>
+
+        <!-- Bouton de paiement PayPal -->
+        <button class="paypal-button" onclick="payWithPaypal()">Payer avec PayPal</button>
+    </div>
+
+    <script>
+        function processPayment() {
+            // Récupérer les valeurs du formulaire
+            const cardName = document.getElementById("cardName").value;
+            const cardNumber = document.getElementById("cardNumber").value;
+            const expiryDate = document.getElementById("expiryDate").value;
+            const cvv = document.getElementById("cvv").value;
+
+            // Vérifier si tous les champs sont remplis
+            if (!cardName || !cardNumber || !expiryDate || !cvv) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            // **Simulez l'appel API ici pour le paiement par carte bancaire**
+            alert("Paiement par carte en cours...");
+
+            // Redirigez vers une page de confirmation ou affichez un message de succès
+            alert("Paiement réussi ! Merci pour votre achat.");
+            window.location.href = "confirmation.html"; // Redirection vers une page de confirmation
+        }
+
+        function payWithPaypal() {
+            // **Simulez l'appel API pour le paiement PayPal ici**
+            alert("Redirection vers PayPal...");
+
+            // Exemple de redirection vers PayPal (nécessite une intégration PayPal réelle)
+            window.location.href = "https://www.paypal.com/checkoutnow";  // Redirection temporaire
+        }
+    </script>
+</body>
+</html>
