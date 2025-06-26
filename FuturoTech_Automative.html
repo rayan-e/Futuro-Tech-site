@@ -5,7 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vente de Voitures</title>
+    <link rel="icon" type="image/png" href="logo/futuro_tech_logo.jpeg">
     <style>
+        /* Style pour le menu de navigation */
+        nav {
+            background-color: #2c436f9f;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 15px; /* Espacement réduit entre les éléments pour PC */
+            text-decoration: none;
+            float: left; /* Pour une disposition en ligne sur PC */
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Menu burger pour mobile */
+        .menu-icon {
+            display: none; /* Caché par défaut pour PC */
+            float: right;
+            padding: 14px 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+        }
         /* Style global */
         body, html {
             margin: 0;
@@ -25,10 +71,10 @@
         }
 
         @keyframes slideBackground {
-            0% { background-image: url('slide1-2.png'); }
-            33% { background-image: url('slide2-2.png'); }
-            66% { background-image: url('slide2-3.png'); }
-            100% { background-image: url('slide1-2.png'); }
+            0% { background-image: url('FT_automative/slide1-2.png'); }
+            33% { background-image: url('FT_automative/slide2-2.png'); }
+            66% { background-image: url('FT_automative/slide2-3.png'); }
+            100% { background-image: url('FT_automative/slide1-2.png'); }
         }
             /* Réduire la hauteur du diaporama pour mobile */
         .slideshow-container {
@@ -164,51 +210,32 @@
 </head>
 
 <body>
-
+    <!-- Menu de navigation -->
+    <nav id="navbar">
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span> <!-- Icône du menu burger -->
+        <div class="nav-links" id="nav-links">
+            <a href="Futuro_Tech.html" onclick="closeMenu()">Accueil</a>
+            <a href="contact.html" onclick="closeMenu()">Contact</a>
+            <a href="about.html" onclick="closeMenu()">À propos</a>
+            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
+            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
+            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
+        </div>
+    </nav>
     <!-- Diaporama en arrière-plan -->
     <div class="slideshow-container"></div>
 
     <!-- Conteneur des cartes de voitures -->
     <div class="car-container">
-
         <div class="car-card">
             <div class="car-slider">
-                <img src="car2-1.jpeg" alt="Voiture 2 Image 1">
-                <img src="car2-2.jpeg" alt="Voiture 2 Image 2">
-                <img src="car2-3.jpeg" alt="Voiture 2 Image 3">
-            </div>
-            <h3>BMW SERIE 1 120DA M SPORT</h3>
-            <p>Année : 2023<br>Kilométrage : 6 000 km</p>
-            <p>boîte : Auto <br> Carburant : Diesel</p>
-            <p class="price">39,990 €</p>
-            <a href="#" class="details-btn">Détails</a>
-        </div>
-        <div class="car-card">
-            <div class="car-slider">
-                <img src="car4-1.jpg" alt="Voiture 4 Image 1">
-                <img src="car4-2.jpg" alt="Voiture 4 Image 2">
-                <img src="car4-3.jpg" alt="Voiture 4 Image 3">
-                <img src="car4-4.jpg" alt="Voiture 4 Image 4">
-                <img src="car4-5.jpg" alt="Voiture 4 Image 5">
-                <img src="car4-6.jpg" alt="Voiture 4 Image 6">
-                <img src="car4-7.jpg" alt="Voiture 4 Image 7">
-                <img src="car4-8.jpg" alt="Voiture 4 Image 8">
-            </div>
-            <h3>BMW SERIE 1 118DA M SPORT</h3>
-            <p>Année : 2024<br>Kilométrage : 5 646km</p>
-            <p>boîte : Auto <br> Carburant : Diesel</p>
-            <p class="price">36,140 €</p>
-            <a href="#" class="details-btn">Détails</a>
-        </div>
-        <div class="car-card">
-            <div class="car-slider">
-                <img src="car3-1.jpg" alt="Voiture 3 Image 1">
-                <img src="car3-2.jpg" alt="Voiture 3 Image 2">
-                <img src="car3-3.jpg" alt="Voiture 3 Image 3">
-                <img src="car3-4.jpg" alt="Voiture 3 Image 4">
-                <img src="car3-5.jpg" alt="Voiture 3 Image 5">
-                <img src="car3-6.jpg" alt="Voiture 3 Image 6">
-                <img src="car3-7.jpg" alt="Voiture 3 Image 7">
+                <img src="FT_automative/FIAT/car3-1.jpg" alt="Voiture 3 Image 1">
+                <img src="FT_automative/FIAT/car3-2.jpg" alt="Voiture 3 Image 2">
+                <img src="FT_automative/FIAT/car3-3.jpg" alt="Voiture 3 Image 3">
+                <img src="FT_automative/FIAT/car3-4.jpg" alt="Voiture 3 Image 4">
+                <img src="FT_automative/FIAT/car3-5.jpg" alt="Voiture 3 Image 5">
+                <img src="FT_automative/FIAT/car3-6.jpg" alt="Voiture 3 Image 6">
+                <img src="FT_automative/FIAT/car3-7.jpg" alt="Voiture 3 Image 7">
             </div>
             <h3>FIAT 500 1.0 70CH BSG S&S</h3>
             <p>Année : 2023<br>Kilométrage : 11 913 km</p>
@@ -219,50 +246,36 @@
 
         <div class="car-card">
             <div class="car-slider">
-                <img src="car6-1.jpg" alt="Voiture 6 Image 1">
-                <img src="car6-2.jpg" alt="Voiture 6 Image 2">
-                <img src="car6-3.jpg" alt="Voiture 6 Image 3">
-                <img src="car6-4.jpg" alt="Voiture 6 Image 4">
-                <img src="car6-5.jpg" alt="Voiture 6 Image 5">
-                <img src="car6-6.jpg" alt="Voiture 6 Image 6">
-                <img src="car6-7.jpg" alt="Voiture 6 Image 7">
+                <img src="FT_automative/208/car6-1.jpg" alt="Voiture 6 Image 1">
+                <img src="FT_automative/208/car6-2.jpg" alt="Voiture 6 Image 2">
+                <img src="FT_automative/208/car6-3.jpg" alt="Voiture 6 Image 3">
+                <img src="FT_automative/208/car6-4.jpg" alt="Voiture 6 Image 4">
+                <img src="FT_automative/208/car6-5.jpg" alt="Voiture 6 Image 5">
+                <img src="FT_automative/208/car6-6.jpg" alt="Voiture 6 Image 6">
+                <img src="FT_automative/208/car6-7.jpg" alt="Voiture 6 Image 7">
             </div>
             <h3>PEUGEOT 208</h3>
             <p>Année : 2023<br>Kilométrage : 28 477 km</p>
             <p>boîte : Manuelle <br> Carburant : Essence</p>
-            <p class="price">17,990 €</p>
+            <p class="price">16,990 €</p>
             <a href="#" class="details-btn">Détails</a>
         </div>
         <div class="car-card">
             <div class="car-slider">
-                <img src="car5-1.jpg" alt="Voiture 5 Image 1">
-                <img src="car5-2.jpg" alt="Voiture 5 Image 2">
-                <img src="car5-3.jpg" alt="Voiture 5 Image 3">
-                <img src="car5-4.jpg" alt="Voiture 5 Image 4">
-                <img src="car5-5.jpg" alt="Voiture 5 Image 5">
-                <img src="car5-6.jpg" alt="Voiture 5 Image 6">
-                <img src="car5-7.jpg" alt="Voiture 5 Image 7">
+                <img src="FT_automative/Taig/car5-1.jpg" alt="Voiture 5 Image 1">
+                <img src="FT_automative/Taig/car5-2.jpg" alt="Voiture 5 Image 2">
+                <img src="FT_automative/Taig/car5-3.jpg" alt="Voiture 5 Image 3">
+                <img src="FT_automative/Taig/car5-4.jpg" alt="Voiture 5 Image 4">
+                <img src="FT_automative/Taig/car5-5.jpg" alt="Voiture 5 Image 5">
+                <img src="FT_automative/Taig/car5-6.jpg" alt="Voiture 5 Image 6">
+                <img src="FT_automative/Taig/car5-7.jpg" alt="Voiture 5 Image 7">
             </div>
-            <h3>BMW X1 M SPORT</h3>
-            <p>Année : 2023<br>Kilométrage : 50 660 km</p>
-            <p>boîte : Auto <br> Carburant : Diesel</p>
-            <p class="price">44,900 €</p>
+            <h3>VW Taigo </h3>
+            <p>Année : 2023<br>Kilométrage : 39 850 km</p>
+            <p>boîte : Manuelle <br> Carburant : Essence</p>
+            <p class="price">17,900 € HT</p>
             <a href="#" class="details-btn">Détails</a>
-        </div>
-        <div class="car-card">
-            <!-- Slider pour plusieurs images de la voiture -->
-            <div class="car-slider">
-                <img src="car1-1.jpeg" alt="Voiture 1 Image 1">
-                <img src="car1-2.jpeg" alt="Voiture 1 Image 2">
-                <img src="car1-3.jpeg" alt="Voiture 1 Image 3">
-            </div>
-            <h3>Citroën C3 1.4 HDi</h3>
-            <p>Année : 2006<br>Kilométrage : 246 000 km</p>
-            <p> Carburant : Diesel</p>
-            <p class="price">2,600 €</p>
-            <a href="CarD1.html" class="details-btn">Détails</a>
-        </div>
-        
+        </div>      
     </div>
 
     <!-- Indicateurs de défilement -->
