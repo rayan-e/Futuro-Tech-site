@@ -1,315 +1,521 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT Solution</title>
+    <title>FT Solutions - Futuro Tech</title>
     <link rel="icon" type="image/png" href="logo/futuro_tech_logo.jpeg">
-    <style>
-        /* Style pour le menu de navigation */
-        nav {
-            background-color: #078190;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: background-color 0.3s;
-        }
 
-        nav a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 15px;
-            text-decoration: none;
-            float: left;
-        }
 
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
+body {
+    background: #0b1c22;
+    color: white;
+}
+        /* Menu burger pour mobile */
         .menu-icon {
-            display: none;
+            display: none; /* Caché par défaut pour PC */
             float: right;
             padding: 14px 20px;
             color: white;
             font-size: 24px;
             cursor: pointer;
         }
+        /* icon affiche */
+        .menu-icon {
+                display: block; /* Afficher l'icône du menu burger */
+         }
+/*Logo*/
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .nav-links {
+.logo img {
+    height: 55px;
+}
+
+.logo span {
+    font-weight: 600;
+    color: #1de9b6;
+}
+/**************Card***********/
+.card {
+    background: #122a30;
+    border-radius: 15px;
+    overflow: hidden; /* IMPORTANT pour l'image */
+    transition: 0.3s;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* image bien cadrée */
+}
+
+.card a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.card h3 {
+    padding: 15px 20px 5px;
+    color: #078190;
+}
+
+.card p {
+    padding: 0 20px 20px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+           .contact-form button:hover {
+            background-color: #1de9b6;
+        }
+}
+/* CONTACT */
+        /* Section contact avec fond bleu */
+        .contact-container {
+            background-color: #122a30;
+            color: white;
+            padding: 50px;
             display: flex;
-            justify-content: space-around;
-            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .nav-links.active {
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Style pour l'arrière-plan avec une image fixe */
-        .slideshow-container {
-            position: relative;
-            height: 400px;
+        /* Carte */
+        .map-container {
             width: 100%;
-            background-image: url('futuro_tech_solution/slide1.png'); /* Remplacez 'slide1.jpg' par le chemin de votre image */
-            background-size: cover;
-            background-position: center;
-            margin-top: 50px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        /* Style pour les images supplémentaires */
-        .image-container {
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Colonne gauche (Carte et Suivez-nous) */
+        .left-column {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 20px;
+        }
+
+        .follow-us {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .follow-us h2 {
+            color: white;
+        }
+
+        .social-icons {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 20px;
-            margin: 50px 0;
         }
 
-        .image-wrapper {
-            position: relative;
-            width: 30%;
+        .social-icons a img {
+            width: 40px;
+            height: 40px;
         }
 
-        .additional-image {
-            width: 100%;
-            height: auto;
-            transition: transform 0.3s;
+         /* Formulaire de contact */
+        .right-column {
+            flex: 1;
+            min-width: 300px;
         }
 
-        .additional-image:hover {
-            transform: scale(1.05);
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
         }
 
-        .discover-button {
-            display: none;
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #078190;
+        .contact-form label {
+            margin-bottom: 5px;
+            font-weight: bold;
             color: white;
-            padding: 10px;
-            text-decoration: none;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            margin-bottom: 15px;
+            padding: 15px;
             border-radius: 5px;
-        }
-
-        .image-wrapper:hover .discover-button {
-            display: block;
-        }
-
-        /* Style pour l'icône de langue */
-        .language-switcher {
-            position: fixed;
-            bottom: 10px; /* Placer l'icône en bas de l'écran */
-            right: 10px; /* Placer l'icône à droite */
-            cursor: pointer;
-            z-index: 1001; /* S'assurer que l'icône est toujours visible */
-        }
-
-        .language-icon {
-            font-size: 24px;
-            color: white;
-            background-color: #2c436f;
-            padding: 10px;
-            border-radius: 50%;
-        }
-
-        .language-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            bottom: 50px; /* Ajuster pour que le menu apparaisse au-dessus de l'icône */
-            background-color: #2c436f;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .language-menu.active {
-            display: block;
-        }
-
-        .language-menu button {
-            display: block;
-            background-color: #078190;
-            color: white;
             border: none;
-            padding: 10px;
-            width: 100px;
-            text-align: left;
-            cursor: pointer;
             font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .language-menu button:hover {
-            background-color: #078190;
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #666;
         }
 
-        /* Styles spécifiques pour les smartphones */
+        .contact-form button {
+            padding: 15px;
+            background-color: #1de9b6;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #06362a;
+        }
+
+        /* Styles pour mobile */
         @media (max-width: 768px) {
-            nav a {
-                display: none;
-                float: none;
-            }
-
-            .menu-icon {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
+            .contact-container {
                 flex-direction: column;
+                padding: 20px;
+            }
+
+            .left-column,
+            .right-column {
                 width: 100%;
-                background-color: #078190;
+                margin-right: 0;
+                margin-bottom: 20px;
             }
 
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 10px 0;
-                text-align: center;
-            }
-
-            /* Adapter les images supplémentaires pour mobile */
-            .image-wrapper {
-                width: 90%;
-            }
-
-            /* Réduire la hauteur du diaporama pour mobile */
-            .slideshow-container {
-                height: 140px;
-            }
-
-            /* Taille de l'icône de langue pour mobile */
-            .language-icon {
-                font-size: 20px;
-                padding: 8px;
-            }
-
-            .language-menu button {
-                font-size: 14px;
+            .map-container {
+                height: 300px;
             }
         }
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10%;
+    position: fixed;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.291);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+nav h1 {
+    color: #1de9b6;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav a {
+    padding: 14px 15px; /* Espacement réduit entre les éléments pour PC */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+/*++++++++CEO++++++++*/
+.ceo {
+    padding: 80px 10%;
+    background: #081416;
+}
+
+.ceo-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+/* IMAGE */
+.ceo-image {
+    flex: 1;
+    text-align: center;
+}
+
+.ceo-image img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1de9b6;
+    filter: grayscale(100%);
+}
+
+/* TEXTE */
+.ceo-text {
+    flex: 2;
+}
+
+.ceo-text h2 {
+    color: #1de9b6;
+    margin-bottom: 10px;
+}
+
+.ceo-text h3 {
+    margin-bottom: 15px;
+}
+
+.ceo-text p {
+    line-height: 1.6;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .ceo-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+/********************CEO***************/
+/* HERO */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+    text-align: center;
+    background:
+    linear-gradient(rgba(0, 0, 0, 0.39), rgba(0, 0, 0, 0.353)),
+    url('Aceuil/background_FTS.png') center/cover no-repeat;
+}
+
+.hero-content {
+    color: white;
+    max-width: 700px;
+}
+.hero h2 {
+    font-size: 3rem;
+}
+
+.hero p {
+    font-size: 1rem;
+}
+
+/* SECTION */
+.section {
+    padding: 80px 10%;
+
+}
+
+.section h2 {
+    margin-bottom: 40px;
+    color: #1de9b6;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #081416;
+}
+</style>
 </head>
 
 <body>
 
-    <!-- Icône pour changer de langue -->
-    <div class="language-switcher" onclick="toggleLanguageMenu()">
-        <span class="language-icon">🌐</span>
-        <div class="language-menu" id="language-menu">
-            <button onclick="changeLanguage('fr')">Français</button>
-            <button onclick="changeLanguage('en')">English</button>
-            <button onclick="changeLanguage('de')">Deutsch</button>
+<!-- NAV -->
+<nav>
+    <div class="logo">
+        <img src="images/logo.png" alt="FT Solutions">
+    </div>
+    <ul>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="Futuro_Tech.html">Solutions</a></li>
+        <li><a href="#industrie">Industrie</a></li>
+        <li><a href="#CONTACT">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Youtube -->
+ <section class="ceo">
+    <p style="margin-top: 10px; font-weight: bold; color: #078190;">Démonstration Automatique de FT-Vision</p>
+    <div class="video-section" style="text-align: center; margin: 40px 0;">
+                                        <iframe 
+                                            width="700" 
+                                            height="394" 
+                                            src="https://www.youtube.com/embed/YzW_nI4NC1Q?autoplay=1&mute=1&rel=0" 
+                                            title="Démonstration FT-Vision"
+                                            frameborder="0"
+                                            allow="autoplay; encrypted-media"
+                                            allowfullscreen
+                                            style="border-radius: 8px; max-width: 100%;">
+                                        </iframe>
+    </div>
+    <!-- TEXTE -->
+    <div class="ceo-text">
+            <h2>Biometric Security du futur</h2>
+            <p>
+                    En 2024, plus de 94 % 🔺 des vols de véhicules ont été réalisés par piratage électronique, contournant les protections traditionnelles. 
+                    Les systèmes d’anti-démarrage classiques, basés sur des identifiants statiques et des protocoles de chiffrement obsolètes, 
+                    ne résistent plus aux nouvelles méthodes d’attaque.
+                    Des techniques comme le mouse jacking ou les attaques par relais permettent aux voleurs de dérober un véhicule sans effraction visible, 
+                    en dupliquant ou détournant les signaux des clés sans contact.
+            </p>
         </div>
     </div>
+</section>
+<!-- Youtube -->
 
-    <!-- Menu de navigation -->
-    <nav id="navbar">
-        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
-        <div class="nav-links" id="nav-links">
-            <a href="Futuro_Tech.html" onclick="closeMenu()">Accueil</a>
-            <a href="contact.html" onclick="closeMenu()">Contact</a>
-            <a href="about.html" onclick="closeMenu()">À propos</a>
-            <a href="FuturoTech_Solution.html" onclick="closeMenu()">Futuro Tech Solution</a>
-            <a href="FuturoTech_Automative.html" onclick="closeMenu()">Futuro Tech Automative</a>
-            <a href="FuturoTech_Accessoires.html" onclick="closeMenu()">Futuro Tech Accessoires</a>
+<!-- HERO -->
+<section class="hero" id="vision">
+    <div>
+        <h2>Your car and you are not safe without FT-Vision</h2>
+
+                                                <p>In a world where technology evolves rapidly, traditional vehicle security is no longer enough. Keys can be copied. NFC signals can be intercepted. Even the most sophisticated systems can be compromised.
+                                                Now imagine a vehicle that recognizes you, not just your key.</p>
+        
+    </div>
+</section>
+
+<!-- CEO -->
+ <section class="ceo">
+    <div class="ceo-container">
+        <!-- TEXTE -->
+        <div class="ceo-text">
+            <h2>FT Vision – L’authentification du futur</h2>
+            <p>
+                    FT Vision est une solution de pointe qui combine intelligence artificielle et reconnaissance faciale pour révolutionner l’accès et le démarrage des véhicules. Contrairement aux systèmes traditionnels basés sur des clés physiques ou des technologies NFC souvent vulnérables au piratage
+                    FT Vision permet une authentification biométrique en temps réel du conducteur, garantissant une sécurité maximale et une expérience utilisateur fluide.
+                    Sécurisé. Intelligent. Sans contact.
+                    FT Vision redéfinit les standards de la mobilité connectée.</p>
+
+                    <p>✨ No keys to replicate.</p>
+                    <p>✨ No signals to intercept.</p>
+                    <p>✨ Only your identity unlocks the experience.</p>
         </div>
-    </nav>
 
-    <!-- Arrière-plan fixe -->
-    <div class="slideshow-container"></div>
+    </div>
+</section>
+<!-- CEO -->
 
-    <!-- Trois images avec boutons découvrir -->
-    <div class="image-container">
-        <div class="image-wrapper">
-            <img src="futuro_tech_solution/imagefs3.png" alt="Image 3" class="additional-image">
-            <a href="FT-Vision_Solution.html" class="discover-button">Découvrir</a>
+<!-- SOLUTIONS -->
+<section class="section" id="solutions">
+    <h2> Avantage</h2>
+    <div class="grid">
+
+        <div class="card">
+            <h3>Sécurité Renforcée</h3>
+            <p>Élimine le risque de vol ou de duplication de clé</p>
         </div>
 
-        <div class="image-wrapper">
-            <img src="futuro_tech_solution/imagefs2.png" alt="Image 2" class="additional-image">
-            <a href="SystemeAnti_incendie.html" class="discover-button">Découvrir</a>
+        <div class="card">
+            <h3>Confort mains libres</h3>
+            <p>Accès et démarrage sans effort</p>
         </div>
 
-        <div class="image-wrapper">
-            <img src="futuro_tech_solution/imagefs1.png" alt="Image 1" class="additional-image">
-            <a href="#" class="discover-button">Découvrir</a>
+        <div class="card">
+            <h3>Traitement en temps réel</h3>
+            <p>IA rapide et fiable pour l’authentification</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- INDUSTRIE -->
+<section class="section" id="industrie">
+    <h2> Nos Secteur d'Activités</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <img src="Aceuil/image1V1.png" alt="Automobile"></a>
+            <h3>Automobile</h3>
+            <p>Fabrication de volants intelligents et systèmes embarqués connectés.</p>
+        </div>
+
+        <div class="card">
+            <img src="Aceuil/image2V2.png" alt="yachts"></a>
+            <h3>Yachting</h3>
+            <p>Conception de systèmes premium pour yachts de nouvelle génération.</p>
+        </div>
+
+        <div class="card">
+            <img src="Aceuil/image3V3.png" alt="free Energie"></a>
+            <h3>Smart Infrastructure</h3>
+            <p>Intégration FT Vision dans les bornes de recharge et smart cities.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="CONTACT">
+    <div class="contact-container">
+        <!-- Colonne gauche : Carte et Suivez-nous -->
+        <div class="left-column">
+            <!-- Carte -->
+            <div class="map-container">
+                   <iframe 
+        src="https://www.google.com/maps?q=22+rue+des+deportes+crespin&output=embed"
+        allowfullscreen="" 
+        loading="lazy">
+    </iframe>
+            </div>
+
+            <!-- Suivez-nous -->
+            <div class="follow-us">
+                <h2>Suivez-nous</h2>
+                <div class="social-icons">
+                   <a href="https://www.youtube.com/@futuro_tech-solu"><img src="Aceuil/youtube.png" alt="youtube"></a>
+                    <a href="https://www.linkedin.com/company/futuro-tech/about/?viewAsMember=true"><img src="Aceuil/linkedin.png" alt="linkedin"></a>
+                    <a href="https://www.tiktok.com/@futurotech.automative"><img src="Aceuil/tiktok.png" alt="tiktok"></a>
+                    <a href="https://www.instagram.com/futuro_tech_auto/"><img src="Aceuil/instagram.png" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colonne droite : Formulaire de contact -->
+        <div class="right-column">
+            <h2>Contactez-nous</h2>
+            <form class="contact-form" action="mailto:rayaneabdelaziz.futurotech@gmail.com" method="post" enctype="text/plain">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" placeholder="Votre nom" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" placeholder="Votre message..." required></textarea>
+
+                <button type="submit">Envoyer</button>
+            </form>
         </div>
     </div>
-
-    <!-- Script pour gérer les actions -->
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        function closeMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.remove('active');
-        }
-
-        function toggleLanguageMenu() {
-            const languageMenu = document.getElementById('language-menu');
-            languageMenu.classList.toggle('active');
-        }
-
-        function changeLanguage(lang) {
-            const translations = {
-                fr: {
-                    accueil: "Accueil",
-                    contact: "Contact",
-                    aPropos: "À propos",
-                    solution: "Futuro Tech Solution",
-                    automotive: "Futuro Tech Automative",
-                    accessoires: "Futuro Tech Accessoires"
-                },
-                en: {
-                    accueil: "Home",
-                    contact: "Contact",
-                    aPropos: "About",
-                    solution: "Futuro Tech Solution",
-                    automotive: "Futuro Tech Automotive",
-                    accessoires: "Futuro Tech Accessories"
-                },
-                de: {
-                    accueil: "Startseite",
-                    contact: "Kontakt",
-                    aPropos: "Über uns",
-                    solution: "Futuro Tech Lösung",
-                    automotive: "Futuro Tech Automotive",
-                    accessoires: "Futuro Tech Zubehör"
-                }
-            };
-
-            const navLinks = document.querySelectorAll('#nav-links a');
-            const keys = Object.keys(translations[lang]);
-            navLinks.forEach((link, index) => {
-                link.textContent = translations[lang][keys[index]];
-            });
-
-            // Update the page language
-            document.documentElement.lang = lang;
-        }
-    </script>
+</section>
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 FT Solutions - Futuro Tech</p>
+</footer>
 
 </body>
-
 </html>
