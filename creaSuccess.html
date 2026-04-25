@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CréaSuccess</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-dark: #0f0e0c;
+  --bg-secondary: #181613;
+  --bg-tertiary: #23211c;
+
+  --text-primary: #f5f3f0;
+  --text-secondary: #bfb8ae;
+
+  --gold: #D4A574;
+  --gold-light: #E8C194;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Jost', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #D4A574, #E8C194, #D4A574);
+  color: #0f0e0c;
+  padding: 16px 32px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+.btn-gold:hover {
+  box-shadow: 0 14px 30px rgba(212,165,116,0.3);
+  transform: translateY(-2px);
+}
+.btn-services {
+  border: 1px solid rgba(234, 179, 8, 0.5);
+  color: rgb(240, 240, 240);
+  padding: 16px 32px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.btn-services:hover {
+  background-color: #000; /* noir */
+  color: #fff;
+}
+
+.card {
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 30px;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centre horizontalement tout le contenu */
+  text-align: center;
+
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(212,165,116,0.15);
+}
+.card i {
+  display: block;
+  margin: 0 auto;
+}
+/********************************************************/
+#packs {
+  background: rgba(255, 255, 255, 0.044);
+  color: #fff;
+}
+
+#packs h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* CARD BASE */
+.card {
+  background: rgba(0, 0, 0, 0.85); /* noir légèrement transparent */
+  border: 1px solid rgba(212, 165, 116, 0.25);
+  border-radius: 22px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  position: relative;
+}
+
+/* HOVER STYLE */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 60px rgba(212, 165, 116, 0.8);
+  border-color: rgba(212, 165, 116, 0.8);
+}
+
+/* TITRES PACK */
+.card h3 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+/* PRIX */
+.card .price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #D4A574, #E8C194, #D4A574);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* LISTE */
+.card ul li {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+/* BOUTON DORÉ */
+.card a {
+  margin-top: auto;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #D4A574, #E8C194, #D4A574);
+  color: #1d1e20;
+  transition: all 0.3s ease;
+}
+
+.card a:hover {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(212,165,116,0.4);
+}
+
+/* BADGE POPULAIRE */
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #D4A574, #E8C194, #D4A574);
+  color: #1d1e20;
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+/********************************************************/
+/* HERO */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+    text-align: center;
+    background:
+    linear-gradient(rgba(0, 0, 0, 0.39), rgba(0, 0, 0, 0.353)),
+    url('Aceuil/background_ZBS.png') center/cover no-repeat;
+    /*------------------------*/
+  min-height: 90vh;
+  padding: 60px 20px;
+}
+
+.hero-content {
+    color: white;
+    max-width: 700px;
+}
+.hero h1 {
+  font-size: 1.5rem;
+  font-weight: 200;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  margin-bottom: 5px;
+}
+
+.hero h2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 6px 25px rgba(0,0,0,0.35);
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  color: var(--text-secondary);
+  text-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+.nav {
+  background: rgba(15,14,12,0.9);
+  backdrop-filter: blur(10px);
+}
+</style>
+</head>
+
+<body class="h-full">
+
+<!-- NAV -->
+<nav class="nav fixed w-full top-0 z-50 px-6 py-4 flex justify-between items-center">
+  <h1 class="font-heading text-xl">
+    créa<span style="color:var(--gold)">Success</span>
+  </h1>
+  <div class="hidden md:flex gap-6 text-sm">
+    <a href="#services">Services</a>
+    <a href="#packs">Offres</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="vision">
+    <div>
+        <h2 class="font-heading text-5xl mb-6"> Vous rêvez d'entreprendre,<br> <span style="color:var(--gold)">nous créons pour vous.</span></h2>
+            <p class="font-heading text-5xl mb-6"> CréaSuccess accompagne les femmes ambitieuses pour lancer leur business rapidement.
+            </p>
+        <a href="#packs" class="btn-gold">Commencer maintenant</a>  
+        <a href="#services" class="btn-services">Découvrir nos services</a>
+    </div>
+</section>
+<!-- SERVICES -->
+<section id="services" class="py-20 px-6" style="background:var(--bg-secondary)">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-yellow-400 text-xs uppercase tracking-[0.3em] font-medium mb-4" style="font-size: 14px;">Ce que nous faisons</p>
+    <h2 class="font-heading text-3xl mb-12">Nos services</h2>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="card">
+        <i data-lucide="file-text"></i>
+        <h3 class="font-heading text-xl mt-4 mb-2">Création d'entreprise</h3>
+        <p class="text-[var(--text-secondary)]">
+          Démarches administratives, statuts juridiques, immatriculation. On s'occupe de tout, de A à Z.</p>
+      </div>
+
+      <div class="card">
+        <i data-lucide="compass"></i>
+        <h3 class="font-heading text-xl mt-4 mb-2">Stratégie & Conseil</h3>
+        <p class="text-[var(--text-secondary)]">
+          Business plan, étude de marché, positionnement. Construisez sur des bases solides.</p>
+      </div>
+
+      <div class="card">
+        <i data-lucide="trending-up"></i>
+        <h3 class="font-heading text-xl mt-4 mb-2">Accompagnement continu</h3>
+        <p class="text-[var(--text-secondary)]">
+          Suivi personnalisé, outils de gestion, conseils mensuels pour une croissance durable.
+        </p>
+      </div>
+
+    </div>
+  </div> 
+</section>
+<!--packs  -->
+<section id="packs" class="py-24 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-yellow-400 text-xs uppercase tracking-[0.3em] font-medium mb-4" style="font-size: 14px;">Choisissez votre formule</p>
+    <h2 class="font-heading mb-12">Nos offres</h2>
+
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- PACK 1 -->
+      <div class="card">
+        <p class="text-yellow-200 uppercase tracking-widest text-sm mb-2">Essentiel</p>
+        <h3>Création Simple</h3>
+
+        <div class="price my-6">59€</div>
+
+        <ul class="space-y-3 text-left mb-8">
+          <li>✔ Choix du statut juridique</li>
+          <li>✔ Rédaction des statuts</li>
+          <li>✔ Immatriculation complète</li>
+          <li>✔ Livraison sous 20 jours</li>
+        </ul>
+
+        <a href="#contact">Choisir</a>
+      </div>
+
+      <!-- PACK 2 -->
+      <div class="card">
+        <div class="badge">Populaire</div>
+
+        <p class="text-yellow-200 uppercase tracking-widest text-sm mb-2">Liberté</p>
+        <h3>Sans Engagement</h3>
+
+        <div class="price my-6">119€</div>
+
+        <ul class="space-y-3 text-left mb-8">
+          <li>✔ Tout du pack Essentiel</li>
+          <li>✔ Conseillère dédiée</li>
+          <li>✔ 2 appels / mois</li>
+          <li>✔ Résiliation à tout moment</li>
+        </ul>
+
+        <a href="#contact">Choisir</a>
+      </div>
+
+      <!-- PACK 3 -->
+      <div class="card">
+        <p class="text-yellow-200 uppercase tracking-widest text-sm mb-2">Prestige</p>
+        <h3>Pack Premium</h3>
+
+        <div class="price my-6">299€</div>
+
+        <ul class="space-y-3 text-left mb-8">
+          <li>✔ Accompagnement complet</li>
+          <li>✔ Business plan professionnel</li>
+          <li>✔ Branding & identité visuelle</li>
+          <li>✔ Outils business inclus</li>
+        </ul>
+
+        <a href="#contact">Choisir</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="py-20 px-6 text-center" style="background:var(--bg-secondary)">
+  <h2 class="font-heading text-3xl mb-6">Votre entreprise commence ici</h2>
+  <a href="#" class="btn-gold">Réserver un appel gratuit</a>
+</section>
+
+<script>
+lucide.createIcons();
+</script>
+
+</body>
+</html>
