@@ -22,7 +22,20 @@
   --gold: #D4A574;
   --gold-light: #E8C194;
 }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.logo img {
+    height: 55px;
+}
+
+.logo span {
+    font-weight: 600;
+    color: #1de9b6;
+}
 body {
   background: var(--bg-dark);
   color: var(--text-primary);
@@ -234,9 +247,9 @@ body {
 
 <!-- NAV -->
 <nav class="nav fixed w-full top-0 z-50 px-6 py-4 flex justify-between items-center">
-  <h1 class="font-heading text-xl">
-    créa<span style="color:var(--gold)">Success</span>
-  </h1>
+    <div class="logo">
+        <img src="Aceuil/LOGO_CS.png" alt="FT Solutions">
+    </div>
   <div class="hidden md:flex gap-6 text-sm">
     <a href="#services">Services</a>
     <a href="#packs">Offres</a>
