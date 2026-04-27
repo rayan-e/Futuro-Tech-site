@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Passkey Login</title>
+
 <style>
 body {
   font-family: Arial;
@@ -43,44 +44,31 @@ button {
 <body>
 <div class="card">
   <h2>🔐 Passkey Login</h2>
+
   <button class="primary" onclick="register()">Créer passkey</button>
   <button class="secondary" onclick="login()">Se connecter</button>
+
   <div class="status" id="status"></div>
 </div>
 
 <script>
 
-// ✅ Padding corrigé : on retire d'abord les = existants avant de recalculer
+function setStatus(msg) {
+  document.getElementById("status").textContent = msg;
+}
+
 function bufferDecode(value) {
-  if (!value) return new Uint8Array();
-
-  // ✅ Si c'est déjà un ArrayBuffer ou Uint8Array, on retourne direct
   if (value instanceof ArrayBuffer) return new Uint8Array(value);
-  if (value instanceof Uint8Array)  return value;
+  if (value instanceof Uint8Array) return value;
 
-  // ✅ Si SimpleWebAuthn renvoie { type: 'Buffer', data: [1,2,3,...] }
-  if (typeof value === 'object' && value.data) {
-    return new Uint8Array(value.data);
-  }
-
-  // ✅ Cas normal : string base64url
-  if (typeof value === 'string') {
-    const base64 = value
-      .replace(/-/g, '+')
-      .replace(/_/g, '/')
-      .replace(/=/g, '');
-
+  if (typeof value === "string") {
+    const base64 = value.replace(/-/g, '+').replace(/_/g, '/').replace(/=/g, '');
     const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
     const raw = atob(padded);
     return Uint8Array.from(raw, c => c.charCodeAt(0));
   }
 
-  // ✅ Fallback : tableau classique [1, 2, 3, ...]
-  if (Array.isArray(value)) {
-    return new Uint8Array(value);
-  }
-
-  throw new Error("bufferDecode : format inconnu → " + typeof value);
+  return new Uint8Array(value);
 }
 
 function bufferEncode(value) {
@@ -89,20 +77,12 @@ function bufferEncode(value) {
   for (let i = 0; i < bytes.length; i++) {
     str += String.fromCharCode(bytes[i]);
   }
-  return btoa(str)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-function setStatus(msg) {
-  document.getElementById("status").textContent = msg;
-}
-
-// ✅ Helper fetch avec gestion d'erreur réseau propre
 async function fetchJSON(url, opts = {}) {
   const res = await fetch(url, { cache: "no-store", ...opts });
-  if (!res.ok) throw new Error(`Erreur serveur : ${res.status}`);
+  if (!res.ok) throw new Error("Erreur serveur");
   return res.json();
 }
 
@@ -113,46 +93,38 @@ async function register() {
 
     const options = await fetchJSON("/register-options");
 
-    // ✅ Décode challenge et user.id
     options.challenge = bufferDecode(options.challenge);
-    options.user.id   = bufferDecode(options.user.id);
-
-    // ✅ Décode chaque excludeCredential si présent (évite les doublons)
-    if (options.excludeCredentials?.length) {
-      options.excludeCredentials = options.excludeCredentials.map(c => ({
-        ...c,
-        id: bufferDecode(c.id)
-      }));
-    }
+    options.user.id = bufferDecode(options.user.id);
 
     const credential = await navigator.credentials.create({ publicKey: options });
 
     const payload = {
-      id:    credential.id,
+      id: credential.id,
       rawId: bufferEncode(credential.rawId),
-      type:  credential.type,
+      type: credential.type,
       response: {
-        clientDataJSON:    bufferEncode(credential.response.clientDataJSON),
+        clientDataJSON: bufferEncode(credential.response.clientDataJSON),
         attestationObject: bufferEncode(credential.response.attestationObject)
       }
     };
 
     const data = await fetchJSON("/register-verify", {
-      method:  "POST",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify(payload)
+      body: JSON.stringify(payload)
     });
 
-    setStatus(data.verified ? "✅ Passkey créée !" : "❌ Échec de l'enregistrement");
+    if (data.verified) {
+      setStatus("✅ Passkey créée !");
+
+      // 💡 ESP32 LED action
+      fetch("http://192.168.4.1/led/register-success");
+    } else {
+      setStatus("❌ Échec");
+    }
 
   } catch (e) {
-    console.error("REGISTER:", e);
-    // ✅ NotAllowedError = l'utilisateur a annulé
-    if (e.name === "NotAllowedError") {
-      setStatus("⚠️ Annulé par l'utilisateur");
-    } else {
-      setStatus("❌ " + e.message);
-    }
+    setStatus("❌ " + e.message);
   }
 }
 
@@ -165,48 +137,39 @@ async function login() {
 
     options.challenge = bufferDecode(options.challenge);
 
-    // ✅ Décode allowCredentials si présents (indispensable pour cibler le bon credential)
-    if (options.allowCredentials?.length) {
-      options.allowCredentials = options.allowCredentials.map(c => ({
-        ...c,
-        id: bufferDecode(c.id)
-      }));
-    }
-
     const assertion = await navigator.credentials.get({ publicKey: options });
 
     const payload = {
-      id:    assertion.id,
+      id: assertion.id,
       rawId: bufferEncode(assertion.rawId),
-      type:  assertion.type,
+      type: assertion.type,
       response: {
         authenticatorData: bufferEncode(assertion.response.authenticatorData),
-        clientDataJSON:    bufferEncode(assertion.response.clientDataJSON),
-        signature:         bufferEncode(assertion.response.signature),
-        userHandle:        assertion.response.userHandle
-                             ? bufferEncode(assertion.response.userHandle)
-                             : null
+        clientDataJSON: bufferEncode(assertion.response.clientDataJSON),
+        signature: bufferEncode(assertion.response.signature)
       }
     };
 
     const data = await fetchJSON("/login-verify", {
-      method:  "POST",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify(payload)
+      body: JSON.stringify(payload)
     });
 
-    setStatus(data.verified ? "✅ Connecté !" : "❌ Identifiant refusé");
+    if (data.verified) {
+      setStatus("✅ Connecté !");
+
+      // 💡 ESP32 LED action
+      fetch("http://192.168.4.1/led/login-success");
+    } else {
+      setStatus("❌ Refusé");
+    }
 
   } catch (e) {
-    console.error("LOGIN:", e);
-    if (e.name === "NotAllowedError") {
-      setStatus("⚠️ Annulé par l'utilisateur");
-    } else {
-      setStatus("❌ " + e.message);
-    }
+    setStatus("❌ " + e.message);
   }
 }
-</script>
 
+</script>
 </body>
 </html>
