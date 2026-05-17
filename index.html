@@ -1,38 +1,746 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT Solutions - Futuro Tech</title>
-    <link rel="icon" type="image/png" href="logo/futuro_tech_logo.jpeg">
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FT Solutions — Futuro Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background: #0b1c22;
-    color: white;
-}
-        /* Menu burger pour mobile */
-        .menu-icon {
-            display: none; /* Caché par défaut pour PC */
-            float: right;
-            padding: 14px 20px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        /* icon affiche */
-        .menu-icon {
-                display: block; /* Afficher l'icône du menu burger */
-         }
-/*Logo*/
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  :root {
+    --bg: #050A0F;
+    --bg2: #080E14;
+    --surface: #0D1620;
+    --surface2: #111D2A;
+    --accent: #00D4FF;
+    --accent2: #0066FF;
+    --accent3: #7B2FFF;
+    --text: #F0F4F8;
+    --muted: #6B8CA8;
+    --border: rgba(0, 212, 255, 0.15);
+    --glow: rgba(0, 212, 255, 0.08);
+  }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+ 
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,212,255,0.4);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.12s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  }
+  body:has(a:hover) .cursor { transform: scale(2.5); }
+  body:has(a:hover) .cursor-ring { transform: scale(1.5); border-color: var(--accent); }
+ 
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  /* GRID LINES */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(5,10,15,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    animation: slideDown 0.8s ease both;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+ 
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+  }
+  .logo span { -webkit-text-fill-color: var(--muted); font-weight: 400; }
+ 
+  nav ul { list-style: none; display: flex; gap: 3rem; }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s;
+    cursor: none;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  nav a:hover { color: var(--accent); }
+  nav a:hover::after { transform: scaleX(1); }
+ 
+  .nav-cta {
+    padding: 0.6rem 1.5rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    color: var(--accent) !important;
+    font-size: 0.85rem !important;
+    transition: background 0.3s, color 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--bg) !important; }
+  .nav-cta::after { display: none !important; }
+ 
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.39), rgba(0, 0, 0, 0.353)),
+    url('Aceuil/background1.png') center/cover no-repeat;
+  }
+ 
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(0,102,255,0.12); top: -100px; left: -100px; animation-delay: 0s; }
+  .orb2 { width: 400px; height: 400px; background: rgba(123,47,255,0.1); bottom: -50px; right: -100px; animation-delay: -3s; }
+  .orb3 { width: 300px; height: 300px; background: rgba(0,212,255,0.08); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -5s; }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+ 
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    background: rgba(0,212,255,0.05);
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.5s ease infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+ 
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 5vw, 4rem);
+    font-weight: 80;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.8s 0.4s ease both;
+    max-width: 900px;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  h1 .line2 { color: var(--muted); display: block; }
+ 
+  .hero-sub {
+    max-width: 580px;
+    margin: 2rem auto 3rem;
+    color:#09c2cf;
+    font-size: 1.1rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+ 
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    animation: fadeUp 0.8s 0.8s ease both;
+  }
+ 
+  .btn-primary {
+    padding: 1rem 2.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 2px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(0,212,255,0.3); }
+  .btn-primary:hover::before { opacity: 0.1; }
+ 
+  .btn-outline {
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 2px;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: none;
+  }
+  .btn-outline:hover { border-color: var(--accent); background: var(--glow); }
+ 
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: fadeUp 0.8s 1.2s ease both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--accent));
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* STATS */
+  .stats {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 4rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .stat {
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .stat:last-child { border-right: none; }
+  .stat.visible { opacity: 1; transform: translateY(0); }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; letter-spacing: 0.05em; }
+ 
+  /* SECTION LAYOUT */
+  section { position: relative; z-index: 1; }
+ 
+  .section-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  h2 span { color: var(--muted); }
+ 
+  /* SOLUTIONS */
+  .solutions {
+    padding: 8rem 4rem;
+  }
+ 
+  .sol-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+ 
+  .sol-card {
+    background: var(--surface);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: background 0.4s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease, background 0.4s ease;
+  }
+  .sol-card.visible { opacity: 1; transform: translateY(0); }
+ 
+  .sol-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .sol-card:hover { background: var(--surface2); }
+  .sol-card:hover::before { transform: scaleX(1); }
+ 
+  .sol-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(0,212,255,0.06);
+    line-height: 1;
+    margin-bottom: 1rem;
+    transition: color 0.4s;
+  }
+  .sol-card:hover .sol-num { color: rgba(0,212,255,0.12); }
+ 
+  .sol-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    background: var(--glow);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .sol-card:hover .sol-icon { border-color: var(--accent); background: rgba(0,212,255,0.1); }
+ 
+  .sol-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+ 
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+ 
+  .sol-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+ 
+  .sol-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: gap 0.3s;
+    cursor: none;
+  }
+  .sol-link:hover { gap: 1rem; }
+  .sol-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+ 
+  /* INDUSTRIES */
+  .industries {
+    padding: 8rem 4rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+ 
+  .ind-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+ 
+  .ind-card {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: border-color 0.3s, transform 0.4s;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  .ind-card.visible { opacity: 1; transform: scale(1); }
+  .ind-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+ 
+  .ind-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 100%, rgba(0,212,255,0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .ind-card:hover::after { opacity: 1; }
+ 
+  .ind-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    display: block;
+  }
+ 
+  .ind-visual {
+    width: 100%; height: 200px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+ 
+  .ind-visual svg { width: 80px; height: 80px; opacity: 0.4; transition: opacity 0.3s, transform 0.3s; }
+  .ind-card:hover .ind-visual svg { opacity: 0.7; transform: scale(1.1); }
+ 
+  .ind-visual-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0,212,255,0.06) 20px),
+      repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0,212,255,0.06) 20px);
+  }
+ 
+  /* CEO */
+  .ceo-section {
+    padding: 8rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: center;
+  }
+ 
+  .ceo-visual {
+    position: relative;
+  }
+ 
+  .ceo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .ceo-frame::before {
+    content: 'CEO';
+    font-family: 'Syne', sans-serif;
+    font-size: 8rem;
+    font-weight: 800;
+    color: rgba(0,212,255,0.04);
+    position: absolute;
+  }
+ 
+  .ceo-accent {
+    position: absolute;
+    top: -1px; left: 2rem;
+    width: 80px; height: 3px;
+    background: var(--accent);
+  }
+  .ceo-accent2 {
+    position: absolute;
+    bottom: 2rem; right: -1px;
+    width: 3px; height: 80px;
+    background: var(--accent2);
+  }
+ 
+  .ceo-content { position: relative; z-index: 1; }
+  .ceo-title-sub { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+ 
+  h2.ceo-name {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    margin-bottom: 0.5rem;
+  }
+  .ceo-role { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
+ 
+  .ceo-bio { color: var(--muted); line-height: 1.8; margin-bottom: 3rem; }
+ 
+  .ceo-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .ceo-stat {
+    padding: 1.5rem;
+    background: var(--surface);
+  }
+  .ceo-stat span { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); display: block; }
+  .ceo-stat p { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+ 
+  /* MAP / CONTACT */
+  .contact-section {
+    padding: 8rem 4rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+ 
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 5rem;
+  }
+ 
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+ 
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .form-field label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .form-field input,
+  .form-field textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 1rem 1.25rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+    border-radius: 0;
+    cursor: none;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus { border-color: var(--accent); }
+  .form-field textarea { height: 140px; }
+ 
+  .form-submit {
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.3s, color 0.3s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--accent); color: var(--bg); }
+ 
+  .map-wrapper {
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+  }
+  .map-wrapper iframe {
+    width: 100%; height: 100%;
+    filter: grayscale(100%) invert(92%) contrast(85%) brightness(0.9) hue-rotate(180deg);
+    border: none;
+  }
+  .map-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+ 
+  /* SOCIAL */
+  .social-section {
+    padding: 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+  .social-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+ 
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+ 
+  .social-link {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--muted);
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    cursor: none;
+  }
+  .social-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+  .social-link svg { width: 18px; height: 18px; fill: currentColor; }
+ 
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  footer p { color: var(--muted); font-size: 0.85rem; }
+  footer .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+ 
+  /* ANIMATED LINE */
+  .h-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    animation: lineAnim 3s ease infinite;
+    background-size: 200% 100%;
+  }
+  @keyframes lineAnim { 0%, 100% { background-position: 0% 0%; } 50% { background-position: 100% 0%; } }
+ 
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    nav ul { display: none; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .sol-grid { grid-template-columns: 1fr; }
+    .ind-grid { grid-template-columns: 1fr; }
+    .ceo-section { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .social-section { flex-direction: column; gap: 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .solutions, .industries, .contact-section { padding: 5rem 2rem; }
+  }
+  /*Logo*/
 .logo {
     display: flex;
     align-items: center;
@@ -47,454 +755,352 @@ body {
     font-weight: 600;
     color: #1de9b6;
 }
-/**************Card***********/
-.card {
-    background: #122a30;
-    border-radius: 15px;
-    overflow: hidden; /* IMPORTANT pour l'image */
-    transition: 0.3s;
-}
-
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover; /* image bien cadrée */
-}
-
-.card a {
-    display: block;
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.card h3 {
-    padding: 15px 20px 5px;
-    color: #1de9b6;
-}
-
-.card p {
-    padding: 0 20px 20px;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-           .contact-form button:hover {
-            background-color: #1de9b6;
-        }
-}
-/* CONTACT */
-        /* Section contact avec fond bleu */
-        .contact-container {
-            background-color: #122a30;
-            color: white;
-            padding: 50px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Carte */
-        .map-container {
-            width: 100%;
-            height: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Colonne gauche (Carte et Suivez-nous) */
-        .left-column {
-            flex: 1;
-            min-width: 300px;
-            margin-right: 20px;
-        }
-
-        .follow-us {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .follow-us h2 {
-            color: white;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-icons a img {
-            width: 40px;
-            height: 40px;
-        }
-
-         /* Formulaire de contact */
-        .right-column {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 30px;
-        }
-
-        .contact-form label {
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: #666;
-        }
-
-        .contact-form button {
-            padding: 15px;
-            background-color: #1de9b6;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .contact-form button:hover {
-            background-color: #06362a;
-        }
-
-        /* Styles pour mobile */
-        @media (max-width: 768px) {
-            .contact-container {
-                flex-direction: column;
-                padding: 20px;
-            }
-
-            .left-column,
-            .right-column {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-
-            .map-container {
-                height: 300px;
-            }
-        }
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 10%;
-    position: fixed;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.291);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-}
-
-nav h1 {
-    color: #1de9b6;
-}
-
-nav ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-}
-
-nav a {
-    padding: 14px 15px; /* Espacement réduit entre les éléments pour PC */
-    color: white;
-    text-align: center;
-    text-decoration: none;
-}
-/*++++++++CEO++++++++*/
-.ceo {
-    padding: 80px 10%;
-    background: #081416;
-}
-
-.ceo-container {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    flex-wrap: wrap;
-}
-
-/* IMAGE */
-.ceo-image {
-    flex: 1;
-    text-align: center;
-}
-
-.ceo-image img {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #1de9b6;
-    filter: grayscale(100%);
-}
-
-/* TEXTE */
-.ceo-text {
-    flex: 2;
-}
-
-.ceo-text h2 {
-    color: #1de9b6;
-    margin-bottom: 10px;
-}
-
-.ceo-text h3 {
-    margin-bottom: 15px;
-}
-
-.ceo-text p {
-    line-height: 1.6;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .ceo-container {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-/********************CEO***************/
-/* HERO */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    display: flex;
-    justify-content: center; /* horizontal */
-    align-items: center;     /* vertical */
-    text-align: center;
-    background:
-    linear-gradient(rgba(0, 0, 0, 0.39), rgba(0, 0, 0, 0.353)),
-    url('Aceuil/background1.png') center/cover no-repeat;
-}
-
-.hero-content {
-    color: white;
-    max-width: 700px;
-}
-.hero h2 {
-    font-size: 3rem;
-}
-
-.hero p {
-    font-size: 1rem;
-}
-
-/* SECTION */
-.section {
-    padding: 80px 10%;
-
-}
-
-.section h2 {
-    margin-bottom: 40px;
-    color: #1de9b6;
-}
-
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #081416;
-}
 </style>
 </head>
-
 <body>
-
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="grid-bg"></div>
+ 
 <!-- NAV -->
 <nav>
-    <div class="logo">
-        <img src="images/logo.png" alt="FT Solutions">
+      <div class="logo">
+        <img src="images/logo-FT-2026V33--png.png" alt="FT Solutions">
     </div>
-    <ul>
-        <li><a href="#vision">Vision</a></li>
-        <li><a href="#solutions">Solutions</a></li>
-        <li><a href="#industrie">Industrie</a></li>
-        <li><a href="#CONTACT">Contact</a></li>
-    </ul>
+  <ul>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#industrie">Industrie</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
 </nav>
-
+ 
 <!-- HERO -->
-<section class="hero" id="vision">
-    <div>
-        <h2>FT-Vision
-Security Becomes More than Protection</h2>
-        <p>FT Solutions développe des technologies avancées en intelligence artificielle, reconnaissance faciale et vision embarquée pour les véhicules et infrastructures intelligentes.</p>
-        
-    </div>
-</section>
-
+<div class="hero" id="vision">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+ 
+  <div class="hero-badge">Intelligence Artificielle & Vision Embarquée</div>
+ 
+  <h1>
+    Security Becomes<br>
+    <em>More</em> Than Protection</span>
+  </h1>
+ 
+  <p class="hero-sub">
+    FT Solutions développe des technologies avancées en IA, reconnaissance faciale
+    et vision embarquée pour les véhicules et infrastructures intelligentes.
+  </p>
+ 
+  <div class="hero-ctas">
+    <a href="#solutions" class="btn-primary">Découvrir nos solutions</a>
+    <a href="#contact" class="btn-outline">Nous contacter</a>
+  </div>
+ 
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+ 
+<!-- STATS -->
+<div class="stats">
+  <div class="stat" style="transition-delay:0.1s">
+    <span class="stat-num" data-target="3">0</span>
+    <p class="stat-label">Solutions Innovantes</p>
+  </div>
+  <div class="stat" style="transition-delay:0.2s">
+    <span class="stat-num" data-target="100">0</span>
+    <p class="stat-label">% Vision IA</p>
+  </div>
+  <div class="stat" style="transition-delay:0.3s">
+    <span class="stat-num" data-target="3">0</span>
+    <p class="stat-label">Secteurs d'activité</p>
+  </div>
+  <div class="stat" style="transition-delay:0.4s">
+    <span class="stat-num" data-target="2024">0</span>
+    <p class="stat-label">Fondation</p>
+  </div>
+</div>
+ 
+<div class="h-line"></div>
+ 
 <!-- SOLUTIONS -->
-
-
-<section class="section" id="solutions">
-    <h2> Nos Solutions</h2>
-    <div class="grid">
-
-        <div class="card">
-            <img src="Aceuil/image1.png" alt="Auto-FT Vision">
-            <a href="FuturoTech_Solution.html" >
-            <h3>FT Vision</h3>
-            <p>Solution AI avancée de reconnaissance faciale et analyse comportementale en temps réel.</p> </a>
-        </div>
-
-        <div class="card">
-            <img src="Aceuil/image2.png" alt="Auto-FT Factory">
-            <a href="Futuro_Tech.html" >
-            <h3>FT Factory</h3>
-            <p>Fabrication de composants automobiles et yacht avec haute précision et innovation.</p></a>
-        </div>
-
-        <div class="card">
-            <img src="Aceuil/image3.png" alt="Auto-FT Energie">
-            <a href="about.html" >
-            <h3>FT Energie</h3>
-            <p>Intégration de systèmes intelligents dans les bornes de recharge et véhicules électriques.</p></a>
-        </div>
-
+<section class="solutions" id="solutions">
+  <div class="section-header reveal">
+    <span class="section-tag">// Nos Produits</span>
+    <h2>Technologies <span>de pointe</span></h2>
+  </div>
+ 
+  <div class="sol-grid">
+    <div class="sol-card" style="transition-delay:0.1s">
+      <img src="Aceuil/image1.png" alt="Auto-FT Vision">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M12 5v1M12 18v1M5 12h1M18 12h1"/></svg>
+      </div>
+      <h3>FT Vision</h3>
+      <p class="sol-desc">Solution IA avancée de reconnaissance faciale et analyse comportementale en temps réel pour véhicules et espaces connectés.</p>
+      <a href="https://futuro-tech.org/FuturoTech_Solution.html" class="sol-link" target="_blank">
+        En savoir plus
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
-</section>
-
-<!-- INDUSTRIE -->
-<section class="section" id="industrie">
-    <h2> Nos Secteur d'Activités</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <img src="Aceuil/image1V1.png" alt="Automobile"></a>
-            <h3>Automobile</h3>
-            <p>Fabrication de volants intelligents et systèmes embarqués connectés.</p>
-        </div>
-
-        <div class="card">
-            <img src="Aceuil/image2V2.png" alt="yachts"></a>
-            <h3>Yachting</h3>
-            <p>Conception de systèmes premium pour yachts de nouvelle génération.</p>
-        </div>
-
-        <div class="card">
-            <img src="Aceuil/image3V3.png" alt="free Energie"></a>
-            <h3>Smart Infrastructure</h3>
-            <p>Intégration FT Vision dans les bornes de recharge et smart cities.</p>
-        </div>
-
+ 
+    <div class="sol-card" style="transition-delay:0.2s">
+      <img src="Aceuil/image2.png" alt="Auto-FT Factory">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+      </div>
+      <h3>FT Factory</h3>
+      <p class="sol-desc">Fabrication de composants automobiles et yacht avec haute précision — volants intelligents, systèmes embarqués et pièces premium.</p>
+      <a href="https://futuro-tech.org/Futuro_Tech.html" class="sol-link" target="_blank">
+        En savoir plus
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
+ 
+    <div class="sol-card" style="transition-delay:0.3s">
+      <img src="Aceuil/image3.png" alt="Auto-FT Energie">
+      <div class="sol-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h3>FT Énergie</h3>
+      <p class="sol-desc">Intégration de systèmes intelligents dans les bornes de recharge et véhicules électriques pour les smart cities de demain.</p>
+      <a href="https://futuro-tech.org/about.html" class="sol-link" target="_blank">
+        En savoir plus
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
 </section>
+ 
+<div class="h-line"></div>
+ 
+<!-- INDUSTRIES -->
+<section class="industries" id="industrie">
+  <div class="section-header reveal">
+    <span class="section-tag">// Secteurs d'activité</span>
+    <h2>Nos <span>domaines</span> d'expertise</h2>
+  </div>
+ 
+  <div class="ind-grid">
+    <div class="ind-card" style="transition-delay:0.1s">
+      <span class="ind-number">001</span>
+      <div class="ind-visual">
+        <div class="ind-visual-lines"></div>
+        <img src="Aceuil/image1V1.png" alt="Automobile"></a>
+      </div>
+      <h3>Automobile</h3>
+      <p class="sol-desc">Fabrication de volants intelligents et systèmes embarqués connectés pour la mobilité du futur.</p>
+    </div>
+ 
+    <div class="ind-card" style="transition-delay:0.2s">
+      <span class="ind-number">002</span>
+      <div class="ind-visual">
+        <div class="ind-visual-lines"></div>
+        <img src="Aceuil/image2V2.png" alt="yachts"></a>
+      </div>
+      <h3>Yachting</h3>
+      <p class="sol-desc">Conception de systèmes premium pour yachts de nouvelle génération avec intégration IA.</p>
+    </div>
+ 
+    <div class="ind-card" style="transition-delay:0.3s">
+      <span class="ind-number">003</span>
+      <div class="ind-visual">
+        <div class="ind-visual-lines"></div>
+        <img src="Aceuil/image3V3.png" alt="free Energie"></a>
+      </div>
+      <h3>Smart Infrastructure</h3>
+      <p class="sol-desc">Intégration FT Vision dans les bornes de recharge et smart cities pour une ville connectée.</p>
+    </div>
+  </div>
+</section>
+ 
+<div class="h-line"></div>
+ 
 <!-- CEO -->
- <section class="ceo">
-    <div class="ceo-container">
-
+<section class="ceo-section">
+  <div class="ceo-visual reveal">
+    <div class="ceo-frame">
+      <div class="ceo-accent"></div>
+      <div class="ceo-accent2"></div>
         <!-- PHOTO CEO -->
         <div class="ceo-image">
             <img src="images/CEO.png" alt="CEO FT Solutions">
         </div>
-
-        <!-- TEXTE -->
-        <div class="ceo-text">
-            <h2>CEO & Fondateur</h2>
-            <h3>Rayane Abdelaziz SAYAH</h3>
-            <p>
-                Fondateur de Futuro Tech, il dirige le développement de technologies innovantes 
-                en intelligence artificielle, vision embarquée et solutions industrielles. 
-                Sa vision est de révolutionner les secteurs automobile, énergétique 
-                grâce à l’IA.
-            </p>
-        </div>
-
+      <div style="position:absolute;bottom:2rem;left:2rem;right:2rem">
+        <div style="height:1px;background:linear-gradient(90deg,var(--accent),transparent);margin-bottom:1rem;animation:lineAnim 2s ease infinite"></div>
+        <p style="font-family:'Syne',sans-serif;font-size:0.7rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase">Fondateur & CEO</p>
+      </div>
     </div>
+  </div>
+ 
+  <div class="ceo-content reveal" style="transition-delay:0.2s">
+    <p class="ceo-title-sub">// Leadership</p>
+    <h2 class="ceo-name">Rayane Abdelaziz<br>Sayah</h2>
+    <p class="ceo-role">CEO & Fondateur de Futuro Tech</p>
+ 
+    <p class="ceo-bio">
+      Fondateur de Futuro Tech, il dirige le développement de technologies innovantes
+      en intelligence artificielle, vision embarquée et solutions industrielles.
+      Sa vision est de révolutionner les secteurs automobile et énergétique grâce à l'IA.
+    </p>
+ 
+    <div class="ceo-stats">
+      <div class="ceo-stat">
+        <span>3+</span>
+        <p>Secteurs couverts</p>
+      </div>
+      <div class="ceo-stat">
+        <span>IA</span>
+        <p>Spécialisation</p>
+      </div>
+      <div class="ceo-stat">
+        <span>100%</span>
+        <p>Innovation</p>
+      </div>
+      <div class="ceo-stat">
+        <span>FR</span>
+        <p>Basé en France</p>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- CEO -->
-<!-- Contact -->
-<section class="section" id="CONTACT">
-    <div class="contact-container">
-        <!-- Colonne gauche : Carte et Suivez-nous -->
-        <div class="left-column">
-            <!-- Carte -->
-            <div class="map-container">
-                   <iframe 
+ 
+<div class="h-line"></div>
+ 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-header reveal">
+    <span class="section-tag">// Contact</span>
+    <h2>Travaillons <span>ensemble</span></h2>
+  </div>
+ 
+  <div class="contact-grid">
+    <form class="contact-form reveal" onsubmit="return false;">
+      <div class="form-field">
+        <label>Nom complet</label>
+        <input type="text" placeholder="Jean Dupont">
+      </div>
+      <div class="form-field">
+        <label>Adresse email</label>
+        <input type="email" placeholder="jean@exemple.com">
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea placeholder="Décrivez votre projet..."></textarea>
+      </div>
+      <button class="form-submit">Envoyer le message →</button>
+    </form>
+ 
+    <div class="map-wrapper reveal" style="transition-delay:0.2s">
+      <div class="map-overlay"></div>
+      <iframe
         src="https://www.google.com/maps?q=22+rue+des+deportes+crespin&output=embed"
-        allowfullscreen="" 
-        loading="lazy">
-    </iframe>
-            </div>
-
-            <!-- Suivez-nous -->
-            <div class="follow-us">
-                <h2>Suivez-nous</h2>
-                <div class="social-icons">
-                   <a href="https://www.youtube.com/@futuro_tech-solu"><img src="Aceuil/youtube.png" alt="youtube"></a>
-                    <a href="https://www.linkedin.com/company/futuro-tech/about/?viewAsMember=true"><img src="Aceuil/linkedin.png" alt="linkedin"></a>
-                    <a href="https://www.tiktok.com/@futurotech.automative"><img src="Aceuil/tiktok.png" alt="tiktok"></a>
-                    <a href="https://www.instagram.com/futuro_tech_auto/"><img src="Aceuil/instagram.png" alt="Instagram"></a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Colonne droite : Formulaire de contact -->
-        <div class="right-column">
-            <h2>Contactez-nous</h2>
-            <form class="contact-form" action="mailto:rayaneabdelaziz.futurotech@gmail.com" method="post" enctype="text/plain">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" placeholder="Votre nom" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" placeholder="Votre message..." required></textarea>
-
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
     </div>
+  </div>
 </section>
-<!-- FOOTER -->
+ 
+<!-- SOCIAL -->
+<div class="social-section">
+  <span class="social-label">Suivez-nous</span>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@futuro_tech-solu" class="social-link" target="_blank" aria-label="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23 7s-.3-1.9-1.2-2.7c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.1c-.6.1-1.9.1-3 1.3C1.3 5.2 1 7 1 7S.7 9.1.7 11.2v2c0 2.1.3 4.2.3 4.2s.3 1.9 1.2 2.7c1.1 1.2 2.6 1.1 3.3 1.2C7.4 21.4 12 21.4 12 21.4s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.7 1.2-2.7s.3-2.1.3-4.2v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/company/futuro-tech/about/?viewAsMember=true" class="social-link" target="_blank" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@futurotech.automative" class="social-link" target="_blank" aria-label="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.47a8.18 8.18 0 004.78 1.52V6.54a4.85 4.85 0 01-1.01-.15z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/futuro_tech_auto/" class="social-link" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="var(--bg)"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="var(--bg)" stroke-width="2"/></svg>
+    </a>
+  </div>
+</div>
+ 
 <footer>
-    <p>© 2026 FT Solutions - Futuro Tech</p>
+  <span class="footer-logo">FT Solutions — Futuro Tech</span>
+  <p>© 2026 FT Solutions - Futuro Tech. Tous droits réservés.</p>
 </footer>
-
+ 
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.left = (mx - 6) + 'px';
+  cursor.style.top = (my - 6) + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = (rx - 18) + 'px';
+  ring.style.top = (ry - 18) + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+ 
+// INTERSECTION OBSERVER
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.15 });
+ 
+document.querySelectorAll('.stat, .sol-card, .ind-card, .reveal').forEach(el => observer.observe(el));
+ 
+// COUNTER ANIMATION
+function animateCounter(el, target) {
+  const dur = 1500;
+  const start = performance.now();
+  const isYear = target > 1000;
+  function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    const val = Math.round(ease * target);
+    el.textContent = isYear ? val : (target >= 100 ? val + '%' : val);
+    if(t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+ 
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.stat-num');
+      nums.forEach(n => animateCounter(n, +n.dataset.target));
+      statObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+ 
+document.querySelector('.stats') && statObserver.observe(document.querySelector('.stats'));
+ 
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+ 
+// TILT EFFECT ON CARDS
+document.querySelectorAll('.sol-card, .ind-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(800px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+</script>
 </body>
 </html>
