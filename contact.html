@@ -1,49 +1,65 @@
+#include <WiFi.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+
+WebServer server(80);
+
+// 📡 WiFi AP personnalisé
+const char* ssid = "Futuro Tech Solutions";
+const char* password = "FT001331";
+
+// 💡 LED
+const int ledPin = 2;
+
+// 🔁 compteur login
+int loginCount = 0;
+
+// =======================
+// 🌐 PAGE HTML (AUTH UI)
+// =======================
+const char HTML_PAGE[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Passkey Login</title>
+<title>ESP32 LOCK</title>
 
 <style>
 body {
   font-family: Arial;
-  background: #111;
+  background: #0f0f0f;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
 }
 .card {
-  background: #1c1c1e;
-  padding: 30px;
-  border-radius: 20px;
-  width: 300px;
-  text-align: center;
+  background:#1c1c1e;
+  padding:30px;
+  border-radius:20px;
+  width:320px;
+  text-align:center;
 }
 button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:15px;
 }
-.primary { background: #0a84ff; color: white; }
-.secondary { background: #333; color: white; }
-.status {
-  margin-top: 15px;
-  min-height: 24px;
-  font-size: 14px;
-}
+.primary { background:#0a84ff; color:white; }
+.secondary { background:#333; color:white; }
+.status { margin-top:15px; font-size:14px; min-height:20px; }
 </style>
 </head>
 
 <body>
 <div class="card">
-  <h2>🔐 Passkey Login</h2>
+  <h2>🔐 ESP32 LOCK</h2>
 
   <button class="primary" onclick="register()">Créer passkey</button>
   <button class="secondary" onclick="login()">Se connecter</button>
@@ -53,123 +69,116 @@ button {
 
 <script>
 
-function setStatus(msg) {
+function setStatus(msg){
   document.getElementById("status").textContent = msg;
 }
 
-function bufferDecode(value) {
-  if (value instanceof ArrayBuffer) return new Uint8Array(value);
-  if (value instanceof Uint8Array) return value;
-
-  if (typeof value === "string") {
-    const base64 = value.replace(/-/g, '+').replace(/_/g, '/').replace(/=/g, '');
-    const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
-    const raw = atob(padded);
-    return Uint8Array.from(raw, c => c.charCodeAt(0));
-  }
-
-  return new Uint8Array(value);
+// ======================
+// 💡 LED ESP32 CALL
+// ======================
+function ledRegister(){
+  fetch("/led/register");
 }
 
-function bufferEncode(value) {
-  const bytes = new Uint8Array(value);
-  let str = '';
-  for (let i = 0; i < bytes.length; i++) {
-    str += String.fromCharCode(bytes[i]);
-  }
-  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+function ledLogin(){
+  fetch("/led/login");
 }
 
-async function fetchJSON(url, opts = {}) {
-  const res = await fetch(url, { cache: "no-store", ...opts });
-  if (!res.ok) throw new Error("Erreur serveur");
-  return res.json();
+// ======================
+// 🔐 SIMULATION PASSKEY
+// (tu peux remplacer par WebAuthn réel)
+// ======================
+function register(){
+  setStatus("Création passkey...");
+
+  setTimeout(()=>{
+    setStatus("✅ Passkey créée !");
+    ledRegister();
+  },1000);
 }
 
-/* ---------------- REGISTER ---------------- */
-async function register() {
-  try {
-    setStatus("Création...");
+function login(){
+  setStatus("Connexion...");
 
-    const options = await fetchJSON("/register-options");
-
-    options.challenge = bufferDecode(options.challenge);
-    options.user.id = bufferDecode(options.user.id);
-
-    const credential = await navigator.credentials.create({ publicKey: options });
-
-    const payload = {
-      id: credential.id,
-      rawId: bufferEncode(credential.rawId),
-      type: credential.type,
-      response: {
-        clientDataJSON: bufferEncode(credential.response.clientDataJSON),
-        attestationObject: bufferEncode(credential.response.attestationObject)
-      }
-    };
-
-    const data = await fetchJSON("/register-verify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (data.verified) {
-      setStatus("✅ Passkey créée !");
-
-      // 💡 ESP32 LED action
-      fetch("http://192.168.4.1/led/register-success");
-    } else {
-      setStatus("❌ Échec");
-    }
-
-  } catch (e) {
-    setStatus("❌ " + e.message);
-  }
-}
-
-/* ---------------- LOGIN ---------------- */
-async function login() {
-  try {
-    setStatus("Connexion...");
-
-    const options = await fetchJSON("/login-options");
-
-    options.challenge = bufferDecode(options.challenge);
-
-    const assertion = await navigator.credentials.get({ publicKey: options });
-
-    const payload = {
-      id: assertion.id,
-      rawId: bufferEncode(assertion.rawId),
-      type: assertion.type,
-      response: {
-        authenticatorData: bufferEncode(assertion.response.authenticatorData),
-        clientDataJSON: bufferEncode(assertion.response.clientDataJSON),
-        signature: bufferEncode(assertion.response.signature)
-      }
-    };
-
-    const data = await fetchJSON("/login-verify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (data.verified) {
-      setStatus("✅ Connecté !");
-
-      // 💡 ESP32 LED action
-      fetch("http://192.168.4.1/led/login-success");
-    } else {
-      setStatus("❌ Refusé");
-    }
-
-  } catch (e) {
-    setStatus("❌ " + e.message);
-  }
+  setTimeout(()=>{
+    setStatus("✅ Connecté !");
+    ledLogin();
+  },1000);
 }
 
 </script>
 </body>
 </html>
+)rawliteral";
+
+// =======================
+// 🌐 PAGE WEB
+// =======================
+void handleRoot() {
+  server.send_P(200, "text/html", HTML_PAGE);
+}
+
+// =======================
+// 💡 LED REGISTER
+// =======================
+void handleRegisterLED() {
+  for (int i = 0; i < 10; i++) {
+    digitalWrite(ledPin, HIGH);
+    delay(250);
+    digitalWrite(ledPin, LOW);
+    delay(250);
+  }
+  server.send(200, "text/plain", "OK");
+}
+
+// =======================
+// 🔐 LED LOGIN (toggle)
+// =======================
+void handleLoginLED() {
+  loginCount++;
+
+  if (loginCount % 2 == 1) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  server.send(200, "text/plain", "OK");
+}
+
+// =======================
+// SETUP
+// =======================
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+
+  // 📡 WiFi AP
+  WiFi.softAP(ssid, password);
+
+  Serial.println("WiFi AP démarré");
+  Serial.println(WiFi.softAPIP());
+
+  // 🌍 mDNS → accès: http://esp32.lock
+  if (MDNS.begin("esp32")) {
+    Serial.println("mDNS démarré : http://esp32.lock");
+  }
+
+  // 🌐 routes
+  server.on("/", handleRoot);
+
+  // 💡 API LED
+  server.on("/led/register", handleRegisterLED);
+  server.on("/led/login", handleLoginLED);
+
+  server.begin();
+}
+
+// =======================
+// LOOP
+// =======================
+void loop() {
+  server.handleClient();
+}

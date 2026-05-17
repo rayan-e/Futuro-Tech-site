@@ -1,521 +1,1228 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT Solutions - Futuro Tech</title>
-    <link rel="icon" type="image/png" href="logo/futuro_tech_logo.jpeg">
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FT Vision — Biometric Security</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Bebas+Neue&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --void:#000205;
+  --deep:#030810;
+  --surface:#071020;
+  --cyan:#00EEFF;
+  --blue:#0055FF;
+  --violet:#6600FF;
+  --warn:#FF3D00;
+  --text:#E8F4FF;
+  --muted:#3D6080;
+  --glass:rgba(0,238,255,0.04);
+  --border:rgba(0,238,255,0.12);
 }
-
-body {
-    background: #0b1c22;
-    color: white;
+html{scroll-behavior:smooth;}
+body{
+  background:var(--void);
+  color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
 }
-        /* Menu burger pour mobile */
-        .menu-icon {
-            display: none; /* Caché par défaut pour PC */
-            float: right;
-            padding: 14px 20px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        /* icon affiche */
-        .menu-icon {
-                display: block; /* Afficher l'icône du menu burger */
-         }
-/*Logo*/
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+ 
+/* ── CURSOR ── */
+#cur{
+  width:8px;height:8px;
+  background:var(--cyan);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  mix-blend-mode:screen;
+  will-change:transform;
 }
-
-.logo img {
-    height: 55px;
+#cur-ring{
+  width:40px;height:40px;
+  border:1px solid rgba(0,238,255,0.5);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  will-change:transform;
+  transition:width .3s,height .3s,border-color .3s;
 }
-
-.logo span {
-    font-weight: 600;
-    color: #1de9b6;
+body:has(a:hover,button:hover) #cur{transform:scale(3);}
+body:has(a:hover,button:hover) #cur-ring{width:60px;height:60px;border-color:var(--cyan);}
+ 
+/* ── CANVAS BG ── */
+#bg-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;
 }
-/**************Card***********/
-.card {
-    background: #122a30;
-    border-radius: 15px;
-    overflow: hidden; /* IMPORTANT pour l'image */
-    transition: 0.3s;
+ 
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:1.4rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,2,5,0.6);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  animation:navIn .8s ease both;
 }
-
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover; /* image bien cadrée */
+@keyframes navIn{from{transform:translateY(-100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:.15em;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-decoration:none;cursor:none;
 }
-
-.card a {
-    display: block;
-    color: #ffffff;
-    text-decoration: none;
+nav ul{list-style:none;display:flex;gap:2.5rem;}
+nav a{
+  color:var(--muted);text-decoration:none;
+  font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:color .3s;cursor:none;position:relative;
 }
-
-.card h3 {
-    padding: 15px 20px 5px;
-    color: #078190;
+nav a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--cyan);
+  transform:scaleX(0);transition:transform .3s;
 }
-
-.card p {
-    padding: 0 20px 20px;
+nav a:hover{color:var(--cyan);}
+nav a:hover::after{transform:scaleX(1);}
+.nav-back{
+  padding:.5rem 1.4rem;
+  border:1px solid var(--border);
+  font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan)!important;
+  transition:background .3s!important;
 }
-
-.card:hover {
-    transform: translateY(-10px);
-           .contact-form button:hover {
-            background-color: #1de9b6;
-        }
+.nav-back:hover{background:rgba(0,238,255,.1)!important;}
+.nav-back::after{display:none!important;}
+ 
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  padding:8rem 2rem 5rem;
+  position:relative;z-index:1;
+  overflow:hidden;
 }
-/* CONTACT */
-        /* Section contact avec fond bleu */
-        .contact-container {
-            background-color: #122a30;
-            color: white;
-            padding: 50px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Carte */
-        .map-container {
-            width: 100%;
-            height: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Colonne gauche (Carte et Suivez-nous) */
-        .left-column {
-            flex: 1;
-            min-width: 300px;
-            margin-right: 20px;
-        }
-
-        .follow-us {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .follow-us h2 {
-            color: white;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-icons a img {
-            width: 40px;
-            height: 40px;
-        }
-
-         /* Formulaire de contact */
-        .right-column {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 30px;
-        }
-
-        .contact-form label {
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: #666;
-        }
-
-        .contact-form button {
-            padding: 15px;
-            background-color: #1de9b6;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .contact-form button:hover {
-            background-color: #06362a;
-        }
-
-        /* Styles pour mobile */
-        @media (max-width: 768px) {
-            .contact-container {
-                flex-direction: column;
-                padding: 20px;
-            }
-
-            .left-column,
-            .right-column {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-
-            .map-container {
-                height: 300px;
-            }
-        }
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 10%;
-    position: fixed;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.291);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
+.hero-content{max-width:960px;}
+ 
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.75rem;
+  padding:.45rem 1.2rem;
+  border:1px solid var(--border);
+  border-radius:100px;
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cyan);
+  background:var(--glass);
+  margin-bottom:2.5rem;
+  animation:fadeUp .8s .2s ease both;
 }
-
-nav h1 {
-    color: #1de9b6;
+.eyebrow-dot{
+  width:6px;height:6px;background:var(--cyan);border-radius:50%;
+  animation:pulse 2s ease infinite;
 }
-
-nav ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.5);}}
+ 
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,14vw,12rem);
+  line-height:.9;
+  letter-spacing:.04em;
+  animation:fadeUp .8s .4s ease both;
+  position:relative;
 }
-
-nav a {
-    padding: 14px 15px; /* Espacement réduit entre les éléments pour PC */
-    color: white;
-    text-align: center;
-    text-decoration: none;
+.hero-title .line-cyan{
+  display:block;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
-/*++++++++CEO++++++++*/
-.ceo {
-    padding: 80px 10%;
-    background: #081416;
+.hero-title .line-ghost{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.12);
 }
-
-.ceo-container {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    flex-wrap: wrap;
+ 
+.hero-sub{
+  max-width:600px;margin:2.5rem auto 3.5rem;
+  color:var(--muted);font-size:1.05rem;font-weight:300;line-height:1.8;
+  animation:fadeUp .8s .6s ease both;
 }
-
-/* IMAGE */
-.ceo-image {
-    flex: 1;
-    text-align: center;
+ 
+.hero-ctas{
+  display:flex;gap:1rem;justify-content:center;
+  animation:fadeUp .8s .8s ease both;
 }
-
-.ceo-image img {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #1de9b6;
-    filter: grayscale(100%);
+.btn-glow{
+  position:relative;padding:1rem 2.5rem;
+  background:var(--cyan);color:#000;
+  text-decoration:none;font-weight:700;font-size:.9rem;
+  letter-spacing:.05em;text-transform:uppercase;
+  border-radius:2px;cursor:none;
+  transition:transform .2s,box-shadow .3s;
+  overflow:hidden;
 }
-
-/* TEXTE */
-.ceo-text {
-    flex: 2;
+.btn-glow::before{
+  content:'';position:absolute;inset:-50%;
+  background:conic-gradient(transparent 0deg,var(--cyan) 60deg,transparent 120deg);
+  animation:spin 3s linear infinite;
+  opacity:0;transition:opacity .3s;
 }
-
-.ceo-text h2 {
-    color: #1de9b6;
-    margin-bottom: 10px;
+.btn-glow::after{
+  content:'';position:absolute;inset:1px;
+  background:var(--cyan);border-radius:1px;
+  z-index:1;
 }
-
-.ceo-text h3 {
-    margin-bottom: 15px;
+.btn-glow span{position:relative;z-index:2;}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 0 40px rgba(0,238,255,.5),0 0 80px rgba(0,238,255,.2);}
+.btn-glow:hover::before{opacity:.5;}
+ 
+.btn-ghost{
+  padding:1rem 2.5rem;
+  border:1px solid var(--border);
+  color:var(--text);text-decoration:none;
+  font-weight:500;font-size:.9rem;
+  letter-spacing:.05em;text-transform:uppercase;
+  border-radius:2px;cursor:none;
+  transition:border-color .3s,background .3s,box-shadow .3s;
 }
-
-.ceo-text p {
-    line-height: 1.6;
+.btn-ghost:hover{border-color:var(--cyan);background:var(--glass);box-shadow:inset 0 0 20px rgba(0,238,255,.05);}
+ 
+/* SCAN LINE */
+.scan-line{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  animation:scanMove 4s ease-in-out infinite;
+  pointer-events:none;
+  top:0;
 }
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .ceo-container {
-        flex-direction: column;
-        text-align: center;
-    }
+@keyframes scanMove{0%{top:0%;opacity:0;}10%{opacity:.8;}90%{opacity:.8;}100%{top:100%;opacity:0;}}
+ 
+/* ── FACE SCANNER ── */
+.scanner-wrap{
+  position:relative;
+  width:320px;height:380px;
+  margin:4rem auto 2rem;
+  animation:fadeUp .8s 1s ease both;
 }
-/********************CEO***************/
-/* HERO */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    display: flex;
-    justify-content: center; /* horizontal */
-    align-items: center;     /* vertical */
-    text-align: center;
-    background:
-    linear-gradient(rgba(0, 0, 0, 0.39), rgba(0, 0, 0, 0.353)),
-    url('Aceuil/background_FTS.png') center/cover no-repeat;
+.scanner-face{
+  width:100%;height:100%;
+  border:1px solid rgba(0,238,255,.2);
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,20,40,.4);
+  overflow:hidden;
 }
-
-.hero-content {
-    color: white;
-    max-width: 700px;
+/* Corner brackets */
+.sc,.sc::before,.sc::after,
+.scanner-face::before,.scanner-face::after{
+  position:absolute;
+  width:24px;height:24px;
+  border-color:var(--cyan);
+  border-style:solid;
 }
-.hero h2 {
-    font-size: 3rem;
+.scanner-face::before{content:'';top:-1px;left:-1px;border-width:2px 0 0 2px;}
+.scanner-face::after{content:'';top:-1px;right:-1px;border-width:2px 2px 0 0;}
+.sc{bottom:-1px;left:-1px;border-width:0 0 2px 2px;}
+.sc::before{content:'';bottom:-1px;right:-1px;border-width:0 2px 2px 0;top:auto;left:auto;}
+ 
+/* Face SVG */
+.face-svg{
+  position:absolute;
+  width:180px;opacity:.15;
+  stroke:var(--cyan);fill:none;stroke-width:.8;
 }
-
-.hero p {
-    font-size: 1rem;
+/* Scan beam */
+.scan-beam{
+  position:absolute;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,rgba(0,238,255,.9),transparent);
+  top:0;
+  animation:beamSweep 2.5s ease-in-out infinite;
+  box-shadow:0 0 20px rgba(0,238,255,.6),0 0 60px rgba(0,238,255,.3);
 }
-
-/* SECTION */
-.section {
-    padding: 80px 10%;
-
+@keyframes beamSweep{
+  0%{top:5%;opacity:0;}
+  5%{opacity:1;}
+  95%{opacity:1;}
+  100%{top:95%;opacity:0;}
 }
-
-.section h2 {
-    margin-bottom: 40px;
-    color: #1de9b6;
+/* Dot grid */
+.dot-grid{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(0,238,255,.25) 1px,transparent 1px);
+  background-size:20px 20px;
+  animation:gridPulse 3s ease infinite;
 }
-
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+@keyframes gridPulse{0%,100%{opacity:.3;}50%{opacity:.6;}}
+ 
+/* Points biométriques */
+.bio-point{
+  position:absolute;width:6px;height:6px;
+  background:var(--cyan);border-radius:50%;
+  box-shadow:0 0 8px var(--cyan);
+  animation:blink 2s ease infinite;
 }
-
-
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #081416;
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.1;}}
+.bp1{top:22%;left:28%;}
+.bp2{top:22%;right:28%;}
+.bp3{top:35%;left:50%;transform:translateX(-50%);}
+.bp4{top:55%;left:32%;}
+.bp5{top:55%;right:32%;}
+.bp6{top:70%;left:50%;transform:translateX(-50%);}
+ 
+/* Lines connecting points */
+.bio-lines{position:absolute;inset:0;}
+ 
+/* Status bar */
+.scanner-status{
+  position:absolute;bottom:1rem;left:1rem;right:1rem;
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.65rem;letter-spacing:.15em;color:var(--cyan);
+  text-transform:uppercase;
+}
+.status-bar{
+  flex:1;height:2px;background:rgba(0,238,255,.15);
+  position:relative;overflow:hidden;
+}
+.status-bar::after{
+  content:'';
+  position:absolute;left:-100%;top:0;bottom:0;
+  width:100%;background:var(--cyan);
+  animation:statusLoad 2s ease infinite;
+}
+@keyframes statusLoad{0%{left:-100%;}100%{left:100%;}}
+ 
+/* Side labels */
+.scan-label{
+  position:absolute;
+  font-size:.6rem;letter-spacing:.15em;
+  color:rgba(0,238,255,.4);text-transform:uppercase;
+  writing-mode:vertical-rl;
+}
+.scan-label-l{left:-2.5rem;top:50%;transform:translateY(-50%);}
+.scan-label-r{right:-2.5rem;top:50%;transform:translateY(-50%) rotate(180deg);}
+ 
+/* ── STAT STRIP ── */
+.stat-strip{
+  position:relative;z-index:1;
+  display:flex;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:rgba(0,5,15,.8);
+}
+.stat-item{
+  flex:1;
+  padding:2.5rem 2rem;
+  border-right:1px solid var(--border);
+  text-align:center;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.stat-item:last-child{border-right:none;}
+.stat-item.vis{opacity:1;transform:translateY(0);}
+.stat-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.5rem;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;line-height:1;
+}
+.stat-l{font-size:.75rem;color:var(--muted);letter-spacing:.1em;margin-top:.4rem;}
+ 
+/* ── THREAT SECTION ── */
+.threat{
+  padding:9rem 5rem;
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8rem;
+  align-items:center;
+}
+.threat-visual{position:relative;}
+.threat-ring{
+  width:100%;aspect-ratio:1;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid;
+  animation:ringRotate 8s linear infinite;
+}
+.ring:nth-child(1){inset:0;border-color:rgba(0,238,255,.12);}
+.ring:nth-child(2){inset:12%;border-color:rgba(0,85,255,.18);animation-duration:12s;animation-direction:reverse;}
+.ring:nth-child(3){inset:24%;border-color:rgba(102,0,255,.2);animation-duration:6s;}
+.ring:nth-child(4){inset:36%;border-color:rgba(0,238,255,.25);}
+.ring-dash{
+  position:absolute;inset:48%;
+  border:2px solid var(--cyan);
+  border-radius:50%;
+  box-shadow:0 0 30px rgba(0,238,255,.4),inset 0 0 30px rgba(0,238,255,.1);
+  animation:ringPulse 2s ease infinite;
+}
+@keyframes ringPulse{0%,100%{box-shadow:0 0 20px rgba(0,238,255,.4),inset 0 0 20px rgba(0,238,255,.1);}50%{box-shadow:0 0 60px rgba(0,238,255,.7),inset 0 0 40px rgba(0,238,255,.2);}}
+@keyframes ringRotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.ring-center-text{
+  position:relative;z-index:1;text-align:center;
+}
+.ring-percent{
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;
+  color:var(--warn);line-height:1;
+  text-shadow:0 0 40px rgba(255,61,0,.5);
+}
+.ring-label{font-size:.7rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:.25rem;}
+ 
+/* Floating dots on rings */
+.ring-dot{
+  position:absolute;width:8px;height:8px;
+  background:var(--cyan);border-radius:50%;
+  box-shadow:0 0 12px var(--cyan);
+  top:50%;left:50%;
+  transform-origin:0 0;
+}
+ 
+.threat-content{position:relative;}
+.section-tag{
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cyan);display:block;margin-bottom:1rem;
+}
+.threat h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  line-height:.95;letter-spacing:.03em;
+  margin-bottom:1.5rem;
+}
+.threat h2 em{font-style:normal;color:var(--warn);}
+.threat-body{color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2.5rem;}
+ 
+.threat-tags{display:flex;flex-wrap:wrap;gap:.6rem;}
+.tag{
+  padding:.4rem 1rem;
+  border:1px solid rgba(255,61,0,.25);
+  background:rgba(255,61,0,.05);
+  border-radius:100px;
+  font-size:.72rem;letter-spacing:.08em;
+  color:#FF6040;text-transform:uppercase;
+}
+ 
+/* ── SOLUTION HERO ── */
+.sol-hero{
+  padding:9rem 5rem;
+  position:relative;z-index:1;
+  background:linear-gradient(180deg,var(--void) 0%,rgba(0,8,20,.95) 50%,var(--void) 100%);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  text-align:center;
+  overflow:hidden;
+}
+.sol-hero::before{
+  content:'FT VISION';
+  position:absolute;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22vw;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(0,238,255,.04);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  white-space:nowrap;
+  letter-spacing:.1em;
+}
+.sol-tagline{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,8vw,8rem);
+  line-height:.9;letter-spacing:.03em;
+  margin-bottom:3rem;
+}
+.sol-tagline .c{color:var(--cyan);}
+ 
+/* Features grid */
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  margin-top:5rem;
+  text-align:left;
+}
+.feat{
+  padding:3rem 2.5rem;
+  background:var(--deep);
+  position:relative;overflow:hidden;
+  cursor:none;
+  transition:background .4s;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s,transform .6s,background .4s;
+}
+.feat.vis{opacity:1;transform:translateY(0);}
+.feat:hover{background:var(--surface);}
+.feat::after{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,238,255,.06) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.feat:hover::after{opacity:1;}
+.feat-icon{
+  width:50px;height:50px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;
+  background:var(--glass);
+  transition:border-color .3s;
+}
+.feat:hover .feat-icon{border-color:var(--cyan);}
+.feat-icon svg{width:22px;height:22px;stroke:var(--cyan);fill:none;stroke-width:1.5;}
+.feat h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:.05em;
+  margin-bottom:.75rem;
+}
+.feat p{color:var(--muted);font-size:.9rem;line-height:1.7;font-weight:300;}
+.feat-num{
+  position:absolute;top:1.5rem;right:2rem;
+  font-family:'Bebas Neue',sans-serif;font-size:4rem;
+  color:rgba(0,238,255,.05);
+  transition:color .3s;
+}
+.feat:hover .feat-num{color:rgba(0,238,255,.1);}
+ 
+/* ── PROMISES ── */
+.promises{
+  padding:9rem 5rem;
+  position:relative;z-index:1;
+}
+.promise-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  margin-top:5rem;
+}
+.promise{
+  padding:3rem;
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  cursor:none;
+  transition:border-color .4s,transform .4s;
+  opacity:0;transform:scale(.95);
+  transition:opacity .6s,transform .6s,border-color .4s;
+}
+.promise.vis{opacity:1;transform:scale(1);}
+.promise:hover{border-color:var(--cyan);transform:translateY(-6px);}
+.promise::before{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s ease;
+}
+.promise:hover::before{transform:scaleX(1);}
+.promise-icon{font-size:2rem;margin-bottom:1.5rem;display:block;}
+.promise h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;letter-spacing:.05em;margin-bottom:.75rem;
+}
+.promise p{color:var(--muted);font-size:.9rem;line-height:1.7;font-weight:300;}
+ 
+/* ── VIDEO ── */
+.video-section{
+  padding:6rem 5rem;
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+}
+.video-wrap{
+  position:relative;
+  border:1px solid var(--border);
+  overflow:hidden;
+  aspect-ratio:16/9;
+  background:var(--surface);
+}
+.video-wrap::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan),var(--violet));
+  z-index:2;
+  animation:rgbLine 3s linear infinite;
+  background-size:200% 100%;
+}
+@keyframes rgbLine{0%{background-position:0%;}100%{background-position:200%;}}
+.video-wrap iframe{width:100%;height:100%;border:none;}
+.video-label{
+  position:absolute;top:1rem;right:1rem;
+  padding:.3rem .8rem;
+  background:rgba(0,0,0,.7);
+  border:1px solid var(--border);
+  font-size:.65rem;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase;
+  z-index:3;
+}
+ 
+/* ── INDUSTRIES ── */
+.industries{
+  padding:9rem 5rem;
+  position:relative;z-index:1;
+  background:rgba(0,5,15,.8);
+  border-top:1px solid var(--border);
+}
+.ind-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  margin-top:5rem;
+}
+.ind{
+  padding:3rem 2.5rem;
+  background:var(--deep);
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .4s;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .6s,transform .6s,background .4s;
+}
+.ind.vis{opacity:1;transform:translateY(0);}
+.ind:hover{background:var(--surface);}
+.ind-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.8rem;letter-spacing:.2em;color:var(--cyan);
+  display:block;margin-bottom:2rem;
+}
+.ind-svg-wrap{
+  width:100%;height:160px;
+  background:rgba(0,20,40,.5);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:2rem;
+  position:relative;overflow:hidden;
+}
+.ind-svg-wrap::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(0,238,255,.05) 20px),
+    repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(0,238,255,.05) 20px);
+}
+.ind-svg-wrap svg{
+  width:64px;height:64px;stroke:var(--cyan);fill:none;stroke-width:1;
+  opacity:.35;transition:opacity .3s,transform .3s;
+}
+.ind:hover .ind-svg-wrap svg{opacity:.7;transform:scale(1.1);}
+.ind h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;margin-bottom:.75rem;}
+.ind p{color:var(--muted);font-size:.88rem;line-height:1.7;font-weight:300;}
+ 
+/* ── CONTACT ── */
+.contact{
+  padding:9rem 5rem;
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  align-items:start;
+}
+.contact-info h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);
+  line-height:.95;letter-spacing:.03em;margin-bottom:1.5rem;
+}
+.contact-info p{color:var(--muted);font-weight:300;line-height:1.8;margin-bottom:3rem;}
+.address{
+  padding:1.5rem;
+  border:1px solid var(--border);
+  background:var(--glass);
+  display:flex;align-items:flex-start;gap:1rem;
+  margin-bottom:1.5rem;
+}
+.addr-icon{
+  width:36px;height:36px;flex-shrink:0;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+.addr-icon svg{width:16px;height:16px;stroke:var(--cyan);fill:none;stroke-width:1.5;}
+.addr-text{font-size:.85rem;color:var(--muted);}
+.addr-text strong{display:block;color:var(--text);font-size:.9rem;margin-bottom:.2rem;}
+ 
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.cf-group{display:flex;flex-direction:column;gap:.4rem;}
+.cf-group label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.cf-group input,.cf-group textarea{
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:1rem 1.25rem;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.95rem;font-weight:300;
+  outline:none;
+  transition:border-color .3s,box-shadow .3s;
+  border-radius:0;resize:none;cursor:none;
+}
+.cf-group input:focus,.cf-group textarea:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px rgba(0,238,255,.05),0 0 20px rgba(0,238,255,.1);
+}
+.cf-group textarea{height:130px;}
+.cf-submit{
+  padding:1.1rem;
+  background:transparent;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem;letter-spacing:.15em;
+  cursor:none;
+  position:relative;overflow:hidden;
+  transition:color .3s;
+}
+.cf-submit::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--cyan);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s ease;
+  z-index:-1;
+}
+.cf-submit:hover{color:var(--void);}
+.cf-submit:hover::before{transform:scaleX(1);}
+ 
+/* ── SOCIAL / FOOTER ── */
+.bottom{
+  border-top:1px solid var(--border);
+  padding:3rem 5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.social-row{display:flex;gap:.75rem;}
+.soc{
+  width:42px;height:42px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;color:var(--muted);
+  transition:border-color .3s,color .3s,box-shadow .3s;
+  cursor:none;
+}
+.soc:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,238,255,.15);}
+.soc svg{width:17px;height:17px;fill:currentColor;}
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem 5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+footer p{font-size:.8rem;color:var(--muted);}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+ 
+/* ── ANIMATED DIVIDER ── */
+.div-line{
+  height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--cyan) 30%,var(--violet) 70%,transparent 100%);
+  position:relative;z-index:1;
+  animation:divPulse 4s ease infinite;
+}
+@keyframes divPulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+ 
+/* ── REVEAL ── */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.reveal.vis{opacity:1;transform:translateY(0);}
+ 
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+ 
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem;}
+  nav ul{display:none;}
+  .threat,.contact{grid-template-columns:1fr;gap:4rem;}
+  .features,.promise-grid,.ind-cards{grid-template-columns:1fr;}
+  .threat,.sol-hero,.promises,.video-section,.industries,.contact{padding:5rem 1.5rem;}
+  .stat-strip{flex-wrap:wrap;}
+  .stat-item{flex:1 1 50%;}
+  .bottom,.footer{flex-direction:column;gap:1.5rem;padding:2rem 1.5rem;}
+  .scanner-wrap{width:260px;height:310px;}
 }
 </style>
 </head>
-
 <body>
-
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="bg-canvas"></canvas>
+ 
 <!-- NAV -->
 <nav>
-    <div class="logo">
-        <img src="images/logo.png" alt="FT Solutions">
-    </div>
-    <ul>
-        <li><a href="Futuro_Tech.html">Accueil</a></li>
-        <li><a href="#vision">Vision</a></li>
-        <li><a href="#industrie">Industrie</a></li>
-        <li><a href="#CONTACT">Contact</a></li>
-    </ul>
+  <a href="https://futuro-tech.org/Futuro_Tech.html" class="nav-logo">FT — Solutions</a>
+  <ul>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#industrie">Industrie</a></li>
+    <li><a href="#contact" class="nav-back">Contact</a></li>
+  </ul>
 </nav>
-
-<!-- Youtube -->
- <section class="ceo">
-    <p style="margin-top: 10px; font-weight: bold; color: #078190;">Démonstration Automatique de FT-Vision</p>
-    <div class="video-section" style="text-align: center; margin: 40px 0;">
-                                        <iframe 
-                                            width="700" 
-                                            height="394" 
-                                            src="https://www.youtube.com/embed/YzW_nI4NC1Q?autoplay=1&mute=1&rel=0" 
-                                            title="Démonstration FT-Vision"
-                                            frameborder="0"
-                                            allow="autoplay; encrypted-media"
-                                            allowfullscreen
-                                            style="border-radius: 8px; max-width: 100%;">
-                                        </iframe>
-    </div>
-    <!-- TEXTE -->
-    <div class="ceo-text">
-            <h2>Biometric Security du futur</h2>
-            <p>
-                    En 2024, plus de 94 % 🔺 des vols de véhicules ont été réalisés par piratage électronique, contournant les protections traditionnelles. 
-                    Les systèmes d’anti-démarrage classiques, basés sur des identifiants statiques et des protocoles de chiffrement obsolètes, 
-                    ne résistent plus aux nouvelles méthodes d’attaque.
-                    Des techniques comme le mouse jacking ou les attaques par relais permettent aux voleurs de dérober un véhicule sans effraction visible, 
-                    en dupliquant ou détournant les signaux des clés sans contact.
-            </p>
-        </div>
-    </div>
-</section>
-<!-- Youtube -->
-
+ 
 <!-- HERO -->
 <section class="hero" id="vision">
-    <div>
-        <h2>Your car and you are not safe without FT-Vision</h2>
-
-                                                <p>In a world where technology evolves rapidly, traditional vehicle security is no longer enough. Keys can be copied. NFC signals can be intercepted. Even the most sophisticated systems can be compromised.
-                                                Now imagine a vehicle that recognizes you, not just your key.</p>
-        
+  <div class="scan-line"></div>
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Reconnaissance Biométrique · Temps Réel
     </div>
-</section>
-
-<!-- CEO -->
- <section class="ceo">
-    <div class="ceo-container">
-        <!-- TEXTE -->
-        <div class="ceo-text">
-            <h2>FT Vision – L’authentification du futur</h2>
-            <p>
-                    FT Vision est une solution de pointe qui combine intelligence artificielle et reconnaissance faciale pour révolutionner l’accès et le démarrage des véhicules. Contrairement aux systèmes traditionnels basés sur des clés physiques ou des technologies NFC souvent vulnérables au piratage
-                    FT Vision permet une authentification biométrique en temps réel du conducteur, garantissant une sécurité maximale et une expérience utilisateur fluide.
-                    Sécurisé. Intelligent. Sans contact.
-                    FT Vision redéfinit les standards de la mobilité connectée.</p>
-
-                    <p>✨ No keys to replicate.</p>
-                    <p>✨ No signals to intercept.</p>
-                    <p>✨ Only your identity unlocks the experience.</p>
+ 
+    <h1 class="hero-title">
+      <span class="line-cyan">FT Vision</span>
+      <span class="line-ghost">Biometric</span>
+      <span>Security</span>
+    </h1>
+ 
+    <!-- FACE SCANNER -->
+    <div class="scanner-wrap">
+      <div class="scanner-face">
+        <span class="sc"></span>
+        <div class="dot-grid"></div>
+        <div class="logo">
+        <img src="images/TesterID.png" alt="FT Solutions">
         </div>
+        <div class="scan-beam"></div>
+        <div class="bio-point bp1"></div>
+        <div class="bio-point bp2" style="animation-delay:.3s"></div>
+        <div class="bio-point bp3" style="animation-delay:.6s"></div>
+        <div class="bio-point bp4" style="animation-delay:.9s"></div>
+        <div class="bio-point bp5" style="animation-delay:1.2s"></div>
+        <div class="bio-point bp6" style="animation-delay:1.5s"></div>
 
+        <div class="scanner-status">
+          <span>Scanning</span>
+          <div class="status-bar"></div>
+          <span>98.7%</span>
+        </div>
+      </div>
+      <span class="scan-label scan-label-l">Biometric Auth</span>
+      <span class="scan-label scan-label-r">FT Vision AI</span>
     </div>
-</section>
-<!-- CEO -->
-
-<!-- SOLUTIONS -->
-<section class="section" id="solutions">
-    <h2> Avantage</h2>
-    <div class="grid">
-
-        <div class="card">
-            <h3>Sécurité Renforcée</h3>
-            <p>Élimine le risque de vol ou de duplication de clé</p>
-        </div>
-
-        <div class="card">
-            <h3>Confort mains libres</h3>
-            <p>Accès et démarrage sans effort</p>
-        </div>
-
-        <div class="card">
-            <h3>Traitement en temps réel</h3>
-            <p>IA rapide et fiable pour l’authentification</p>
-        </div>
-
+ 
+    <p class="hero-sub">
+      Votre véhicule vous reconnaît. Pas votre clé — <em style="color:var(--cyan);font-style:normal;">vous.</em><br>
+      L'authentification biométrique en temps réel qui rend le vol impossible.
+    </p>
+ 
+    <div class="hero-ctas">
+      <a href="#solution" class="btn-glow"><span>Découvrir FT Vision</span></a>
+      <a href="#contact" class="btn-ghost">Demander une démo</a>
     </div>
+  </div>
 </section>
-
-<!-- INDUSTRIE -->
-<section class="section" id="industrie">
-    <h2> Nos Secteur d'Activités</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <img src="Aceuil/image1V1.png" alt="Automobile"></a>
-            <h3>Automobile</h3>
-            <p>Fabrication de volants intelligents et systèmes embarqués connectés.</p>
-        </div>
-
-        <div class="card">
-            <img src="Aceuil/image2V2.png" alt="yachts"></a>
-            <h3>Yachting</h3>
-            <p>Conception de systèmes premium pour yachts de nouvelle génération.</p>
-        </div>
-
-        <div class="card">
-            <img src="Aceuil/image3V3.png" alt="free Energie"></a>
-            <h3>Smart Infrastructure</h3>
-            <p>Intégration FT Vision dans les bornes de recharge et smart cities.</p>
-        </div>
-
-    </div>
-</section>
-
-<!-- Contact -->
-<section class="section" id="CONTACT">
-    <div class="contact-container">
-        <!-- Colonne gauche : Carte et Suivez-nous -->
-        <div class="left-column">
-            <!-- Carte -->
-            <div class="map-container">
-                   <iframe 
-        src="https://www.google.com/maps?q=22+rue+des+deportes+crespin&output=embed"
-        allowfullscreen="" 
-        loading="lazy">
+ <!-- VIDEO -->
+<section class="video-section">
+  <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+    <span class="section-tag">// Démonstration Live</span>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:.03em;">Voyez-le <span style="color:var(--cyan);">en action</span></h2>
+  </div>
+  <div class="video-wrap reveal">
+    <div class="video-label">Live Demo · FT Vision</div>
+    <iframe
+      src="https://www.youtube.com/embed/YzW_nI4NC1Q?autoplay=1&mute=1&rel=0&loop=1"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      loading="lazy">
     </iframe>
-            </div>
-
-            <!-- Suivez-nous -->
-            <div class="follow-us">
-                <h2>Suivez-nous</h2>
-                <div class="social-icons">
-                   <a href="https://www.youtube.com/@futuro_tech-solu"><img src="Aceuil/youtube.png" alt="youtube"></a>
-                    <a href="https://www.linkedin.com/company/futuro-tech/about/?viewAsMember=true"><img src="Aceuil/linkedin.png" alt="linkedin"></a>
-                    <a href="https://www.tiktok.com/@futurotech.automative"><img src="Aceuil/tiktok.png" alt="tiktok"></a>
-                    <a href="https://www.instagram.com/futuro_tech_auto/"><img src="Aceuil/instagram.png" alt="Instagram"></a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Colonne droite : Formulaire de contact -->
-        <div class="right-column">
-            <h2>Contactez-nous</h2>
-            <form class="contact-form" action="mailto:rayaneabdelaziz.futurotech@gmail.com" method="post" enctype="text/plain">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" placeholder="Votre nom" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" placeholder="Votre message..." required></textarea>
-
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
-    </div>
+  </div>
 </section>
-<!-- FOOTER -->
-<footer>
-    <p>© 2026 FT Solutions - Futuro Tech</p>
-</footer>
+ 
+<div class="div-line"></div>
+<!-- STATS -->
+<div class="stat-strip">
+  <div class="stat-item" style="transition-delay:.1s">
+    <span class="stat-n" data-target="94">0</span>
+    <p class="stat-l">% des vols par piratage électronique</p>
+  </div>
+  <div class="stat-item" style="transition-delay:.2s">
+    <span class="stat-n" data-val="0ms">—</span>
+    <p class="stat-l">Latence d'authentification</p>
+  </div>
+  <div class="stat-item" style="transition-delay:.3s">
+    <span class="stat-n" data-target="100">0</span>
+    <p class="stat-l">% sans contact physique</p>
+  </div>
+  <div class="stat-item" style="transition-delay:.4s">
+    <span class="stat-n" data-val="∞">—</span>
+    <p class="stat-l">Clés impossibles à dupliquer</p>
+  </div>
+</div>
+ 
+<div class="div-line"></div>
+ 
+<!-- THREAT -->
+<section class="threat" id="threat">
+  <div class="threat-visual reveal">
+    <div class="threat-ring">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring-dash"></div>
+      <div class="ring-center-text">
+        <div class="ring-percent">94%</div>
+        <div class="ring-label">des vols = piratage</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="threat-content reveal" style="transition-delay:.2s">
+    <span class="section-tag">// La menace réelle</span>
+    <h2>Your car is<br>not <em>safe</em><br>anymore.</h2>
+    <p class="threat-body">
+      En 2024, plus de 94% des vols de véhicules ont été réalisés par piratage électronique,
+      contournant les protections traditionnelles. Les systèmes classiques basés sur des
+      identifiants statiques ne résistent plus aux nouvelles attaques par relay ou mouse jacking.
+    </p>
+    <div class="threat-tags">
+      <span class="tag">Mouse Jacking</span>
+      <span class="tag">Relay Attack</span>
+      <span class="tag">NFC Clone</span>
+      <span class="tag">Signal Replay</span>
+      <span class="tag">Key Duplication</span>
+    </div>
+  </div>
+</section>
+ 
+<div class="div-line"></div>
+ 
+<!-- SOLUTION -->
+<section class="sol-hero" id="solution">
+  <div class="reveal">
+    <span class="section-tag">// FT Vision — La réponse</span>
+    <div class="sol-tagline">
+      Only your<br>
+      <span class="c">identity</span><br>
+      unlocks it.
+    </div>
+    <p style="color:var(--muted);font-weight:300;font-size:1.05rem;max-width:580px;margin:0 auto;line-height:1.8;">
+      FT Vision combine intelligence artificielle et reconnaissance faciale pour révolutionner
+      l'accès aux véhicules. Sécurisé. Intelligent. Sans contact.
+    </p>
+  </div>
+ 
+  <div class="features">
+    <div class="feat" style="transition-delay:.1s">
+      <div class="feat-num">01</div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>No Keys to Replicate</h3>
+      <p>Aucune clé physique ou NFC — votre visage est l'unique authentificateur. Impossible à copier, impossible à voler.</p>
+    </div>
+    <div class="feat" style="transition-delay:.2s">
+      <div class="feat-num">02</div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><path d="M1 6s4-2 11-2 11 2 11 2"/><path d="M1 6v12s4 2 11 2 11-2 11-2V6"/><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0"/></svg>
+      </div>
+      <h3>No Signals to Intercept</h3>
+      <p>Authentification biométrique locale — aucun signal radio, aucune vulnérabilité réseau. Le système vit dans le véhicule.</p>
+    </div>
+    <div class="feat" style="transition-delay:.3s">
+      <div class="feat-num">03</div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+      </div>
+      <h3>Only Your Identity</h3>
+      <p>Reconnaissance faciale en temps réel avec analyse comportementale — seul l'utilisateur autorisé peut démarrer.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- PROMISES -->
+<section class="promises">
+  <div class="section-header reveal" style="text-align:center;margin-bottom:0;">
+    <span class="section-tag">// Avantages</span>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:.03em;">Ce que vous <span style="color:var(--cyan);">gagnez</span></h2>
+  </div>
+  <div class="promise-grid">
+    <div class="promise" style="transition-delay:.1s">
+      <span class="promise-icon">🛡️</span>
+      <h3>Sécurité Renforcée</h3>
+      <p>Élimine totalement le risque de vol ou de duplication de clé. La biométrie ne peut pas être copiée ni transmise.</p>
+    </div>
+    <div class="promise" style="transition-delay:.2s">
+      <span class="promise-icon">🤲</span>
+      <h3>Confort Mains Libres</h3>
+      <p>Accès et démarrage sans effort — approchez-vous, le véhicule vous reconnaît et déverrouille automatiquement.</p>
+    </div>
+    <div class="promise" style="transition-delay:.3s">
+      <span class="promise-icon">⚡</span>
+      <h3>Traitement Temps Réel</h3>
+      <p>IA rapide et fiable — authentification en millisecondes avec un taux de précision supérieur à 99,7%.</p>
+    </div>
+  </div>
+</section>
+ 
+<div class="div-line"></div>
+ 
 
+ 
+<!-- INDUSTRIES -->
+<section class="industries" id="industrie">
+  <div class="reveal" style="text-align:center;margin-bottom:0;">
+    <span class="section-tag">// Secteurs d'application</span>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:.03em;">Nos <span style="color:var(--cyan);">marchés</span></h2>
+  </div>
+  <div class="ind-cards">
+    <div class="ind" style="transition-delay:.1s">
+      <span class="ind-num">001 — Automobile</span>
+
+      <div class="ind-svg-wrap">
+        <img src="Aceuil/image1V1.png" alt="Automobile"></a>
+        <svg viewBox="0 0 80 80">
+          <rect x="10" y="30" width="60" height="28" rx="3"/>
+          <path d="M15 30c0-10 8-16 25-16s25 6 25 16"/>
+          <circle cx="22" cy="63" r="6"/><circle cx="58" cy="63" r="6"/>
+          <path d="M28 63h24M35 38h10M35 43h10"/>
+          <rect x="54" y="33" width="10" height="8" rx="1"/>
+        </svg>
+      </div>
+      <h3>Automobile</h3>
+      <p>Volants intelligents et systèmes embarqués connectés — FT Vision intégrée nativement dans le cockpit du véhicule.</p>
+    </div>
+    <div class="ind" style="transition-delay:.2s">
+      <span class="ind-num">002 — Yachting</span>
+      <div class="ind-svg-wrap">
+        <img src="Aceuil/image2V2.png" alt="yachts"></a>
+        <svg viewBox="0 0 80 80">
+          <path d="M8 52c8-14 20-22 32-22s24 8 32 22"/>
+          <path d="M20 52c4-8 12-13 20-13s16 5 20 13"/>
+          <line x1="40" y1="18" x2="40" y2="8"/>
+          <path d="M25 54h30v4H25z"/>
+          <path d="M40 18 L60 38 L40 38 Z"/>
+        </svg>
+      </div>
+      <h3>Yachting</h3>
+      <p>Systèmes premium pour yachts de nouvelle génération — accès biométrique aux zones sécurisées et démarrage moteur.</p>
+    </div>
+    <div class="ind" style="transition-delay:.3s">
+      <span class="ind-num">003 — Smart City</span>
+      <div class="ind-svg-wrap">
+        <img src="Aceuil/image3V3.png" alt="free Energie"></a>
+        <svg viewBox="0 0 80 80">
+          <rect x="30" y="18" width="20" height="38" rx="2"/>
+          <path d="M25 56h30M40 18v-8"/>
+          <circle cx="40" cy="35" r="5"/>
+          <path d="M20 45h10M50 45h10"/>
+          <path d="M15 30l5 5M65 30l-5 5"/>
+          <circle cx="40" cy="35" r="12" stroke-dasharray="3 4"/>
+        </svg>
+      </div>
+      <h3>Smart Infrastructure</h3>
+      <p>FT Vision dans les bornes de recharge et smart cities — accès sécurisé aux infrastructures publiques et privées.</p>
+    </div>
+  </div>
+</section>
+ 
+<div class="div-line"></div>
+ 
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-info reveal">
+    <span class="section-tag">// Contact</span>
+    <h2>Parlez-nous<br>de votre<br><span style="color:var(--cyan);">projet</span></h2>
+    <p>Vous avez un projet, une question ou souhaitez une démonstration de FT Vision ? Notre équipe vous répond rapidement.</p>
+    <div class="address">
+      <div class="addr-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="addr-text">
+        <strong>Adresse</strong>
+        22 rue des déportés, Crespin, France
+      </div>
+    </div>
+    <div class="address">
+      <div class="addr-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.23 16z"/></svg>
+      </div>
+      <div class="addr-text">
+        <strong>Réseaux</strong>
+        @futuro_tech · LinkedIn · YouTube · TikTok
+      </div>
+    </div>
+  </div>
+ 
+  <form class="contact-form reveal" style="transition-delay:.2s" onsubmit="return false;">
+    <div class="cf-group">
+      <label>Nom complet</label>
+      <input type="text" placeholder="Jean Dupont">
+    </div>
+    <div class="cf-group">
+      <label>Email</label>
+      <input type="email" placeholder="jean@exemple.com">
+    </div>
+    <div class="cf-group">
+      <label>Message</label>
+      <textarea placeholder="Décrivez votre projet ou votre demande..."></textarea>
+    </div>
+    <button class="cf-submit" type="button">Envoyer le message</button>
+  </form>
+</section>
+ 
+<!-- SOCIAL -->
+<div class="bottom">
+  <span style="font-size:.75rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;">Suivez-nous</span>
+  <div class="social-row">
+    <a href="https://www.youtube.com/@futuro_tech-solu" class="soc" target="_blank" aria-label="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23 7s-.3-1.9-1.2-2.7c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.1c-.6.1-1.9.1-3 1.3C1.3 5.2 1 7 1 7S.7 9.1.7 11.2v2c0 2.1.3 4.2.3 4.2s.3 1.9 1.2 2.7c1.1 1.2 2.6 1.1 3.3 1.2C7.4 21.4 12 21.4 12 21.4s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.7 1.2-2.7s.3-2.1.3-4.2v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/company/futuro-tech/about/?viewAsMember=true" class="soc" target="_blank" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@futurotech.automative" class="soc" target="_blank" aria-label="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.47a8.18 8.18 0 004.78 1.52V6.54a4.85 4.85 0 01-1.01-.15z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/futuro_tech_auto/" class="soc" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="var(--void)"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="var(--void)" stroke-width="2"/></svg>
+    </a>
+  </div>
+</div>
+ 
+<footer>
+  <span class="footer-logo">FT Solutions — Futuro Tech</span>
+  <p>© 2026 FT Solutions. Tous droits réservés.</p>
+</footer>
+ 
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){
+  cur.style.transform=`translate(${mx-4}px,${my-4}px)`;
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.transform=`translate(${rx-20}px,${ry-20}px)`;
+  requestAnimationFrame(tick);
+})();
+ 
+/* ── CANVAS PARTICLE FIELD ── */
+const canvas=document.getElementById('bg-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize(); window.addEventListener('resize',()=>{resize();init();});
+function init(){
+  pts=[];
+  for(let i=0;i<120;i++){
+    pts.push({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
+      r:Math.random()*1.5+.5,
+      o:Math.random()*.5+.1
+    });
+  }
+}
+init();
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  /* connections */
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y);
+        ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(0,238,255,${.08*(1-d/120)})`;
+        ctx.lineWidth=.5;
+        ctx.stroke();
+      }
+    }
+  }
+  /* dots */
+  pts.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,238,255,${p.o})`;
+    ctx.fill();
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W) p.vx*=-1;
+    if(p.y<0||p.y>H) p.vy*=-1;
+  });
+  /* mouse repulsion */
+  pts.forEach(p=>{
+    const dx=p.x-mx, dy=p.y-my;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if(d<100){
+      p.x+=dx/d*1.5;
+      p.y+=dy/d*1.5;
+    }
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+ 
+/* ── INTERSECTION OBSERVER ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('vis');});
+},{threshold:.15});
+document.querySelectorAll('.stat-item,.feat,.ind,.promise,.reveal').forEach(el=>io.observe(el));
+ 
+/* ── COUNTER ── */
+function counter(el,target){
+  const dur=1500,start=performance.now();
+  (function tick(now){
+    const t=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-t,3);
+    const v=Math.round(ease*target);
+    el.textContent = target===100 ? v+'%' : (target===94 ? v+'%' : v);
+    if(t<1) requestAnimationFrame(tick);
+  })(start);
+}
+const statIo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-target]').forEach(n=>{
+        counter(n,+n.dataset.target);
+      });
+      e.target.querySelectorAll('[data-val]').forEach(n=>{
+        n.textContent=n.dataset.val;
+      });
+      statIo.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelector('.stat-strip')&&statIo.observe(document.querySelector('.stat-strip'));
+ 
+/* ── MOUSE SPOTLIGHT ON FEATURES ── */
+document.querySelectorAll('.feat').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  });
+});
+ 
+/* ── TILT ── */
+document.querySelectorAll('.promise,.ind').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(600px) rotateX(${-y*5}deg) rotateY(${x*5}deg) translateY(-6px)`;
+  });
+  card.addEventListener('mouseleave',()=>{ card.style.transform=''; });
+});
+ 
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
 </body>
 </html>
