@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FT Solutions — Start & Lock and Inlock Car</title>
+<style>
+:root{
+  --bg-0:#070a0e;
+  --bg-1:#0c1218;
+  --bg-2:#111a22;
+  --line:#1e2b34;
+  --teal:#2fe0cf;
+  --teal-dim:#1a8f85;
+  --amber:#ff7a45;
+  --text-0:#eef4f5;
+  --text-1:#9fb1b8;
+  --text-2:#5c6c74;
+  --mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  --sans: 'Space Grotesk', 'Inter', sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg-0);
+  color:var(--text-0);
+  font-family:var(--sans);
+  overflow-x:hidden;
+}
+@font-face{font-family:'Space Grotesk';src:local('Space Grotesk');}
+
+/* ---- background grid + scanlines ---- */
+.grid-bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(47,224,207,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,224,207,0.035) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse at 50% 0%, black 0%, transparent 75%);
+}
+
+/* ---- nav ---- */
+header{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 48px;
+  background:rgba(7,10,14,0.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--mono); font-weight:600; letter-spacing:0.02em; font-size:15px;
+}
+.logo .mark{
+  width:30px; height:30px; border:1.5px solid var(--teal); border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--sans); font-weight:700; color:var(--teal); font-size:13px;
+}
+nav ul{list-style:none; display:flex; gap:36px;}
+nav a{
+  color:var(--text-1); text-decoration:none; font-size:13px;
+  font-family:var(--mono); letter-spacing:0.03em;
+  transition:color .2s;
+}
+nav a:hover{color:var(--teal);}
+.cta-btn{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:0.04em;
+  color:var(--bg-0); background:var(--teal);
+  border:none; padding:11px 22px; border-radius:3px;
+  cursor:pointer; font-weight:700;
+  transition:transform .15s, box-shadow .15s;
+}
+.cta-btn:hover{transform:translateY(-1px); box-shadow:0 0 24px rgba(47,224,207,0.35);}
+.cta-ghost{
+  font-family:var(--mono); font-size:12.5px; color:var(--text-0);
+  background:transparent; border:1px solid var(--line); padding:10px 20px;
+  border-radius:3px; cursor:pointer; transition:border-color .2s;
+}
+.cta-ghost:hover{border-color:var(--teal);}
+
+/* ---- hero ---- */
+.hero{
+  position:relative; z-index:1;
+  padding:90px 48px 60px;
+  display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  align-items:center;
+  max-width:1400px; margin:0 auto;
+}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; color:var(--teal);
+  letter-spacing:0.12em; display:flex; align-items:center; gap:10px; margin-bottom:22px;
+}
+.eyebrow::before{
+  content:''; width:7px; height:7px; background:var(--teal); border-radius:50%;
+  box-shadow:0 0 8px var(--teal);
+  animation:pulse-dot 1.6s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+h1{
+  font-size:clamp(38px,4.6vw,64px);
+  line-height:1.02; font-weight:700; letter-spacing:-0.02em;
+  margin-bottom:22px;
+}
+h1 .accent{color:var(--teal);}
+.hero p.lead{
+  font-size:17px; color:var(--text-1); line-height:1.6; max-width:460px; margin-bottom:34px;
+}
+.hero-actions{display:flex; gap:14px; margin-bottom:44px;}
+.telemetry-row{
+  display:flex; gap:28px; font-family:var(--mono); font-size:11.5px; color:var(--text-2);
+  border-top:1px solid var(--line); padding-top:20px;
+}
+.telemetry-row span b{color:var(--teal); font-weight:600; display:block; font-size:15px; margin-bottom:2px;}
+
+/* ---- hero visual: HUD panel ---- */
+.hud{
+  position:relative;
+  background:linear-gradient(160deg, var(--bg-1), var(--bg-2));
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:32px;
+  min-height:460px;
+}
+.hud::before, .hud::after{
+  content:''; position:absolute; width:18px; height:18px;
+  border-color:var(--teal); border-style:solid;
+}
+.hud::before{top:-1px; left:-1px; border-width:2px 0 0 2px;}
+.hud::after{bottom:-1px; right:-1px; border-width:0 2px 2px 0;}
+.hud-header{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--mono); font-size:11px; color:var(--text-2);
+  margin-bottom:24px; letter-spacing:0.06em;
+}
+.hud-header .status{color:var(--teal); display:flex; align-items:center; gap:6px;}
+.hud-header .status::before{content:'●'; font-size:9px;}
+
+.car-radar{
+  position:relative; height:280px;
+  display:flex; align-items:center; justify-content:center;
+}
+.ring{
+  position:absolute; border:1px solid rgba(47,224,207,0.25); border-radius:50%;
+  animation:ring-pulse 2.8s ease-out infinite;
+}
+.ring:nth-child(1){width:100px; height:100px;}
+.ring:nth-child(2){width:100px; height:100px; animation-delay:.9s;}
+.ring:nth-child(3){width:100px; height:100px; animation-delay:1.8s;}
+@keyframes ring-pulse{
+  0%{width:100px; height:100px; opacity:.8;}
+  100%{width:280px; height:280px; opacity:0;}
+}
+.car-icon{
+  position:relative; z-index:2; font-family:var(--mono); font-size:12px; color:var(--teal);
+  width:74px; height:74px; border:1.5px solid var(--teal); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; background:var(--bg-0);
+  box-shadow:0 0 30px rgba(47,224,207,0.25);
+}
+.hud-rows{display:flex; flex-direction:column; gap:10px; margin-top:20px;}
+.hud-row{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--mono); font-size:12px; color:var(--text-1);
+  padding:10px 14px; background:rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:5px;
+}
+.hud-row b{color:var(--text-0); font-weight:500;}
+.hud-row .val{color:var(--teal);}
+
+/* ---- section shell ---- */
+section{position:relative; z-index:1; padding:110px 48px; max-width:1400px; margin:0 auto;}
+.section-head{margin-bottom:56px; max-width:640px;}
+.section-tag{font-family:var(--mono); font-size:12px; color:var(--teal); letter-spacing:0.12em; margin-bottom:14px;}
+.section-head h2{font-size:clamp(28px,3vw,42px); font-weight:700; letter-spacing:-0.01em; line-height:1.1;}
+.section-head p{color:var(--text-1); margin-top:16px; font-size:15.5px; line-height:1.6;}
+
+/* ---- features ---- */
+.feat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+.feat-card{background:var(--bg-1); padding:32px 26px; transition:background .25s;}
+.feat-card:hover{background:var(--bg-2);}
+.feat-num{font-family:var(--mono); font-size:11px; color:var(--text-2); margin-bottom:20px;}
+.feat-card h3{font-size:17px; font-weight:600; margin-bottom:10px;}
+.feat-card p{font-size:13.5px; color:var(--text-1); line-height:1.55;}
+.feat-icon{
+  width:36px; height:36px; border:1px solid var(--teal-dim); border-radius:7px;
+  display:flex; align-items:center; justify-content:center; margin-bottom:18px; color:var(--teal);
+}
+
+/* ---- process ---- */
+.process{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+.process-steps{display:flex; flex-direction:column;}
+.step{
+  display:flex; gap:24px; padding:26px 0; border-top:1px solid var(--line);
+}
+.step:last-child{border-bottom:1px solid var(--line);}
+.step-id{font-family:var(--mono); color:var(--teal); font-size:13px; padding-top:2px; min-width:34px;}
+.step h4{font-size:16px; font-weight:600; margin-bottom:6px;}
+.step p{color:var(--text-1); font-size:14px; line-height:1.55;}
+.device-panel{
+  background:var(--bg-1); border:1px solid var(--line); border-radius:10px; padding:30px;
+}
+.device-panel img{width:100%; display:block; border-radius:6px;}
+.spec-strip{display:flex; justify-content:space-between; margin-top:22px; font-family:var(--mono); font-size:11px; color:var(--text-2);}
+.spec-strip b{display:block; color:var(--text-0); font-size:16px; font-weight:600; font-family:var(--sans);}
+
+/* ---- app showcase ---- */
+.app-wrap{
+  background:var(--bg-1); border:1px solid var(--line); border-radius:14px;
+  padding:56px; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;
+  position:relative; overflow:hidden;
+}
+.app-wrap::before{
+  content:''; position:absolute; top:0; right:0; width:400px; height:400px;
+  background:radial-gradient(circle, rgba(47,224,207,0.08), transparent 70%);
+  pointer-events:none;
+}
+.phone-mock{
+  background:var(--bg-0); border:1px solid var(--line); border-radius:22px; padding:20px;
+  max-width:280px; margin:0 auto; position:relative; z-index:1;
+}
+.phone-top{font-family:var(--mono); font-size:11px; color:var(--teal); margin-bottom:4px;}
+.phone-sub{font-size:10px; color:var(--text-2); margin-bottom:18px; letter-spacing:0.05em;}
+.phone-btn{
+  display:flex; align-items:center; gap:12px; padding:16px;
+  border:1px solid var(--line); border-radius:8px; margin-bottom:10px;
+  font-size:13px; font-weight:500;
+}
+.phone-btn .dot{width:26px; height:26px; border-radius:50%; border:1px solid var(--teal); color:var(--teal); display:flex; align-items:center; justify-content:center; font-size:12px;}
+.app-list{display:flex; flex-direction:column; gap:22px; position:relative; z-index:1;}
+.app-item{display:flex; gap:18px;}
+.app-item .n{font-family:var(--mono); color:var(--teal); font-size:13px; min-width:24px;}
+.app-item h4{font-size:15.5px; font-weight:600; margin-bottom:4px;}
+.app-item p{color:var(--text-1); font-size:13.5px; line-height:1.5;}
+.badges{display:flex; gap:12px; margin-top:8px;}
+.badge{
+  font-family:var(--mono); font-size:11px; border:1px solid var(--line); padding:8px 14px;
+  border-radius:5px; color:var(--text-1);
+}
+
+/* ---- footer / cta ---- */
+footer{
+  border-top:1px solid var(--line); padding:60px 48px 34px; position:relative; z-index:1;
+}
+.footer-cta{
+  display:flex; justify-content:space-between; align-items:center;
+  max-width:1400px; margin:0 auto 50px; flex-wrap:wrap; gap:24px;
+}
+.footer-cta h3{font-size:26px; font-weight:700; max-width:440px; line-height:1.2;}
+.footer-bottom{
+  max-width:1400px; margin:0 auto; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:11.5px; color:var(--text-2); flex-wrap:wrap; gap:12px;
+}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr; padding:60px 22px;}
+  header{padding:18px 22px;}
+  nav ul{display:none;}
+  section{padding:70px 22px;}
+  .feat-grid{grid-template-columns:1fr 1fr;}
+  .process{grid-template-columns:1fr;}
+  .app-wrap{grid-template-columns:1fr; padding:34px;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="logo"><span class="mark">FT</span> FT SOLUTIONS</div>
+  <nav>
+    <ul>
+      <li><a href="#features">Fonctions</a></li>
+      <li><a href="#how">Installation</a></li>
+      <li><a href="#app">Application</a></li>
+      <li><a href="#specs">Compatibilité</a></li>
+    </ul>
+  </nav>
+  <button class="cta-btn">Commander</button>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">SYSTÈME ACTIF · CONNEXION CHIFFRÉE</div>
+    <h1>Démarrez, verrouillez<br>et <span class="accent">inlock</span> votre véhicule<br>à distance.</h1>
+    <p class="lead">FT Solutions transforme votre smartphone en clé intelligente. Un boîtier discret, une application dédiée, un contrôle total sur votre voiture — où que vous soyez.</p>
+    <div class="hero-actions">
+      <button class="cta-btn">Découvrir le boîtier</button>
+      <button class="cta-ghost">Voir la démo</button>
+    </div>
+    <div class="telemetry-row">
+      <span><b>&lt;80ms</b>Latence commande</span>
+      <span><b>AES-256</b>Chiffrement liaison</span>
+      <span><b>98%</b>Véhicules compatibles</span>
+    </div>
+  </div>
+
+  <div class="hud">
+    <div class="hud-header">
+      <span>FT-CTRL // BMW MINI COOPER</span>
+      <span class="status">CONNECTED</span>
+    </div>
+    <div class="car-radar">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="car-icon">CAR</div>
+    </div>
+    <div class="hud-rows">
+      <div class="hud-row"><b>Moteur</b><span class="val">ARRÊTÉ</span></div>
+      <div class="hud-row"><b>Verrouillage</b><span class="val">ACTIF · INLOCK</span></div>
+      <div class="hud-row"><b>Signal GSM</b><span class="val">FORT — 4 barres</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="section-head">
+    <div class="section-tag">// FONCTIONNALITÉS</div>
+    <h2>Quatre commandes. Un contrôle complet.</h2>
+    <p>Chaque fonction du boîtier FT est pensée pour une situation réelle : matin froid, parking bondé, doute sur la fermeture des portes.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon">▶</div>
+      <div class="feat-num">FN.01</div>
+      <h3>Démarrage à distance</h3>
+      <p>Lancez le moteur avant de monter en voiture, été comme hiver, directement depuis l'application.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">▣</div>
+      <div class="feat-num">FN.02</div>
+      <h3>Verrouillage / Inlock</h3>
+      <p>Verrouillez normalement ou activez le mode Inlock pour empêcher toute ouverture même de l'intérieur.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">◈</div>
+      <div class="feat-num">FN.03</div>
+      <h3>Alertes en temps réel</h3>
+      <p>Notification instantanée à chaque ouverture, tentative d'accès ou changement d'état du véhicule.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">✓</div>
+      <div class="feat-num">FN.04</div>
+      <h3>Connexion sécurisée</h3>
+      <p>Liaison chiffrée de bout en bout entre le boîtier, nos serveurs et votre téléphone.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="section-head">
+    <div class="section-tag">// INSTALLATION</div>
+    <h2>Un boîtier compact, posé en 30 minutes.</h2>
+  </div>
+  <div class="process">
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-id">01</div>
+        <div><h4>Branchement direct</h4><p>Le module FT se connecte au faisceau existant du véhicule, sans coupure de câble ni modification irréversible.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-id">02</div>
+        <div><h4>Appairage à l'application</h4><p>Scannez le boîtier depuis l'app FT Solutions pour l'associer à votre compte en quelques secondes.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-id">03</div>
+        <div><h4>Calibrage véhicule</h4><p>L'IA embarquée reconnaît le modèle de voiture et ajuste automatiquement les seuils de sécurité.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-id">04</div>
+        <div><h4>Prêt à l'emploi</h4><p>Démarrage, verrouillage et inlock deviennent accessibles immédiatement depuis votre téléphone.</p></div>
+      </div>
+    </div>
+    <div class="device-panel">
+      <div style="font-family:var(--mono); font-size:11px; color:var(--text-2); margin-bottom:14px;">MODULE FT-01 // VUE TECHNIQUE</div>
+      <div style="background:var(--bg-2); border:1px solid var(--line); border-radius:8px; height:260px; display:flex; align-items:center; justify-content:center; color:var(--text-2); font-family:var(--mono); font-size:12px;">
+        [ Boîtier + connecteurs OBD ]
+      </div>
+      <div class="spec-strip">
+        <div><b>IP54</b>Étanchéité</div>
+        <div><b>-20°C / 65°C</b>Plage thermique</div>
+        <div><b>4G/BLE</b>Connectivité</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="app">
+  <div class="section-head">
+    <div class="section-tag">// APPLICATION</div>
+    <h2>Toute la voiture, dans votre poche.</h2>
+  </div>
+  <div class="app-wrap">
+    <div class="phone-mock">
+      <div class="phone-top">FT SOLUTIONS</div>
+      <div class="phone-sub">SECURE ACCESS CONTROL · ACTIVE</div>
+      <div class="phone-btn"><div class="dot">▶</div> Démarrer le moteur</div>
+      <div class="phone-btn"><div class="dot">▣</div> Verrouiller la voiture</div>
+      <div class="phone-btn"><div class="dot">◈</div> Activer l'inlock</div>
+    </div>
+    <div class="app-list">
+      <div class="app-item"><span class="n">01</span><div><h4>Suivi en direct</h4><p>Statut du véhicule, historique des actions et localisation approximative à tout moment.</p></div></div>
+      <div class="app-item"><span class="n">02</span><div><h4>Multi-conducteurs</h4><p>Partagez l'accès avec un membre de la famille sans dupliquer de clé physique.</p></div></div>
+      <div class="app-item"><span class="n">03</span><div><h4>Disponible partout</h4><p>Application native, légère, pensée pour un usage quotidien sans friction.</p></div></div>
+      <div class="badges">
+        <div class="badge">App Store</div>
+        <div class="badge">Google Play</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="specs">
+  <div class="footer-cta">
+    <h3>Prêt à sécuriser et connecter votre véhicule ?</h3>
+    <div style="display:flex; gap:14px;">
+      <button class="cta-btn">Commander le boîtier</button>
+      <button class="cta-ghost">Contacter un installateur</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>FT SOLUTIONS © 2026</span>
+    <span>Compatible avec la majorité des véhicules essence, diesel et hybrides</span>
+    <span>SUPPORT@FTSOLUTIONS.EXAMPLE</span>
+  </div>
+</footer>
+
+</body>
+</html>
