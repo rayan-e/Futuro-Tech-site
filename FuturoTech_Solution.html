@@ -777,7 +777,7 @@ footer p{font-size:.8rem;color:var(--muted);}
     </div>
  
     <p class="hero-sub">
-      Votre véhicule vous reconnaît <em style="color:var(--cyan);font-style:normal;">vous.</em><br> Pas votre clé. 
+      Votre véhicule vous reconnaît. <em style="color:var(--cyan);font-style:normal;">vous.</em><br> Pas votre clé 
       L'authentification biométrique en temps réel qui rend le vol impossible.
     </p>
  
@@ -1023,42 +1023,53 @@ footer p{font-size:.8rem;color:var(--muted);}
 <div class="div-line"></div>
  
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="section-header reveal">
+<section class="contact" id="contact">
+  <div class="contact-info reveal">
     <span class="section-tag">// Contact</span>
-    <h2>Travaillons <span>ensemble</span></h2>
-  </div>
- 
-  <div class="contact-grid">
-    <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/rayanesaya@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Nouveau message depuis FT Solutions">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <div class="form-field">
-        <label>Nom complet</label>
-        <input type="text" name="name" placeholder="Jean Dupont" required>
+    <h2>Parlez-nous<br>de votre<br><span style="color:var(--cyan);">projet</span></h2>
+    <p>Vous avez un projet, une question ou souhaitez une démonstration de FT Vision ? Notre équipe vous répond rapidement.</p>
+    <div class="address">
+      <div class="addr-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
-      <div class="form-field">
-        <label>Adresse email</label>
-        <input type="email" name="email" placeholder="jean@exemple.com" required>
+      <div class="addr-text">
+        <strong>Adresse</strong>
+        22 rue des déportés, Crespin, France
       </div>
-      <div class="form-field">
-        <label>Message</label>
-        <textarea name="message" placeholder="Décrivez votre projet..." required></textarea>
+    </div>
+    <div class="address">
+      <div class="addr-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.23 16z"/></svg>
       </div>
-      <button class="form-submit" type="submit">Envoyer le message →</button>
-    </form>
- 
-    <div class="map-wrapper reveal" style="transition-delay:0.2s">
-      <div class="map-overlay"></div>
-      <iframe
-        src="https://www.google.com/maps?q=22+rue+des+deportes+crespin&output=embed"
-        loading="lazy"
-        allowfullscreen>
-      </iframe>
+      <div class="addr-text">
+        <strong>Réseaux</strong>
+        @futuro_tech · LinkedIn · YouTube · TikTok
+      </div>
     </div>
   </div>
+ 
+  <form class="contact-form reveal" id="contactForm" style="transition-delay:.2s" action="https://formsubmit.co/rayanesaya@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Nouveau message depuis FT Vision">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://futuro-tech.org/FuturoTech_Solution.html?sent=true#contact">
+    <div class="cf-group">
+      <label>Nom complet</label>
+      <input type="text" name="name" placeholder="Jean Dupont" required>
+    </div>
+    <div class="cf-group">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="jean@exemple.com" required>
+    </div>
+    <div class="cf-group">
+      <label>Message</label>
+      <textarea name="message" placeholder="Décrivez votre projet ou votre demande..." required></textarea>
+    </div>
+    <button class="cf-submit" type="submit">Envoyer le message</button>
+    <p id="formStatus" style="font-size:.85rem;color:var(--cyan);margin-top:.5rem;"></p>
+  </form>
 </section>
+
  
 <!-- SOCIAL -->
 <div class="bottom">
