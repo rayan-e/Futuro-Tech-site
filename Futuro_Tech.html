@@ -183,7 +183,7 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: linear-gradient(rgba(0, 0, 0, 0.39), rgba(0, 0, 0, 0.353)),
+    background: 
     url('Aceuil/background1.png') center/cover no-repeat;
   }
  
@@ -888,7 +888,7 @@
   </button>
   <ul id="navMenu">
     <li><a href="#vision">Vision</a></li>
-    <li><a href="#solution">Solution</a></li>
+    <li><a href="#solutions">Solution</a></li>
     <li><a href="#industrie">Industrie</a></li>
     <li><a href="#contact" class="nav-back">Contact</a></li>
   </ul>
@@ -1045,20 +1045,23 @@
   </div>
  
   <div class="contact-grid">
-    <form class="contact-form reveal" onsubmit="return false;">
+    <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/rayanesaya@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nouveau message depuis FT Solutions">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
       <div class="form-field">
         <label>Nom complet</label>
-        <input type="text" placeholder="Jean Dupont">
+        <input type="text" name="name" placeholder="Jean Dupont" required>
       </div>
       <div class="form-field">
         <label>Adresse email</label>
-        <input type="email" placeholder="jean@exemple.com">
+        <input type="email" name="email" placeholder="jean@exemple.com" required>
       </div>
       <div class="form-field">
         <label>Message</label>
-        <textarea placeholder="Décrivez votre projet..."></textarea>
+        <textarea name="message" placeholder="Décrivez votre projet..." required></textarea>
       </div>
-      <button class="form-submit">Envoyer le message →</button>
+      <button class="form-submit" type="submit">Envoyer le message →</button>
     </form>
  
     <div class="map-wrapper reveal" style="transition-delay:0.2s">
