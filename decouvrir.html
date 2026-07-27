@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Découvrir le boîtier — FT Solutions</title>
+<link rel="icon" type="image/png" href="logo/futuro_tech_logo.jpeg">
+<style>
+:root{
+  --bg:#0a0f14;
+  --panel:#0e151b;
+  --panel-2:#111a21;
+  --line:rgba(255,255,255,0.08);
+  --teal:#2fd9c9;
+  --teal-dim:#1c8f85;
+  --text-0:#f2f6f7;
+  --text-1:#a9b6bb;
+  --text-2:#6b7a80;
+  --sans:'Inter','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:var(--bg); color:var(--text-0); font-family:var(--sans);}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+
+/* ---- header ---- */
+header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:24px 56px; border-bottom:1px solid var(--line);
+}
+.logo{display:flex; align-items:center; gap:8px; font-size:20px; font-weight:600;}
+.logo .mark{color:var(--teal); font-weight:800; font-size:22px;}
+.back-link{font-size:14px; color:var(--text-1);}
+.back-link:hover{color:var(--teal);}
+a.cta-btn, .order-btn{
+  display:inline-block; background:var(--teal); color:#04211d; border:none;
+  padding:12px 26px; border-radius:24px; font-weight:600; font-size:14.5px; cursor:pointer;
+  text-align:center;
+}
+
+/* ---- hero ---- */
+.hero{
+  display:grid; grid-template-columns:1fr 1fr; gap:50px;
+  padding:70px 56px; align-items:center; max-width:1400px; margin:0 auto;
+}
+.eyebrow{font-size:12.5px; color:var(--teal); letter-spacing:0.1em; font-weight:700; margin-bottom:16px;}
+.hero h1{font-size:44px; font-weight:800; line-height:1.1; margin-bottom:18px;}
+.hero h1 .accent{color:var(--teal);}
+.hero p.lead{color:var(--text-1); font-size:16px; line-height:1.6; margin-bottom:30px; max-width:460px;}
+.hero-actions{display:flex; gap:14px; margin-bottom:34px;}
+.btn-outline{
+  background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.3);
+  padding:12px 26px; border-radius:24px; font-weight:600; font-size:14.5px; cursor:pointer;
+}
+.mini-specs{display:flex; gap:26px; border-top:1px solid var(--line); padding-top:22px;}
+.mini-specs div span{display:block; font-weight:700; color:var(--teal); font-size:17px;}
+.mini-specs div p{font-size:11.5px; color:var(--text-2); margin-top:3px;}
+.hero-visual{background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:20px;}
+.hero-visual img{border-radius:12px;}
+
+/* ---- section shell ---- */
+section.block{max-width:1400px; margin:0 auto; padding:60px 56px;}
+.section-head{max-width:640px; margin-bottom:44px;}
+.section-tag{font-size:12.5px; color:var(--teal); font-weight:700; letter-spacing:0.1em; margin-bottom:12px;}
+.section-head h2{font-size:30px; font-weight:800; line-height:1.15;}
+.section-head p{color:var(--text-1); margin-top:14px; font-size:14.5px; line-height:1.6;}
+
+/* ---- feature deep dive ---- */
+.deep-row{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; padding:44px 0; border-bottom:1px solid var(--line);}
+.deep-row:last-child{border-bottom:none;}
+.deep-row.reverse{direction:rtl;}
+.deep-row.reverse > *{direction:ltr;}
+.deep-num{font-size:12.5px; color:var(--text-2); font-weight:700; margin-bottom:10px;}
+.deep-row h3{font-size:23px; font-weight:700; margin-bottom:14px;}
+.deep-row p{color:var(--text-1); font-size:14.5px; line-height:1.6; margin-bottom:16px;}
+.deep-row ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+.deep-row li{font-size:13.5px; color:var(--text-1); display:flex; gap:8px;}
+.deep-row li::before{content:'✓'; color:var(--teal); font-weight:700;}
+.deep-visual{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px;}
+.deep-visual img{border-radius:8px;}
+
+/* ---- specs table ---- */
+.specs-table{border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+.specs-row{display:grid; grid-template-columns:1fr 1fr; padding:18px 26px; font-size:14px;}
+.specs-row:nth-child(odd){background:var(--panel);}
+.specs-row:nth-child(even){background:var(--panel-2);}
+.specs-row span:first-child{color:var(--text-1);}
+.specs-row span:last-child{font-weight:600; text-align:right;}
+
+/* ---- FAQ ---- */
+.faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
+.faq-item summary{cursor:pointer; font-size:15px; font-weight:600; list-style:none; display:flex; justify-content:space-between; align-items:center;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:'+'; color:var(--teal); font-size:20px; font-weight:400;}
+.faq-item[open] summary::after{content:'−';}
+.faq-item p{color:var(--text-1); font-size:13.5px; line-height:1.6; margin-top:12px; max-width:700px;}
+
+/* ---- final CTA ---- */
+.final-cta{
+  background:var(--panel); border:1px solid var(--line); border-radius:20px;
+  padding:50px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+}
+.final-cta h3{font-size:24px; font-weight:800; max-width:440px; line-height:1.2;}
+.final-cta p{color:var(--text-1); font-size:13.5px; margin-top:8px;}
+.final-actions{display:flex; gap:14px;}
+
+footer{border-top:1px solid var(--line); padding:30px 56px; font-size:12px; color:var(--text-2); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+@media(max-width:960px){
+  header{padding:18px 24px;}
+  .hero, section.block{padding:40px 24px;}
+  .hero{grid-template-columns:1fr;}
+  .deep-row, .deep-row.reverse{grid-template-columns:1fr; direction:ltr;}
+  .specs-row{grid-template-columns:1fr; gap:4px;}
+  .specs-row span:last-child{text-align:left;}
+  .mini-specs{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"> <a href="https://futuro-tech.org/Futuro_Tech.html" class="nav-logo"><img src="images/logo-FT-2026V33--png.png" alt="FT Solutions"s></a></div> 
+  <a href="ft_L_solutions.html" class="back-link">← Retour au site</a>
+  <a href="commander.html" class="cta-btn" target="_blank" rel="noopener noreferrer">Commander</a>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">MODULE FT-01</div>
+    <h1>Le boîtier qui rend<br>votre voiture <span class="accent">intelligente.</span></h1>
+    <p class="lead">Un module compact installé en 30 minutes, connecté en permanence à votre smartphone. Démarrage, verrouillage et mode Inlock, où que vous soyez.</p>
+    <div class="hero-actions">
+      <a href="commander.html" class="cta-btn" target="_blank" rel="noopener noreferrer">Commander le boîtier</a>
+      <a href="commander.html" class="btn-outline">Voir les tarifs</a>
+    </div>
+    <div class="mini-specs">
+      <div><span>IP54</span><p>Étanchéité</p></div>
+      <div><span>4G / BLE</span><p>Connectivité</p></div>
+      <div><span>&lt;80ms</span><p>Latence</p></div>
+      <div><span>2 ans</span><p>Garantie</p></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="images/product-FT-Vision-Récupéré4.png" alt="Boîtier FT Solutions">
+  </div>
+</section>
+
+<section class="block">
+  <div class="section-head">
+    <div class="section-tag">// CE QUE FAIT LE BOÎTIER</div>
+    <h2>Trois fonctions, une seule application.</h2>
+    <p>Chaque fonction répond à une situation concrète du quotidien automobile.</p>
+  </div>
+
+  <div class="deep-row">
+    <div>
+      <div class="deep-num">01 — DÉMARRAGE À DISTANCE</div>
+      <h3>Préchauffez ou préclimatisez avant de monter en voiture.</h3>
+      <p>Le boîtier déclenche le démarrage moteur à distance, sans intervention sur le contact. Idéal les matins froids ou pour ventiler l'habitacle avant un trajet.</p>
+      <ul>
+        <li>Démarrage en un tap depuis l'app</li>
+        <li>Fonctionne à distance illimitée (réseau 4G)</li>
+        <li>Coupure automatique en cas d'anomalie moteur</li>
+      </ul>
+    </div>
+    <div class="deep-visual"><img src="images/Start_engien.png" alt="Application FT Solutions démarrage moteur"></div>
+  </div>
+
+  <div class="deep-row reverse">
+    <div>
+      <div class="deep-num">02 — VERROUILLAGE & INLOCK</div>
+      <h3>Verrouillez normalement, ou activez une protection renforcée.</h3>
+      <p>Le mode Inlock condamne les portes même de l'intérieur, empêchant toute ouverture non autorisée — utile en zone à risque ou lors d'un arrêt bref.</p>
+      <ul>
+        <li>Verrouillage standard en un geste</li>
+        <li>Mode Inlock activable à distance</li>
+        <li>Confirmation visuelle immédiate dans l'app</li>
+      </ul>
+    </div>
+    <div class="deep-visual"><img src="images/Alert0.png" alt="Application mobile FT Solutions"></div>
+  </div>
+
+  <div class="deep-row">
+    <div>
+      <div class="deep-num">03 — ALERTES EN TEMPS RÉEL</div>
+      <h3>Soyez informé à chaque événement sur votre véhicule.</h3>
+      <p>Notification instantanée en cas d'ouverture, de tentative d'accès ou de changement d'état — même quand votre téléphone est en poche.</p>
+      <ul>
+        <li>Notifications push instantanées</li>
+        <li>Historique complet des actions</li>
+        <li>Partage d'accès multi-conducteurs</li>
+      </ul>
+    </div>
+    <div class="deep-visual"><img src="images/Alert.png" alt="Conducteur utilisant l'application FT Solutions"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="section-head">
+    <div class="section-tag">// FICHE TECHNIQUE</div>
+    <h2>Caractéristiques du module FT-01</h2>
+  </div>
+  <div class="specs-table">
+    <div class="specs-row"><span>Dimensions</span><span>68 × 42 × 18 mm</span></div>
+    <div class="specs-row"><span>Connectique</span><span>Faisceau OBD / câblage direct</span></div>
+    <div class="specs-row"><span>Connectivité</span><span>4G LTE + Bluetooth Low Energy</span></div>
+    <div class="specs-row"><span>Chiffrement</span><span>AES-256, liaison de bout en bout</span></div>
+    <div class="specs-row"><span>Étanchéité</span><span>IP54</span></div>
+    <div class="specs-row"><span>Plage de température</span><span>−20 °C à 65 °C</span></div>
+    <div class="specs-row"><span>Alimentation</span><span>Batterie véhicule 12V, veille basse conso</span></div>
+    <div class="specs-row"><span>Compatibilité</span><span>Essence, diesel, hybride — majorité des modèles depuis 2010</span></div>
+    <div class="specs-row"><span>Application</span><span>iOS 14+ / Android 9+</span></div>
+    <div class="specs-row"><span>Garantie</span><span>2 ans pièces et main d'œuvre</span></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="section-head">
+    <div class="section-tag">// QUESTIONS FRÉQUENTES</div>
+    <h2>Tout ce qu'il faut savoir avant de commander.</h2>
+  </div>
+
+  <details class="faq-item" open>
+    <summary>Le boîtier fonctionne-t-il sur ma voiture ?</summary>
+    <p>Le module FT-01 est compatible avec la majorité des véhicules essence, diesel et hybrides commercialisés depuis 2010. En cas de doute, indiquez la marque et le modèle lors de la commande — notre support vérifie la compatibilité avant expédition.</p>
+  </details>
+  <details class="faq-item">
+    <summary>L'installation nécessite-t-elle un professionnel ?</summary>
+    <p>Non, le boîtier est conçu pour un branchement simple sur le faisceau existant. Une option d'installation à domicile par un technicien agréé est toutefois disponible lors de la commande.</p>
+  </details>
+  <details class="faq-item">
+    <summary>Que se passe-t-il en cas de coupure réseau ?</summary>
+    <p>Le module bascule en mode local via Bluetooth pour les commandes de proximité, et se resynchronise automatiquement dès que la connexion 4G est rétablie.</p>
+  </details>
+  <details class="faq-item">
+    <summary>Puis-je partager l'accès avec un autre conducteur ?</summary>
+    <p>Oui, la formule Pro + Inlock permet d'ajouter plusieurs profils conducteurs avec des droits d'accès configurables depuis l'application.</p>
+  </details>
+
+</section>
+
+<section class="block">
+  <div class="final-cta">
+    <div>
+      <h3>Prêt à équiper votre véhicule ?</h3>
+      <p>Livraison sous 3 à 5 jours ouvrés, installation simple, garantie 2 ans.</p>
+    </div>
+    <div class="final-actions">
+      <a href="https://futuro-tech.org/FuturoTech_Solution.html" class="cta-btn" target="_blank" rel="noopener noreferrer">Commander maintenant</a>
+      <a href="commander.html" class="btn-outline">Voir les formules</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>FT SOLUTIONS © 2026</span>
+  <span>Compatible avec la majorité des véhicules essence, diesel et hybrides</span>
+</footer>
+
+</body>
+</html>

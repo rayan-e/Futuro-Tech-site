@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FT Solutions — Futuro Tech</title>
+<link rel="icon" type="image/png" href="logo/futuro_tech_logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -146,6 +147,30 @@
   .nav-cta:hover { background: var(--accent) !important; color: var(--bg) !important; }
   .nav-cta::after { display: none !important; }
  
+  /* MOBILE NAV TOGGLE */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 200;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+ 
   /* HERO */
   .hero {
     min-height: 100vh;
@@ -227,6 +252,7 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
     animation: fadeUp 0.8s 0.8s ease both;
   }
  
@@ -239,9 +265,10 @@
     font-size: 0.95rem;
     border-radius: 2px;
     transition: transform 0.2s, box-shadow 0.2s;
-    cursor: none;
+    cursor: pointer;
     position: relative;
     overflow: hidden;
+    display: inline-block;
   }
   .btn-primary::before {
     content: '';
@@ -263,7 +290,8 @@
     font-size: 0.95rem;
     border-radius: 2px;
     transition: border-color 0.3s, background 0.3s;
-    cursor: none;
+    cursor: pointer;
+    display: inline-block;
   }
   .btn-outline:hover { border-color: var(--accent); background: var(--glow); }
  
@@ -314,12 +342,13 @@
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
+    min-width: 0;
   }
   .stat:last-child { border-right: none; }
   .stat.visible { opacity: 1; transform: translateY(0); }
   .stat-num {
     font-family: 'Syne', sans-serif;
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 800;
     color: var(--accent);
     line-height: 1;
@@ -369,13 +398,20 @@
     padding: 3rem;
     position: relative;
     overflow: hidden;
-    cursor: none;
+    cursor: pointer;
     transition: background 0.4s;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease, background 0.4s ease;
   }
   .sol-card.visible { opacity: 1; transform: translateY(0); }
+ 
+  .sol-card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
  
   .sol-card::before {
     content: '';
@@ -434,7 +470,7 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: gap 0.3s;
-    cursor: none;
+    cursor: pointer;
   }
   .sol-link:hover { gap: 1rem; }
   .sol-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
@@ -460,7 +496,7 @@
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
-    cursor: none;
+    cursor: pointer;
     transition: border-color 0.3s, transform 0.4s;
     opacity: 0;
     transform: scale(0.95);
@@ -499,8 +535,8 @@
     position: relative;
   }
  
-  .ind-visual svg { width: 80px; height: 80px; opacity: 0.4; transition: opacity 0.3s, transform 0.3s; }
-  .ind-card:hover .ind-visual svg { opacity: 0.7; transform: scale(1.1); }
+  .ind-visual img { max-width: 100%; max-height: 100%; object-fit: contain; opacity: 0.4; transition: opacity 0.3s, transform 0.3s; position: relative; z-index: 1; }
+  .ind-card:hover .ind-visual img { opacity: 0.7; transform: scale(1.1); }
  
   .ind-visual-lines {
     position: absolute;
@@ -620,7 +656,8 @@
     transition: border-color 0.3s;
     resize: none;
     border-radius: 0;
-    cursor: none;
+    cursor: text;
+    width: 100%;
   }
   .form-field input:focus,
   .form-field textarea:focus { border-color: var(--accent); }
@@ -636,7 +673,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    cursor: none;
+    cursor: pointer;
     transition: background 0.3s, color 0.3s;
     align-self: flex-start;
   }
@@ -668,6 +705,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
   }
  
   .social-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
@@ -675,6 +714,7 @@
   .social-links {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
   }
  
   .social-link {
@@ -686,7 +726,7 @@
     text-decoration: none;
     color: var(--muted);
     transition: border-color 0.3s, color 0.3s, background 0.3s;
-    cursor: none;
+    cursor: pointer;
   }
   .social-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
   .social-link svg { width: 18px; height: 18px; fill: currentColor; }
@@ -698,6 +738,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
     position: relative;
     z-index: 1;
   }
@@ -728,33 +770,109 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
  
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; }
-    nav ul { display: none; }
-    .stats { grid-template-columns: 1fr 1fr; }
-    .sol-grid { grid-template-columns: 1fr; }
-    .ind-grid { grid-template-columns: 1fr; }
-    .ceo-section { grid-template-columns: 1fr; gap: 3rem; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .social-section { flex-direction: column; gap: 2rem; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-    .solutions, .industries, .contact-section { padding: 5rem 2rem; }
-  }
-  /*Logo*/
-.logo {
+  /* LOGO */
+  .logo {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.logo img {
+  }
+  .logo img {
     height: 55px;
-}
-
-.logo span {
+    max-width: 100%;
+  }
+  .logo span {
     font-weight: 600;
     color: #1de9b6;
-}
+  }
+
+  /* -------- RESPONSIVE / MOBILE -------- */
+
+  /* Disable custom cursor on touch devices (no fine pointer) */
+  @media (hover: none), (pointer: coarse) {
+    body, nav a, .btn-primary, .btn-outline, .sol-card, .ind-card,
+    .form-field input, .form-field textarea, .form-submit, .social-link, .sol-link {
+      cursor: auto;
+    }
+    .cursor, .cursor-ring { display: none; }
+  }
+
+  @media (max-width: 1024px) {
+    .ceo-section { gap: 4rem; }
+    .sol-grid, .ind-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+
+    nav ul {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(78vw, 320px);
+      background: rgba(5,10,15,0.97);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid var(--border);
+      padding: 6rem 2.5rem 2rem;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      z-index: 150;
+    }
+    nav ul.open { transform: translateX(0); }
+    nav ul li { width: 100%; }
+    nav a { font-size: 1rem; }
+
+    .nav-toggle { display: flex; }
+
+    .hero { padding: 7rem 1.25rem 3rem; min-height: 100svh; }
+    h1 { font-size: clamp(2rem, 8vw, 3rem); }
+    .hero-sub { font-size: 1rem; }
+    .hero-ctas { flex-direction: column; width: 100%; }
+    .hero-ctas a { width: 100%; text-align: center; }
+
+    .stats { grid-template-columns: 1fr 1fr; padding: 3rem 1.5rem; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0.5rem; }
+    .stat:nth-child(2n) { border-right: none; }
+    .stat:nth-last-child(-n+2) { border-bottom: none; }
+
+    .solutions, .industries, .ceo-section, .contact-section { padding: 4rem 1.5rem; }
+    .section-header { margin-bottom: 3rem; }
+
+    .sol-grid, .ind-grid { grid-template-columns: 1fr; }
+    .sol-card {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .sol-card img { margin-left: auto; margin-right: auto; }
+    .sol-icon { margin-left: auto; margin-right: auto; }
+    .sol-link { justify-content: center; }
+
+    .ceo-section { grid-template-columns: 1fr; gap: 3rem; }
+    .ceo-frame { max-width: 320px; margin: 0 auto; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .map-wrapper { min-height: 300px; }
+
+    .social-section { flex-direction: column; gap: 1.5rem; text-align: center; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    nav .logo img { height: 40px; }
+    h1 { font-size: clamp(1.7rem, 9vw, 2.4rem); }
+    .btn-primary, .btn-outline { padding: 0.9rem 1.5rem; font-size: 0.9rem; }
+    .stats { grid-template-columns: 1fr 1fr; padding: 2.5rem 1rem; }
+    .stat-num { font-size: 2.2rem; }
+    h2 { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+    .sol-card, .ind-card { padding: 1.5rem; }
+    .ceo-stats { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -764,14 +882,15 @@
  
 <!-- NAV -->
 <nav>
-      <div class="logo">
-        <img src="images/logo-FT-2026V33--png.png" alt="FT Solutions">
-    </div>
-  <ul>
+  <div class="logo"> <a href="https://futuro-tech.org/Futuro_Tech.html" class="nav-logo"><img src="images/logo-FT-2026V33--png.png" alt="FT Solutions"></a></div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
     <li><a href="#vision">Vision</a></li>
-    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#solution">Solution</a></li>
     <li><a href="#industrie">Industrie</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
+    <li><a href="#contact" class="nav-back">Contact</a></li>
   </ul>
 </nav>
  
@@ -785,9 +904,8 @@
  
   <h1>
     Security Becomes<br>
-    <em>More</em> Than Protection</span>
+    <em>More</em> Than Protection
   </h1>
- 
   <p class="hero-sub">
     FT Solutions développe des technologies avancées en IA, reconnaissance faciale
     et vision embarquée pour les véhicules et infrastructures intelligentes.
@@ -889,7 +1007,7 @@
       <span class="ind-number">001</span>
       <div class="ind-visual">
         <div class="ind-visual-lines"></div>
-        <img src="Aceuil/image1V1.png" alt="Automobile"></a>
+        <img src="Aceuil/image1V1.png" alt="Automobile">
       </div>
       <h3>Automobile</h3>
       <p class="sol-desc">Fabrication de volants intelligents et systèmes embarqués connectés pour la mobilité du futur.</p>
@@ -899,7 +1017,7 @@
       <span class="ind-number">002</span>
       <div class="ind-visual">
         <div class="ind-visual-lines"></div>
-        <img src="Aceuil/image2V2.png" alt="yachts"></a>
+        <img src="Aceuil/image2V2.png" alt="yachts">
       </div>
       <h3>Yachting</h3>
       <p class="sol-desc">Conception de systèmes premium pour yachts de nouvelle génération avec intégration IA.</p>
@@ -909,7 +1027,7 @@
       <span class="ind-number">003</span>
       <div class="ind-visual">
         <div class="ind-visual-lines"></div>
-        <img src="Aceuil/image3V3.png" alt="free Energie"></a>
+        <img src="Aceuil/image3V3.png" alt="free Energie">
       </div>
       <h3>Smart Infrastructure</h3>
       <p class="sol-desc">Intégration FT Vision dans les bornes de recharge et smart cities pour une ville connectée.</p>
@@ -918,8 +1036,6 @@
 </section>
  
 <div class="h-line"></div>
- 
-
  
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
@@ -981,21 +1097,43 @@
 </footer>
  
 <script>
-// CURSOR
+// CURSOR (desktop only)
+const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-function animateCursor() {
-  cursor.style.left = (mx - 6) + 'px';
-  cursor.style.top = (my - 6) + 'px';
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = (rx - 18) + 'px';
-  ring.style.top = (ry - 18) + 'px';
-  requestAnimationFrame(animateCursor);
+if (!isTouch) {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = (mx - 6) + 'px';
+    cursor.style.top = (my - 6) + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = (rx - 18) + 'px';
+    ring.style.top = (ry - 18) + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+} else {
+  cursor.style.display = 'none';
+  ring.style.display = 'none';
 }
-animateCursor();
+
+// MOBILE NAV TOGGLE
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+navToggle.addEventListener('click', () => {
+  const isOpen = navMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
+navMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navMenu.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  });
+});
  
 // INTERSECTION OBSERVER
 const observer = new IntersectionObserver((entries) => {
@@ -1040,18 +1178,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
  
-// TILT EFFECT ON CARDS
-document.querySelectorAll('.sol-card, .ind-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(800px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-4px)`;
+// TILT EFFECT ON CARDS (desktop only)
+if (!isTouch) {
+  document.querySelectorAll('.sol-card, .ind-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
-});
+}
 </script>
 </body>
 </html>
