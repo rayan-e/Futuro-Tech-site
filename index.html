@@ -579,23 +579,28 @@
         <h2>Travaillons ensemble</h2>
       </div>
 
-      <div class="contact-grid">
-        <form class="reveal" onsubmit="return false;">
+        <div class="contact-grid">
+        <form class="reveal" id="contactForm" action="https://formsubmit.co/rayanesaya@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nouveau message depuis FT Solutions">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://futuro-tech.org/Futuro_Tech.html?sent=true#contact">
           <div class="field">
-            <input type="text" id="fname" placeholder=" " required>
+            <input type="text" name="name" id="fname" placeholder=" " required>
             <label for="fname">Nom complet</label>
           </div>
           <div class="field">
-            <input type="email" id="femail" placeholder=" " required>
+            <input type="email" name="email" id="femail" placeholder=" " required>
             <label for="femail">Adresse email</label>
           </div>
           <div class="field">
-            <textarea id="fmsg" placeholder=" " required></textarea>
+            <textarea name="message" id="fmsg" placeholder=" " required></textarea>
             <label for="fmsg">Message</label>
           </div>
           <button type="submit" class="submit-btn">Envoyer le message
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
           </button>
+          <p id="formStatus" style="font-size:13px;color:var(--mint);margin-top:12px;"></p>
         </form>
 
         <div class="reveal">
