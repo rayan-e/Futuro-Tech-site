@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="logo/logo-FT2026.png">
+<title>Porte-lunettes de pare-soleil — Futuro Tech Accessories</title>
+<style>
+  :root{
+    --navy:#0c1424;
+    --navy-2:#121d33;
+    --mint:#5eead4;
+    --mint-dim:#3fb6a3;
+    --paper:#eef1f6;
+    --line:#25324a;
+    --muted:#8a93a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--navy);
+    color:var(--paper);
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+  header{padding:24px 0;border-bottom:1px solid var(--line);}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;}
+  .brand{font-size:16px;font-weight:600;letter-spacing:0.01em;}
+  .brand span{color:var(--mint);}
+  .brand small{display:block;font-size:10px;color:var(--muted);font-weight:400;letter-spacing:0.04em;}
+
+  main{padding:56px 0 96px;}
+  .product{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  @media (max-width:760px){.product{grid-template-columns:1fr;gap:32px;} main{padding:36px 0 64px;}}
+
+  .frame{
+    border:1px solid var(--line);
+    background:var(--navy-2);
+    overflow:hidden;
+  }
+  .frame img{width:100%;display:block;}
+
+  .kicker{font-size:12px;color:var(--mint);letter-spacing:0.02em;}
+  h1{font-size:28px;font-weight:600;margin-top:8px;max-width:18ch;line-height:1.2;}
+  .price{font-size:22px;color:var(--mint);margin-top:14px;font-weight:600;}
+
+  .desc{margin-top:20px;max-width:44ch;color:#c3cad9;font-size:14px;}
+  .desc p+p{margin-top:10px;}
+
+  .block{margin-top:30px;}
+  .block-label{font-size:12px;color:var(--muted);margin-bottom:10px;}
+
+  .colors{display:flex;flex-wrap:wrap;gap:10px;}
+  .color-btn{
+    display:flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    background:transparent;
+    padding:8px 14px;
+    cursor:pointer;
+    font-size:13px;
+    color:var(--paper);
+  }
+  .color-btn[aria-pressed="true"]{border-color:var(--mint);color:var(--mint);}
+  .swatch{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid var(--line);}
+  .swatch.noir{background:#1a1a1a;}
+  .swatch.beige{background:#d9cdb8;}
+  .swatch.orange{background:#e8722c;}
+  .swatch.grenadine{background:#c62d42;}
+  .swatch.bleu{background:#2f5da8;}
+  .swatch.marron{background:#5b3d2b;}
+
+  .qty{display:flex;align-items:center;gap:0;width:fit-content;border:1px solid var(--line);}
+  .qty button{
+    width:38px;height:38px;
+    background:transparent;border:none;
+    color:var(--paper);font-size:16px;cursor:pointer;
+  }
+  .qty button:hover{color:var(--mint);}
+  .qty span{
+    width:40px;text-align:center;font-size:14px;
+    border-left:1px solid var(--line);border-right:1px solid var(--line);
+    line-height:38px;
+  }
+
+  .buy{
+    margin-top:34px;
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--mint);color:var(--navy);
+    border:none;padding:15px 26px;
+    font-size:14px;font-weight:700;
+    cursor:pointer;text-decoration:none;
+    transition:background .15s ease;
+  }
+  .buy:hover{background:var(--mint-dim);}
+  .buy:focus-visible{outline:2px solid var(--mint);outline-offset:3px;}
+
+  .note{margin-top:12px;font-size:11px;color:var(--muted);}
+
+  footer{border-top:1px solid var(--line);padding:22px 0;font-size:11px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Futuro Tech <span>Accessories</span>
+      <small>futuro-tech.org</small>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="product">
+
+    <div class="frame">
+      <img src="images/FT_Car_glasses_clip1.jpeg" alt="Porte-lunettes en cuir fixé sur pare-soleil de voiture, avec poche pour cartes">
+    </div>
+
+    <div>
+      <div class="kicker">Accessoire habitacle</div>
+      <h1>Porte-lunettes de pare-soleil, avec poche cartes</h1>
+      <div class="price"><span id="priceValue">5,99</span> €</div>
+
+      <div class="desc">
+        <p>Se clipse directement sur le pare-soleil. Range tes lunettes de soleil sans les rayer, et une poche cuir pour cartes ou tickets de parking.</p>
+        <p>Fixation aimantée, cuir PU cousu, montage en 5 secondes sans outil.</p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Couleur</div>
+        <div class="colors" role="group" aria-label="Couleur">
+          <button class="color-btn" data-color="Noir" aria-pressed="true"><span class="swatch noir"></span>Noir</button>
+          <button class="color-btn" data-color="Beige" aria-pressed="false"><span class="swatch beige"></span>Beige</button>
+          <button class="color-btn" data-color="Orange" aria-pressed="false"><span class="swatch orange"></span>Orange</button>
+          <button class="color-btn" data-color="Grenadine" aria-pressed="false"><span class="swatch grenadine"></span>Grenadine</button>
+          <button class="color-btn" data-color="Bleu" aria-pressed="false"><span class="swatch bleu"></span>Bleu</button>
+          <button class="color-btn" data-color="Marron" aria-pressed="false"><span class="swatch marron"></span>Marron</button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Quantité</div>
+        <div class="qty">
+          <button id="qtyMinus" aria-label="Diminuer la quantité">−</button>
+          <span id="qtyValue">1</span>
+          <button id="qtyPlus" aria-label="Augmenter la quantité">+</button>
+        </div>
+      </div>
+
+      <!--
+        ÉTAPE CLÉ — configuration Stripe :
+        1) Dashboard Stripe → Payment Links → Créer un lien pour ce produit à 5,99€.
+        2) Dans "Options avancées" du lien, active "Quantité modifiable par le client"
+           → la quantité choisie ici sera reprise automatiquement sur Stripe.
+        3) Pour la couleur : ajoute un "Champ personnalisé" (menu déroulant Noir/Beige)
+           dans les options du Payment Link — Stripe l'affichera sur sa page de paiement
+           et te le remontera dans les détails de la commande.
+        Remplace le lien ci-dessous par le tien.
+      -->
+      <a class="buy" id="buyBtn" href="https://buy.stripe.com/9B69AM2R2dsa8IDeAPbAs00" rel="noopener">
+        Ajouter au panier — <span id="buyPrice">5,99 €</span>
+      </a>
+
+      <div class="note">Redirection vers Stripe Checkout. La couleur et la quantité choisies ici sont à confirmer sur la page Stripe.</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© Futuro Tech Accessories — hébergé sur GitHub Pages</div>
+</footer>
+
+<script>
+  const colorButtons = document.querySelectorAll('.color-btn');
+  let selectedColor = 'Noir';
+  colorButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      colorButtons.forEach(b => b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      selectedColor = btn.dataset.color;
+    });
+  });
+
+  const UNIT_PRICE = 5.99;
+  let qty = 1;
+  const qtyValue = document.getElementById('qtyValue');
+  const priceValue = document.getElementById('priceValue');
+  const buyPrice = document.getElementById('buyPrice');
+
+  function updatePrice() {
+    const total = (UNIT_PRICE * qty).toFixed(2).replace('.', ',');
+    priceValue.textContent = total;
+    buyPrice.textContent = `${total} €`;
+  }
+
+  document.getElementById('qtyMinus').addEventListener('click', () => {
+    if (qty > 1) { qty--; qtyValue.textContent = qty; updatePrice(); }
+  });
+  document.getElementById('qtyPlus').addEventListener('click', () => {
+    qty++; qtyValue.textContent = qty; updatePrice();
+  });
+
+  // Passe la couleur et la quantité choisies en paramètres sur l'URL Stripe,
+  // utile si tu veux les retrouver dans tes notes de commande (webhook/metadata).
+  document.getElementById('buyBtn').addEventListener('click', function(e) {
+    const base = this.getAttribute('href').split('?')[0];
+    this.setAttribute('href', `${base}?prefilled_quantity=${qty}&client_reference_id=${encodeURIComponent(selectedColor)}`);
+  });
+</script>
+
+</body>
+</html>
