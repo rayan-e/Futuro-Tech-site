@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="logo/logo-FT2026.png">
 <title>Bureau Mobile — FT Solutions</title>
 <style>
   :root{
@@ -158,7 +157,7 @@
         2) Remplace le lien Stripe ci-dessous par ton Payment Link réel
            (avec "quantité modifiable" activée côté Stripe).
       -->
-      <a class="buy" id="buyBtn" href="https://buy.stripe.com/REMPLACE_PAR_TON_LIEN" rel="noopener">
+      <a class="buy" id="buyBtn" href="https://buy.stripe.com/dRmeV64Za73MaQLcsHbAs02" rel="noopener">
         Commander — <span id="buyPrice">19,99 €</span>
       </a>
 
@@ -179,10 +178,10 @@
 </footer>
 
 <script>
-  const images = ['gallery-main.jpg','gallery-t2.jpg','gallery-t3.jpg','gallery-t4.jpg'];
+  const thumbs = document.querySelectorAll('.thumb');
+  const images = Array.from(thumbs).map(t => t.querySelector('img').getAttribute('src'));
   let currentIndex = 0;
   const mainImage = document.getElementById('mainImage');
-  const thumbs = document.querySelectorAll('.thumb');
 
   function showImage(index){
     currentIndex = ((index % images.length) + images.length) % images.length;
