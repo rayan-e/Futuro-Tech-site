@@ -107,15 +107,12 @@ h1.page-title{font-size:32px; font-weight:800; margin-bottom:6px;}
 .switch input:checked + .slider{background:var(--teal);}
 .switch input:checked + .slider::before{transform:translateX(20px);}
 
-/* ---- form ---- */
-.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px;}
-.form-grid .full{grid-column:1 / -1;}
-label{font-size:12.5px; color:var(--text-1); display:block; margin-bottom:6px;}
-input[type=text], input[type=email], input[type=tel], select{
-  width:100%; background:var(--panel); border:1px solid var(--line); border-radius:9px;
-  padding:12px 14px; color:var(--text-0); font-size:14px; font-family:var(--sans);
+/* ---- info note (replaces the old local-only form) ---- */
+.info-note{
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:20px 24px; margin-top:16px; font-size:13px; color:var(--text-1); line-height:1.6;
 }
-input:focus, select:focus{outline:none; border-color:var(--teal);}
+.info-note b{color:var(--text-0);}
 
 /* ---- sidebar summary ---- */
 .summary{
@@ -131,6 +128,7 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
 .confirm-btn{
   width:100%; background:var(--teal); color:#04211d; border:none; padding:16px;
   border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:14px;
+  text-decoration:none; display:block; text-align:center;
 }
 .trust-row{display:flex; flex-direction:column; gap:10px;}
 .trust-item{display:flex; gap:10px; align-items:center; font-size:12px; color:var(--text-1);}
@@ -142,7 +140,6 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
   header{padding:18px 24px;}
   .wrap{grid-template-columns:1fr; padding:30px 24px 70px;}
   .plans{grid-template-columns:1fr;}
-  .form-grid{grid-template-columns:1fr;}
   .product-card{flex-direction:column;}
   .summary{position:static;}
 }
@@ -178,7 +175,7 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
 
     <div class="section-label">Formule</div>
     <div class="plans">
-      <div class="plan selected" data-price="149" onclick="selectPlan(this)">
+      <div class="plan selected" data-plan="standard" data-price="149" onclick="selectPlan(this)">
         <h4>Standard</h4>
         <div class="price">149 € <span>/ boîtier</span></div>
         <ul>
@@ -188,7 +185,7 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
           <li>Garantie 2 ans</li>
         </ul>
       </div>
-      <div class="plan" data-price="219" onclick="selectPlan(this)">
+      <div class="plan" data-plan="pro" data-price="219" onclick="selectPlan(this)">
         <span class="badge-pop">Populaire</span>
         <h4>Pro + Inlock</h4>
         <div class="price">219 € <span>/ boîtier</span></div>
@@ -222,16 +219,8 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
       </label>
     </div>
 
-    <div class="section-label">Vos coordonnées</div>
-    <div class="form-grid">
-      <div><label>Prénom</label><input type="text" placeholder="Rayane"></div>
-      <div><label>Nom</label><input type="text" placeholder="B."></div>
-      <div class="full"><label>E-mail</label><input type="email" placeholder="vous@exemple.com"></div>
-      <div class="full"><label>Téléphone</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
-      <div class="full"><label>Adresse de livraison</label><input type="text" placeholder="12 rue Exemple"></div>
-      <div><label>Ville</label><input type="text" placeholder="Valenciennes"></div>
-      <div><label>Code postal</label><input type="text" placeholder="59300"></div>
-      <div class="full"><label>Véhicule (marque / modèle)</label><input type="text" placeholder="Peugeot 308 (2018)"></div>
+    <div class="info-note">
+      <b>Étape suivante :</b> vos coordonnées, votre adresse de livraison et le modèle de votre véhicule vous seront demandés sur la page de paiement Stripe, sécurisée et chiffrée. Rien n'est collecté ni stocké sur ce site.
     </div>
   </div>
 
@@ -242,7 +231,26 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
     <div class="sum-row"><span>Livraison</span><b>Offerte</b></div>
     <div class="sum-divider"></div>
     <div class="sum-total"><span>Total</span><span class="teal" id="sum-total">149 €</span></div>
-    <button class="confirm-btn" onclick="alert('Ceci est une démonstration : aucun paiement réel n\'est traité.')">Confirmer la commande</button>
+
+    <!--
+      ÉTAPE CLÉ — configuration Stripe (à faire une seule fois) :
+
+      Ce checkout combine 2 formules × avec/sans installation = 4 combinaisons de prix.
+      Sur une page 100% statique (GitHub Pages, sans backend), la façon fiable de gérer
+      ça est de créer 4 Payment Links distincts dans ton dashboard Stripe, un par
+      combinaison, avec "quantité modifiable" activée sur chacun :
+
+        standard-sans-install  → 149 €
+        standard-avec-install  → 149 € + 59 € = 208 €
+        pro-sans-install       → 219 €
+        pro-avec-install       → 219 € + 59 € = 278 €
+
+      Remplace les 4 URLs ci-dessous par tes vrais liens Stripe.
+      Pense aussi à activer "Collecter l'adresse de livraison" et à ajouter un champ
+      personnalisé "Véhicule (marque / modèle)" dans les options de chaque lien.
+    -->
+    <a class="confirm-btn" id="confirmBtn" href="#" rel="noopener">Confirmer la commande</a>
+
     <div class="trust-row">
       <div class="trust-item"><span class="ic">✓</span> Livraison en 3-5 jours ouvrés</div>
       <div class="trust-item"><span class="ic">✓</span> 30 jours satisfait ou remboursé</div>
@@ -259,7 +267,16 @@ input:focus, select:focus{outline:none; border-color:var(--teal);}
 </div>
 
 <script>
+// Remplace ces 4 valeurs par tes vrais Payment Links Stripe.
+const STRIPE_LINKS = {
+  "standard-non": "https://buy.stripe.com/REMPLACE_STANDARD_SANS_INSTALL",
+  "standard-oui": "https://buy.stripe.com/REMPLACE_STANDARD_AVEC_INSTALL",
+  "pro-non":      "https://buy.stripe.com/REMPLACE_PRO_SANS_INSTALL",
+  "pro-oui":      "https://buy.stripe.com/REMPLACE_PRO_AVEC_INSTALL"
+};
+
 let qty = 1;
+let planKey = "standard";
 let planPrice = 149;
 let planLabel = "Standard";
 
@@ -272,6 +289,7 @@ function changeQty(delta){
 function selectPlan(el){
   document.querySelectorAll('.plan').forEach(p => p.classList.remove('selected'));
   el.classList.add('selected');
+  planKey = el.getAttribute('data-plan');
   planPrice = parseInt(el.getAttribute('data-price'));
   planLabel = el.querySelector('h4').innerText;
   updateSummary();
@@ -287,7 +305,16 @@ function updateSummary(){
   document.getElementById('sum-plan-price').innerText = subtotal + " €";
   document.getElementById('sum-install').innerText = installChecked ? (installCost + " €") : "—";
   document.getElementById('sum-total').innerText = total + " €";
+
+  const linkKey = planKey + "-" + (installChecked ? "oui" : "non");
+  document.getElementById('confirmBtn').setAttribute(
+    'href',
+    STRIPE_LINKS[linkKey] + "?prefilled_quantity=" + qty
+  );
 }
+
+// Initialise le lien et le récap au chargement
+updateSummary();
 </script>
 
 </body>

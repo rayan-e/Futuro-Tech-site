@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bureau Mobile — FT Solutions</title>
+<style>
+  :root{
+    --ink:#eef1f6;
+    --paper:#0c1424;
+    --olive:#5eead4;
+    --olive-dark:#3fb6a3;
+    --line:#25324a;
+    --muted:#8a93a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-font-smoothing:antialiased;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+  header{padding:28px 0;border-bottom:1px solid var(--line);}
+  header .wrap{display:flex;justify-content:space-between;align-items:baseline;}
+  .brand{font-size:19px;letter-spacing:0.02em;font-weight:600;}
+  .brand span{color:var(--olive);}
+  nav a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--muted);text-decoration:none;}
+
+  main{padding:64px 0 96px;}
+  .product{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;}
+  @media (max-width:760px){.product{grid-template-columns:1fr;gap:36px;} main{padding:36px 0 64px;}}
+
+  .frame{
+    border:1px solid var(--line);
+    overflow:hidden;
+    background:var(--paper);
+  }
+  .frame img{width:100%;display:block;}
+
+  .kicker{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:12px;color:var(--olive-dark);letter-spacing:0.03em;font-weight:700;
+  }
+  .info h1{font-size:34px;font-weight:600;line-height:1.15;max-width:16ch;margin-top:10px;}
+  .lede{margin-top:16px;font-size:17px;color:#c3cad9;max-width:44ch;}
+
+  .price{font-family:'Helvetica Neue',Arial,sans-serif;font-size:24px;color:var(--olive-dark);margin-top:22px;font-weight:700;}
+  .price small{display:block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:var(--muted);font-weight:400;margin-top:4px;}
+
+  .benefits{margin-top:28px;}
+  .benefits li{
+    list-style:none;
+    padding-left:20px;
+    position:relative;
+    margin-top:10px;
+    font-size:15px;
+    color:#c3cad9;
+  }
+  .benefits li::before{
+    content:"—";
+    position:absolute;left:0;color:var(--olive);
+  }
+
+  .qty{display:flex;align-items:center;gap:0;width:fit-content;border:1px solid var(--line);margin-top:30px;}
+  .qty button{
+    width:38px;height:38px;background:transparent;border:none;
+    color:var(--ink);font-size:16px;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  .qty button:hover{color:var(--olive-dark);}
+  .qty span{
+    width:40px;text-align:center;font-size:14px;font-family:'Helvetica Neue',Arial,sans-serif;
+    border-left:1px solid var(--line);border-right:1px solid var(--line);line-height:38px;
+  }
+
+  .buy{
+    margin-top:26px;
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:15px;font-weight:700;
+    color:var(--paper);background:var(--olive);
+    border:none;padding:16px 28px;
+    cursor:pointer;text-decoration:none;
+    transition:background .15s ease;
+  }
+  .buy:hover{background:var(--olive-dark);}
+  .buy:focus-visible{outline:2px solid var(--olive-dark);outline-offset:3px;}
+
+  .note{margin-top:14px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--muted);}
+
+  .reassure{
+    margin-top:20px;display:flex;gap:18px;flex-wrap:wrap;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--muted);
+  }
+
+  footer{border-top:1px solid var(--line);padding:24px 0;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">FT <span>Solutions</span></div>
+    <nav><a href="#">futuro-tech.org</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="product">
+
+    <div class="frame">
+      <img src="images/FT_Volant1.png" alt="FT AI Mirror installé dans un véhicule">
+    </div>
+
+    <div class="info">
+      <div class="kicker">Nouveau — Édition FT Solutions</div>
+      <h1>Votre rétroviseur vient d'entrer dans le futur</h1>
+      <p class="lede">Un écran. Deux caméras. Le miroir classique ne fait plus le poids.</p>
+
+      <ul class="benefits">
+        <li>Vous voyez l'intérieur de votre voiture en direct.</li>
+        <li>La caméra frontale garde un œil sur la route, pour votre sécurité</li>
+        <li>Se fixe sur votre rétroviseur actuel, installation en 5 minutes</li>
+      </ul>
+
+      <div class="price">
+        <span id="priceValue">19,99 €</span>
+      </div>
+
+      <div class="qty">
+        <button id="qtyMinus" aria-label="Diminuer la quantité">−</button>
+        <span id="qtyValue">1</span>
+        <button id="qtyPlus" aria-label="Augmenter la quantité">+</button>
+      </div>
+
+      <!--
+        À COMPLÉTER :
+        Remplace le lien Stripe ci-dessous par ton Payment Link réel
+        (avec "quantité modifiable" activée côté Stripe).
+      -->
+      <a class="buy" id="buyBtn" href="https://buy.stripe.com/dRmeV64Za73MaQLcsHbAs02" rel="noopener">
+        Commander mon FT AI Mirror
+      </a>
+
+      <div class="note">Redirection vers Stripe Checkout. Paiement chiffré, aucune donnée bancaire stockée sur ce site.</div>
+
+      <div class="reassure">
+        <span>✓ Paiement sécurisé</span>
+        <span>✓ Installation en 5 min</span>
+        <span>✓ Support FT Solutions</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© FT Solutions - 2026</div>
+</footer>
+
+<script>
+  const UNIT_PRICE = 19.99;
+  let qty = 1;
+  const qtyValue = document.getElementById('qtyValue');
+  const priceValue = document.getElementById('priceValue');
+
+  function updatePrice() {
+    const total = (UNIT_PRICE * qty).toFixed(2).replace('.', ',');
+    priceValue.textContent = `${total} €`;
+  }
+
+  document.getElementById('qtyMinus').addEventListener('click', () => {
+    if (qty > 1) { qty--; qtyValue.textContent = qty; updatePrice(); }
+  });
+  document.getElementById('qtyPlus').addEventListener('click', () => {
+    qty++; qtyValue.textContent = qty; updatePrice();
+  });
+
+  document.getElementById('buyBtn').addEventListener('click', function() {
+    const base = this.getAttribute('href').split('?')[0];
+    this.setAttribute('href', `${base}?prefilled_quantity=${qty}`);
+  });
+</script>
+
+</body>
+</html>
