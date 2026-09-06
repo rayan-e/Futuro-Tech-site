@@ -14,12 +14,19 @@
       color: white;
     }
 
-    header {
-      padding: 20px;
-      text-align: center;
-      background: black;
-      border-bottom: 1px solid #222;
-    }
+      header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:22px 0;
+    transition:padding .35s ease, background .35s ease, border-color .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    padding:14px 0;
+    background:rgba(10,20,31,0.86);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+
 
     header h1 {
       color: #00f0ff;
@@ -75,6 +82,15 @@
 
 <body>
 
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+  <div class="logo"> <a href="https://futuro-tech.org/Futuro_Tech.html" class="nav-logo"><img src="images/logo-FT-2026V33--png.png" alt="FT Solutions"></a></div>
+  
+   
+    </nav>
+  </div>
+</header>
 
 <section class="hero">
   <h2>Smart Automotive Technology</h2>
@@ -107,10 +123,10 @@
   
   <!-- PRODUIT 3 -->
   <div class="card">
-    <img src="images/FT_Volant.png" alt="LED">
+    <img src="images/FT_Volant01.png" alt="LED">
     <h3>Bureau Mobile</h3>
     <p>Freelance, Digital Nomad & entrepreuneur travaillons partout.  </p>
-    <h4>19.99€</h4>
+    <h4>24.99€</h4>
     <a href="Bureau_Mobile.html" target="_blank">
       <button class="btn">Acheter</button>
     </a>
@@ -135,6 +151,102 @@
 <footer>
   <p>© 2026 Futuro Tech - All rights reserved</p>
 </footer>
+<script>
+  // Nav shrink on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
 
+  // Mobile menu (simple toggle to reveal links stacked)
+  const burger = document.getElementById('burger');
+  const navLinks = document.querySelector('.nav-links');
+  burger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.cssText += open ? '' : 'position:fixed;top:70px;left:24px;right:24px;background:#0f1e2e;flex-direction:column;padding:20px;border-radius:16px;border:1px solid rgba(242,246,248,0.09);gap:18px;z-index:99;';
+  });
+
+  // Scroll reveal
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion) {
+    revealEls.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  }
+
+  // Count-up stats
+  const counters = document.querySelectorAll('.num[data-count]');
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const noGroup = el.dataset.nogroup === 'true';
+      const duration = reduceMotion ? 0 : 1400;
+      const start = performance.now();
+      function tick(now) {
+        const p = duration === 0 ? 1 : Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = (noGroup ? val : val.toLocaleString('fr-FR')) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countIO.observe(c));
+
+  // Particle network background
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+  }
+  function initParticles() {
+    const count = Math.min(70, Math.floor((canvas.width * canvas.height) / 18000));
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+    }));
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const dist = Math.hypot(a.x - b.x, a.y - b.y);
+        if (dist < 130) {
+          ctx.strokeStyle = `rgba(47,224,196,${0.14 * (1 - dist / 130)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    particles.forEach(p => {
+      ctx.fillStyle = 'rgba(47,224,196,0.55)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+  function loop() { drawParticles(); requestAnimationFrame(loop); }
+  window.addEventListener('resize', () => { resize(); initParticles(); });
+  resize(); initParticles();
+  if (!reduceMotion) { loop(); } else { drawParticles(); }
+</script>
 </body>
 </html>
