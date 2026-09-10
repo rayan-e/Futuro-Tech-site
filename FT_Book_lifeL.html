@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Lessons — Rayane Abdel Aziz Sayah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/png" href="logo/logo-FT2026.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#061821;
+    --bg-navy:#0c2837;
+    --bg-navy-2:#0f3244;
+    --teal:#31E0C6;
+    --teal-dim:#1B8F82;
+    --ink:#EAF6F5;
+    --ink-dim:#9FBFC4;
+    --ink-faint:#5E828A;
+    --line: rgba(159,191,196,0.16);
+    --max: 1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-deep);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.05;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+  @media(max-width:720px){.wrap{padding:0 22px;}}
+
+  /* background texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(49,224,198,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at -10% 40%, rgba(49,224,198,0.06), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(6,24,33,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand svg{width:26px; height:26px;}
+  .brand span{font-family:'Space Grotesk'; font-weight:600; font-size:16px;}
+  .brand small{display:block; font-family:'Manrope'; font-weight:500; font-size:10px; color:var(--ink-dim); letter-spacing:0.02em;}
+  nav.links{display:flex; gap:34px; font-size:14px; color:var(--ink-dim);}
+  nav.links a:hover{color:var(--teal);}
+  @media(max-width:720px){ nav.links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    padding:96px 0 80px;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.05fr 0.85fr;
+    gap:64px;
+    align-items:center;
+  }
+  @media(max-width:880px){
+    .hero .wrap{grid-template-columns:1fr; gap:48px;}
+    .hero{padding:56px 0 64px;}
+  }
+  .kicker{
+    font-size:14px; color:var(--teal); font-weight:600;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5.4vw, 4.1rem);
+    color:var(--ink);
+  }
+  .hero h1 .accent{color:var(--teal);}
+  .hero p.lead{
+    margin-top:24px;
+    font-size:18px;
+    color:var(--ink-dim);
+    max-width:46ch;
+  }
+  .byline{
+    margin-top:32px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .byline .rule{width:36px; height:2px; background:var(--teal);}
+  .byline strong{display:block; font-size:15px;}
+  .byline span{display:block; font-size:13px; color:var(--ink-faint);}
+
+  .cta-row{margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px;
+    border-radius:3px;
+    font-size:15px; font-weight:600;
+    font-family:'Manrope';
+    cursor:pointer; border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--teal); color:#04191B;}
+  .btn-primary:hover{background:#4FEBD4;}
+  .btn-ghost{border-color:var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  .hero-art{position:relative;}
+  .hero-art img{
+    width:100%;
+    filter:drop-shadow(0 30px 60px rgba(0,0,0,0.55));
+  }
+
+  /* ---------- pitch ---------- */
+  .pitch{
+    position:relative; z-index:1;
+    padding:70px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .pitch .wrap{max-width:820px;}
+  .pitch p{
+    font-family:'Space Grotesk';
+    font-weight:500;
+    font-size:clamp(1.3rem, 2.6vw, 1.8rem);
+    line-height:1.45;
+    color:var(--ink);
+  }
+  .pitch p .dim{color:var(--ink-faint);}
+
+  /* ---------- pillars (book-spine layout) ---------- */
+  .pillars{
+    position:relative; z-index:1;
+    padding:100px 0;
+  }
+  .section-head{max-width:560px; margin-bottom:70px;}
+  .section-head .tag{color:var(--teal); font-size:14px; font-weight:600; margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.8rem, 3.4vw, 2.5rem);}
+  .section-head p{margin-top:16px; color:var(--ink-dim); font-size:16px;}
+
+  .spine{
+    position:relative;
+    max-width:760px; margin:0 auto;
+  }
+  .spine::before{
+    content:"";
+    position:absolute; left:50%; top:0; bottom:0;
+    width:1px; background:linear-gradient(var(--bg-deep), var(--teal-dim) 8%, var(--teal-dim) 92%, var(--bg-deep));
+    transform:translateX(-50%);
+  }
+  @media(max-width:680px){
+    .spine::before{left:20px;}
+  }
+  .lesson{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr 60px 1fr;
+    align-items:center;
+    gap:0;
+    margin-bottom:6px;
+  }
+  @media(max-width:680px){
+    .lesson{grid-template-columns:40px 1fr; padding-left:0;}
+  }
+  .lesson .node{
+    grid-column:2;
+    width:14px; height:14px; border-radius:50%;
+    background:var(--bg-deep);
+    border:2px solid var(--teal);
+    justify-self:center;
+    z-index:2;
+  }
+  @media(max-width:680px){
+    .lesson .node{grid-column:1; width:10px; height:10px; margin-left:15px;}
+  }
+  .lesson .card{padding:34px 8px;}
+  .lesson:nth-child(odd) .card{grid-column:1; text-align:right;}
+  .lesson:nth-child(even) .card{grid-column:3; text-align:left;}
+  @media(max-width:680px){
+    .lesson:nth-child(odd) .card, .lesson:nth-child(even) .card{
+      grid-column:2; text-align:left; padding:26px 0 26px 22px;
+    }
+  }
+  .lesson h3{font-size:1.3rem; color:var(--ink); margin-bottom:8px;}
+  .lesson h3 em{color:var(--teal); font-style:normal;}
+  .lesson p{color:var(--ink-dim); font-size:15px; max-width:34ch;}
+  .lesson:nth-child(odd) p{margin-left:auto;}
+  @media(max-width:680px){ .lesson:nth-child(odd) p{margin-left:0;} }
+
+  /* ---------- author ---------- */
+  .author{
+    position:relative; z-index:1;
+    padding:0 0 100px;
+  }
+  .author .wrap{
+    display:grid;
+    grid-template-columns:0.8fr 1.2fr;
+    gap:60px;
+    align-items:center;
+    background:var(--bg-navy);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  @media(max-width:820px){
+    .author .wrap{grid-template-columns:1fr; padding:0;}
+  }
+  .author-photo{
+    height:100%; min-height:420px;
+    overflow:hidden;
+    position:relative;
+  }
+  .author-photo img{
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:68% 30%;
+  }
+  .author-copy{padding:48px 48px 48px 0;}
+  @media(max-width:820px){ .author-copy{padding:32px;} }
+  .author-copy .tag{color:var(--teal); font-size:14px; font-weight:600; margin-bottom:14px;}
+  .author-copy h2{font-size:clamp(1.6rem, 3vw, 2.1rem); margin-bottom:20px;}
+  .author-copy p{color:var(--ink-dim); font-size:16px; max-width:52ch;}
+  .author-copy p + p{margin-top:14px;}
+  .author-copy .role{margin-top:26px; font-size:14px; color:var(--ink-faint);}
+  .author-copy .role strong{color:var(--ink);}
+
+  /* ---------- notify ---------- */
+  .notify{
+    position:relative; z-index:1;
+    padding:90px 0 110px;
+    text-align:center;
+  }
+  .notify .wrap{max-width:560px;}
+  .notify h2{font-size:clamp(1.7rem, 3.4vw, 2.3rem);}
+  .notify p{margin-top:16px; color:var(--ink-dim); font-size:16px;}
+  .notify form{
+    margin-top:34px;
+    display:flex; gap:10px;
+    justify-content:center;
+  }
+  @media(max-width:520px){ .notify form{flex-direction:column;} }
+  .notify input[type=email]{
+    flex:1; max-width:320px;
+    padding:14px 18px;
+    background:var(--bg-navy);
+    border:1px solid var(--line);
+    border-radius:3px;
+    color:var(--ink);
+    font-family:'Manrope'; font-size:15px;
+  }
+  .notify input[type=email]:focus{outline:none; border-color:var(--teal);}
+  .notify input[type=email]::placeholder{color:var(--ink-faint);}
+  .notify small{display:block; margin-top:16px; color:var(--ink-faint); font-size:12px;}
+
+  /* ---------- footer ---------- */
+  footer{
+    position:relative; z-index:1;
+    border-top:1px solid var(--line);
+    padding:38px 0;
+  }
+  footer .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  footer .brand span{font-size:14px;}
+  footer p{color:var(--ink-faint); font-size:13px;}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+<div class="logo"> <a href="https://futuro-tech.org/Futuro_Tech.html" class="nav-logo"><img src="images/logo-FT-2026V33--png.png" alt="FT Solutions"></a></div>
+    <nav class="links">
+      <a href="#livre">Le livre</a>
+      <a href="#lecons">Les 4 piliers</a>
+      <a href="#auteur">L'auteur</a>
+      <a href="#notify">Être prévenu</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="livre">
+  <div class="wrap">
+    <div class="hero-text">
+      <div class="kicker">Un livre de Futuro Tech Solutions</div>
+      <h1>Life <span class="accent">Lessons</span> qui te forgent comme un entrepreneur.</h1>
+      <p class="lead">Un recueil de leçons vécues sur le terrain — celles qu'on apprend en construisant une entreprise depuis zéro, pas dans les livres de management.</p>
+      <div class="byline">
+        <div class="rule"></div>
+        <div>
+          <strong>Rayane Abdel Aziz Sayah</strong>
+          <span>CEO &amp; fondateur de Futuro Tech Solutions</span>
+        </div>
+      </div>
+      <div class="cta-row">
+        <a href="#notify" class="btn btn-primary">Être prévenu à la sortie</a>
+        <a href="#lecons" class="btn btn-ghost">Découvrir les 4 piliers</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="RS_Books/book-cover.png" alt="Couverture du livre Life Lessons de Rayane Abdel Aziz Sayah">
+    </div>
+  </div>
+</section>
+
+<section class="pitch">
+  <div class="wrap">
+    <p>Entreprendre, ce n'est pas une ligne droite vers le sommet. <span class="dim">C'est une suite de chutes, de recadrages et de décisions prises sans filet — et c'est exactement ce que ce livre met à nu.</span></p>
+  </div>
+</section>
+
+<section class="pillars" id="lecons">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">Structure du livre</div>
+      <h2>Quatre piliers, une seule trajectoire.</h2>
+      <p>Chaque partie du livre s'organise autour d'un pilier — pensé comme les étapes d'une même ascension, du mindset jusqu'à l'impact.</p>
+    </div>
+
+    <div class="spine">
+      <div class="lesson">
+        <div class="card">
+          <h3><em>Mindset</em> — penser plus loin</h3>
+          <p>Se défaire des certitudes héritées et apprendre à raisonner comme quelqu'un qui construit, pas comme quelqu'un qui exécute.</p>
+        </div>
+        <div class="node"></div>
+        <div></div>
+      </div>
+      <div class="lesson">
+        <div></div>
+        <div class="node"></div>
+        <div class="card">
+          <h3><em>Discipline</em> — construire chaque jour</h3>
+          <p>Ce que la régularité change vraiment, bien avant que les résultats ne soient visibles de l'extérieur.</p>
+        </div>
+      </div>
+      <div class="lesson">
+        <div class="card">
+          <h3><em>Résilience</em> — se relever toujours</h3>
+          <p>Les échecs qui ont failli tout arrêter, et ce qu'ils ont appris de plus utile que les succès.</p>
+        </div>
+        <div class="node"></div>
+        <div></div>
+      </div>
+      <div class="lesson">
+        <div></div>
+        <div class="node"></div>
+        <div class="card">
+          <h3><em>Impact</em> — bâtir demain</h3>
+          <p>Passer d'un projet personnel à quelque chose qui dépasse son fondateur — et pourquoi c'est le vrai test.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="author" id="auteur">
+  <div class="wrap">
+    <div class="author-photo">
+      <img src="RS_Books/Rayane.png" alt="Rayane Abdel Aziz Sayah">
+    </div>
+    <div class="author-copy">
+      <div class="tag">L'auteur</div>
+      <h2>Écrit depuis le terrain, pas depuis un bureau.</h2>
+      <p>Rayane Abdel Aziz Sayah est ingénieur électronique et systèmes embarqués de formation, et fondateur de Futuro Tech Solutions. Ce livre est né de ce qu'il a dû apprendre par lui-même — en lançant une entreprise, en se trompant, en recommençant.</p>
+      <p>Pas de recette toute faite : des leçons brutes, transmises telles qu'elles ont été vécues, pour celles et ceux qui construisent quelque chose de leur côté.</p>
+      <div class="role"><strong>CEO &amp; fondateur</strong> — Futuro Tech Solutions</div>
+    </div>
+  </div>
+</section>
+
+<section class="notify" id="notify">
+  <div class="wrap">
+    <h2>Le livre arrive bientôt.</h2>
+    <p>Laisse ton e-mail pour être prévenu dès la sortie de Life Lessons, avant tout le monde.</p>
+    <form action="https://formsubmit.co/contact@futuro-tech.org" method="POST">
+      <input type="hidden" name="_subject" value="Nouvelle inscription — Life Lessons">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button type="submit" class="btn btn-primary">Me prévenir</button>
+    </form>
+    <small>Aucun spam. Un seul e-mail, le jour de la sortie.</small>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <span>Futuro Tech Solutions</span>
+    </div>
+    <p>© 2026 Futuro Tech Solutions — Life Lessons, Rayane Abdel Aziz Sayah</p>
+  </div>
+</footer>
+
+</body>
+</html>
