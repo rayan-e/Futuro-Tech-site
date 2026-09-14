@@ -147,6 +147,8 @@
   .brand .dot{ color:var(--lime); }
   .brand small{ font-family:'Inter',sans-serif; font-weight:500; color:var(--muted); font-size:0.7rem; margin-left:8px; letter-spacing:0.04em; }
 
+  .nav-right{ display:flex; align-items:center; gap:var(--sp-3); }
+
   .nav-links{ display:flex; gap:var(--sp-4); list-style:none; margin:0; padding:0; font-size:0.9rem; }
   .nav-links a{ position:relative; padding:4px 0; }
   .nav-links a::after{
@@ -167,6 +169,56 @@
     display:none; background:none; border:1px solid var(--line-strong);
     width:44px; height:44px; border-radius:50%; align-items:center; justify-content:center; cursor:pointer; color:var(--fg);
   }
+
+  /* language switcher */
+  .lang-switch{ position:relative; }
+  .lang-btn{
+    display:inline-flex; align-items:center; gap:7px;
+    background:none; border:1px solid var(--line-strong); color:var(--fg);
+    padding:8px 14px 8px 12px; border-radius:100px; font-size:0.82rem; font-family:'Sora',sans-serif;
+    cursor:pointer; transition:border-color .25s ease, background .25s ease;
+  }
+  .lang-btn:hover{ border-color:var(--lime); background:rgba(200,255,77,0.08); }
+  .lang-btn svg{ width:16px; height:16px; flex:0 0 auto; }
+  .lang-btn .chev{ width:10px; height:10px; transition:transform .25s var(--ease); }
+  .lang-switch.open .lang-btn .chev{ transform:rotate(180deg); }
+  .lang-code{ letter-spacing:0.03em; }
+
+  .lang-menu{
+    position:absolute; top:calc(100% + 10px); right:0;
+    min-width:184px;
+    background:var(--bg-3);
+    border:1px solid var(--line-strong);
+    border-radius:14px;
+    padding:6px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+    opacity:0; visibility:hidden; transform:translateY(-6px);
+    transition:opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
+    z-index:210;
+  }
+  .lang-switch.open .lang-menu{ opacity:1; visibility:visible; transform:translateY(0); }
+  .lang-option{
+    display:flex; align-items:center; gap:10px;
+    width:100%; background:none; border:none; color:var(--fg);
+    padding:10px 12px; border-radius:9px; font-size:0.88rem; font-family:'Inter',sans-serif;
+    cursor:pointer; text-align:left; transition:background .2s ease;
+  }
+  .lang-option:hover{ background:rgba(243,243,241,0.06); }
+  .lang-option.active{ background:rgba(200,255,77,0.1); color:var(--lime); }
+  .lang-flag{ font-size:1.15rem; line-height:1; width:22px; text-align:center; }
+  .lang-name{ flex:1; }
+  .lang-native{ color:var(--muted); font-size:0.78rem; }
+  .lang-option.active .lang-native{ color:rgba(200,255,77,0.7); }
+
+  .mobile-lang{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:var(--sp-2); padding-top:var(--sp-2); border-top:1px solid var(--line);
+  }
+  .mobile-lang button{
+    display:inline-flex; align-items:center; gap:6px;
+    background:none; border:1px solid var(--line-strong); color:var(--fg);
+    padding:8px 14px; border-radius:100px; font-size:0.85rem; font-family:'Inter',sans-serif; cursor:pointer;
+  }
+  .mobile-lang button.active{ border-color:var(--lime); color:var(--lime); }
 
   /* hero */
   .hero{
@@ -312,8 +364,8 @@
   .section{ padding:var(--sp-6) 0; position:relative; }
   .section-head{ margin-bottom:var(--sp-5); max-width:60ch; }
   .kicker{ color:var(--cyan); font-size:0.85rem; font-family:'Sora',sans-serif; font-weight:600; margin-bottom:12px; display:block; }
-  .section-head h2{ font-size:clamp(2rem,4vw,3rem); }
-  .section-head p{ color:var(--muted); margin-top:var(--sp-2); font-size:1.02rem; max-width:52ch; }
+  .section-head h2{ font-size:clamp(2rem,4vw,3rem); color:var(--lime); }
+  .section-head p{ color:var(--fg); margin-top:var(--sp-2); font-size:1.02rem; max-width:52ch; }
 
   /* manifesto / mask reveal */
   .manifesto{
@@ -350,43 +402,43 @@
   .service-card .tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:var(--sp-3); }
   .service-card .tags span{ font-size:0.72rem; color:var(--cyan); border:1px solid rgba(53,231,255,0.3); padding:3px 9px; border-radius:100px; }
 
-  /* gallery pin */
-  .gallery-pin{ height:320vh; position:relative; }
-  .gallery-sticky{
-    position:sticky; top:0; height:100vh;
-    display:flex; flex-direction:column; justify-content:center;
+  /* showcase (fan reveal, projets) */
+  .showcase{
+    padding:var(--sp-7) 0;
     overflow:hidden;
   }
-  .gallery-head{ padding:0 var(--sp-3); margin-bottom:var(--sp-4); }
-  .gallery-track{ display:flex; gap:var(--sp-3); padding:0 var(--sp-3); will-change:transform; }
-  .gallery-card{
-    flex:0 0 auto;
-    width:min(70vw, 460px);
+  .showcase-head{ text-align:center; max-width:640px; margin:0 auto var(--sp-6); }
+  .showcase-head h2{ font-size:clamp(2rem,4.4vw,3.2rem); }
+  .showcase-head p{ color:var(--muted); margin-top:var(--sp-2); font-size:1.02rem; }
+  .showcase-stage{
+    position:relative;
+    height:560px;
+    max-width:1040px;
+    margin:0 auto;
+  }
+  .fan-card{
+    position:absolute;
+    top:50%; left:50%;
+    width:min(64vw, 360px);
     aspect-ratio:4/5;
-    border-radius:6px;
+    border-radius:18px;
     padding:var(--sp-3);
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    position:relative;
-    overflow:hidden;
     border:1px solid var(--line-strong);
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    will-change:transform, opacity;
   }
-  .gallery-card .g-tag{ font-size:0.78rem; color:var(--bg); background:rgba(10,10,13,0.15); align-self:flex-start; padding:5px 12px; border-radius:100px; font-family:'Sora',sans-serif; }
-  .gallery-card .g-title{ font-family:'Sora',sans-serif; font-size:1.7rem; font-weight:600; }
-  .gallery-card .g-sub{ font-size:0.88rem; opacity:0.75; margin-top:4px; }
-  .g1{ background:linear-gradient(135deg,#8C4DFF,#35E7FF); color:#0A0A0D; }
-  .g2{ background:var(--bg-3); color:var(--fg); }
-  .g3{ background:linear-gradient(135deg,#C8FF4D,#35E7FF); color:#0A0A0D; }
-  .g4{ background:linear-gradient(135deg,#FF4FCB,#8C4DFF); color:#0A0A0D; }
-  .g5{ background:var(--bg-3); color:var(--fg); }
-  .g2 .g-tag, .g5 .g-tag{ background:rgba(243,243,241,0.1); color:var(--fg); }
+  .fan-card .g-tag{ font-size:0.78rem; color:var(--bg); background:rgba(10,10,13,0.15); align-self:flex-start; padding:5px 12px; border-radius:100px; font-family:'Sora',sans-serif; }
+  .fan-card .g-title{ font-family:'Sora',sans-serif; font-size:1.7rem; font-weight:600; }
+  .fan-card .g-sub{ font-size:0.88rem; opacity:0.75; margin-top:4px; }
+  .fan-card.g2 .g-tag, .fan-card.g5 .g-tag{ background:rgba(243,243,241,0.1); color:var(--fg); }
+  .showcase-hint{ text-align:center; color:var(--muted); font-size:0.8rem; margin-top:var(--sp-3); letter-spacing:0.03em; }
 
   @media (max-width: 760px){
-    .gallery-pin{ height:auto; }
-    .gallery-sticky{ position:relative; height:auto; padding:var(--sp-2) 0; }
-    .gallery-track{ overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:var(--sp-2); }
-    .gallery-card{ scroll-snap-align:start; }
+    .showcase-stage{ height:420px; }
+    .fan-card{ width:min(72vw, 300px); }
   }
 
   /* stats */
@@ -395,7 +447,7 @@
   .stat{ padding:var(--sp-5) var(--sp-3); border-left:1px solid var(--line); }
   .stat:first-child{ border-left:none; }
   .stat .n{ font-family:'Sora',sans-serif; font-size:clamp(2.2rem,4.4vw,3.4rem); font-weight:700; }
-  .stat .l{ color:var(--muted); font-size:0.85rem; margin-top:6px; }
+  .stat .l{ color:var(--lime); font-size:0.85rem; margin-top:6px; }
 
   /* process */
   .process{ position:relative; }
@@ -464,7 +516,9 @@
     .process-step p{ grid-column:2/3; }
   }
   @media (max-width: 760px){
-    .nav-links, .nav-cta{ display:none; }
+    .nav-links{ display:none; }
+    .nav-cta{ display:none; }
+    .lang-switch{ display:none; }
     .nav-toggle{ display:flex; }
     .service-grid{ grid-template-columns:1fr; }
     .stats .wrap{ grid-template-columns:1fr 1fr; }
@@ -483,7 +537,7 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <div class="preloader" id="preloader">
-  <span class="pl-label">futuro.tech — chargement</span>
+  <span class="pl-label" data-i18n="preloader.label">futuro.tech — chargement</span>
   <div class="pl-count" id="plCount">0%</div>
 </div>
 
@@ -492,23 +546,46 @@
     <a href="#top" class="brand">futuro<span class="dot">.</span>tech<small>DESIGN STUDIO</small></a>
     <nav aria-label="Navigation principale">
       <ul class="nav-links">
-        <li><a href="#expertises">Expertises</a></li>
-        <li><a href="#projets">Projets</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#expertises" data-i18n="nav.expertises">Expertises</a></li>
+        <li><a href="#projets" data-i18n="nav.projets">Projets</a></li>
+        <li><a href="#process" data-i18n="nav.process">Process</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
     </nav>
-    <a href="#contact" class="nav-cta">Démarrer un projet</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
+    <div class="nav-right">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Changer de langue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9Z"/></svg>
+          <span class="lang-code" id="langCode">FR</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          <button class="lang-option active" role="menuitem" data-lang="FR" data-name="Français"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span></button>
+          <button class="lang-option" role="menuitem" data-lang="EN" data-name="English"><span class="lang-flag">🇬🇧</span><span class="lang-name">English<div class="lang-native">Anglais</div></span></button>
+          <button class="lang-option" role="menuitem" data-lang="AR" data-name="العربية"><span class="lang-flag">🇸🇦</span><span class="lang-name">العربية<div class="lang-native">Arabe</div></span></button>
+          <button class="lang-option" role="menuitem" data-lang="ZH" data-name="中文"><span class="lang-flag">🇨🇳</span><span class="lang-name">中文<div class="lang-native">Chinois</div></span></button>
+          <button class="lang-option" role="menuitem" data-lang="DE" data-name="Deutsch"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch<div class="lang-native">Allemand</div></span></button>
+        </div>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.cta">Démarrer un projet</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </div>
   <div class="mobile-panel" id="mobilePanel">
-    <a href="#expertises">Expertises</a>
-    <a href="#projets">Projets</a>
-    <a href="#process">Process</a>
-    <a href="#contact">Contact</a>
-    <a href="https://www.instagram.com/futuro_tech_design/" target="_blank" rel="noopener">Instagram ↗</a>
+    <a href="#expertises" data-i18n="nav.expertises">Expertises</a>
+    <a href="#projets" data-i18n="nav.projets">Projets</a>
+    <a href="#process" data-i18n="nav.process">Process</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <a href="https://www.instagram.com/futuro_tech_design/" target="_blank" rel="noopener" data-i18n="mobile.instagram">Instagram ↗</a>
+    <div class="mobile-lang" id="mobileLang">
+      <button class="active" data-lang="FR">🇫🇷 FR</button>
+      <button data-lang="EN">🇬🇧 EN</button>
+      <button data-lang="AR">🇸🇦 AR</button>
+      <button data-lang="ZH">🇨🇳 ZH</button>
+      <button data-lang="DE">🇩🇪 DE</button>
+    </div>
   </div>
 </header>
 
@@ -518,30 +595,30 @@
     <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="hero-eyebrow"><span class="pulse"></span> Studio ouvert à de nouveaux projets — 2026</span>
-      <h1 id="heroTitle">On dessine des interfaces qui donnent envie d'y revenir.</h1>
-      <p class="hero-sub">futuro_tech_design est un studio de design pour marques tech : identité, produit digital, site web. On construit vite, on construit propre.</p>
+      <span class="hero-eyebrow" data-i18n="hero.eyebrow"><span class="pulse"></span> Studio ouvert à de nouveaux projets — 2026</span>
+      <h1 id="heroTitle" data-i18n="hero.title">On- dessine- des- interfaces- qui- donnent- envie- d'y- revenir.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">futuro_tech_design est un studio de design pour marques tech : identité, produit digital, site web. On construit vite, on construit propre.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-solid magnet">Démarrer un projet</a>
-        <a href="#projets" class="btn btn-line magnet">Voir les projets</a>
+        <a href="#contact" class="btn btn-solid magnet" data-i18n="hero.cta1">Démarrer un projet</a>
+        <a href="#projets" class="btn btn-line magnet" data-i18n="hero.cta2">Voir les projets</a>
       </div>
     </div>
-    <div class="scroll-cue" aria-hidden="true"><span class="line"></span>SCROLL</div>
+    <div class="scroll-cue" aria-hidden="true"><span class="line"></span><span data-i18n="hero.scroll">SCROLL</span></div>
   </section>
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span><b>UI/UX Design</b></span><span><b>Sites &amp; apps</b></span><span><b>Identité de marque</b></span><span><b>Motion design</b></span><span><b>Prototypage</b></span>
-      <span><b>UI/UX Design</b></span><span><b>Sites &amp; apps</b></span><span><b>Identité de marque</b></span><span><b>Motion design</b></span><span><b>Prototypage</b></span>
+      <span><b data-i18n="marquee.1">UI/UX Design</b></span><span><b data-i18n="marquee.2">Sites &amp; apps</b></span><span><b data-i18n="marquee.3">Identité de marque</b></span><span><b data-i18n="marquee.4">Motion design</b></span><span><b data-i18n="marquee.5">Prototypage</b></span>
+      <span><b data-i18n="marquee.1">UI/UX Design</b></span><span><b data-i18n="marquee.2">Sites &amp; apps</b></span><span><b data-i18n="marquee.3">Identité de marque</b></span><span><b data-i18n="marquee.4">Motion design</b></span><span><b data-i18n="marquee.5">Prototypage</b></span>
     </div>
   </div>
 
   <section class="manifesto">
     <div class="wrap">
       <p class="reveal-lines">
-        <span class="line"><span>La plupart des marques tech se ressemblent.</span></span>
-        <span class="line"><span>On construit des identités <b class="hl grad-text">qu'on reconnaît</b></span></span>
-        <span class="line"><span>sans avoir besoin de lire le nom.</span></span>
+        <span class="line"><span data-i18n="manifesto.line1">La plupart des marques tech se ressemblent.</span></span>
+        <span class="line"><span data-i18n-html="manifesto.line2">On construit des identités <b class="hl grad-text">qu'on reconnaît</b></span></span>
+        <span class="line"><span data-i18n="manifesto.line3">sans avoir besoin de lire le nom.</span></span>
       </p>
     </div>
   </section>
@@ -549,9 +626,9 @@
   <section class="section clients" id="clients">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker">Confiance</span>
-        <h2>Clients &amp; partenaires</h2>
-        <p>Des indépendants aux grands groupes industriels, quelques marques accompagnées.</p>
+        <span class="kicker" data-i18n="clients.kicker">Confiance</span>
+        <h2 data-i18n="clients.title">Clients &amp; partenaires</h2>
+        <p data-i18n="clients.desc">Des indépendants aux grands groupes industriels, quelques marques accompagnées.</p>
       </div>
     </div>
     <div class="clients-marquee" aria-label="Nos clients et partenaires">
@@ -581,99 +658,94 @@
   <section class="section" id="expertises">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker">Expertises</span>
-        <h2>Ce qu'on fait le mieux</h2>
-        <p>Quatre disciplines, toujours pensées ensemble pour que le produit, la marque et le site racontent la même histoire.</p>
+        <span class="kicker" data-i18n="expertise.kicker">Expertises</span>
+        <h2 data-i18n="expertise.title">Ce qu'on fait le mieux</h2>
+        <p data-i18n="expertise.desc">Quatre disciplines, toujours pensées ensemble pour que le produit, la marque et le site racontent la même histoire.</p>
       </div>
     </div>
     <div class="wrap">
       <div class="service-grid">
         <div class="service-card tilt"><div class="inner">
           <span class="num">01</span>
-          <h3>UI/UX Design</h3>
-          <p>Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.</p>
-          <div class="tags"><span>Figma</span><span>Design system</span></div>
+          <h3 data-i18n="expertise.card1.title">UI/UX Design</h3>
+          <p data-i18n="expertise.card1.desc">Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.</p>
+          <div class="tags"><span>Figma</span><span data-i18n="expertise.card1.tag2">Design system</span></div>
         </div></div>
         <div class="service-card tilt"><div class="inner">
           <span class="num">02</span>
-          <h3>Sites &amp; apps</h3>
-          <p>Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.</p>
+          <h3 data-i18n="expertise.card2.title">Sites &amp; apps</h3>
+          <p data-i18n="expertise.card2.desc">Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.</p>
           <div class="tags"><span>React</span><span>Webflow</span></div>
         </div></div>
         <div class="service-card tilt"><div class="inner">
           <span class="num">03</span>
-          <h3>Identité de marque</h3>
-          <p>Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.</p>
-          <div class="tags"><span>Logo</span><span>Charte</span></div>
+          <h3 data-i18n="expertise.card3.title">Identité de marque</h3>
+          <p data-i18n="expertise.card3.desc">Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.</p>
+          <div class="tags"><span data-i18n="expertise.card3.tag1">Logo</span><span data-i18n="expertise.card3.tag2">Charte</span></div>
         </div></div>
         <div class="service-card tilt"><div class="inner">
           <span class="num">04</span>
-          <h3>Motion &amp; prototypage</h3>
-          <p>Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.</p>
+          <h3 data-i18n="expertise.card4.title">Motion &amp; prototypage</h3>
+          <p data-i18n="expertise.card4.desc">Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.</p>
           <div class="tags"><span>GSAP</span><span>Lottie</span></div>
         </div></div>
       </div>
     </div>
   </section>
 
-  <section class="gallery-pin" id="projets">
-    <div class="gallery-sticky">
-      <div class="gallery-head wrap">
-        <span class="kicker">Projets récents</span>
-        <h2>Ce qu'on a livré dernièrement</h2>
-      </div>
-      <div class="gallery-track" id="galleryTrack">
-        <div class="gallery-card g1"><span class="g-tag">Identité + site</span><div> 
-                <div class="g-title">Nebula OS</div><div class="g-sub">Système d'exploitation cloud</div></div></div>
-        <div class="gallery-card g2"><span class="g-tag">UI/UX</span><div>
-                <div class="g-title">Orbit Pay</div><div class="g-sub">App de paiement B2B</div></div></div>
-        <div class="gallery-card g3"><span class="g-tag">Site web</span><div>
-                <div class="g-title">Halo Robotics</div><div class="g-sub">Vitrine produit industriel</div></div></div>
-        <div class="gallery-card g4"><span class="g-tag">Branding</span><div>
-                <div class="g-title">Vertex Labs</div><div class="g-sub">Studio de recherche IA</div></div></div>
-        <div class="gallery-card g5"><span class="g-tag">Motion</span><div>
-                <div class="g-title">Kinetic Grid</div><div class="g-sub">Dashboard temps réel</div></div></div>
-      </div>
+  <section class="showcase" id="projets">
+    <div class="wrap showcase-head">
+      <span class="kicker" data-i18n="showcase.kicker">Projets récents</span>
+      <h2 data-i18n="showcase.title">Ce qu'on a livré dernièrement</h2>
+      <p data-i18n="showcase.desc">Cinq marques, cinq problèmes différents — un fil conducteur : la clarté.</p>
     </div>
+    <div class="showcase-stage" id="showcaseStage">
+      <div class="fan-card g1" data-i="0"><span class="g-tag" data-i18n="showcase.card1.tag">Identité + site</span><div><div class="g-title">Nebula OS</div><div class="g-sub" data-i18n="showcase.card1.sub">Système d'exploitation cloud</div></div></div>
+      <div class="fan-card g2" data-i="1"><span class="g-tag" data-i18n="showcase.card2.tag">UI/UX</span><div><div class="g-title">Orbit Pay</div><div class="g-sub" data-i18n="showcase.card2.sub">App de paiement B2B</div></div></div>
+      <div class="fan-card g3" data-i="2"><span class="g-tag" data-i18n="showcase.card3.tag">Site web</span><div><div class="g-title">Halo Robotics</div><div class="g-sub" data-i18n="showcase.card3.sub">Vitrine produit industriel</div></div></div>
+      <div class="fan-card g4" data-i="3"><span class="g-tag" data-i18n="showcase.card4.tag">Branding</span><div><div class="g-title">Vertex Labs</div><div class="g-sub" data-i18n="showcase.card4.sub">Studio de recherche IA</div></div></div>
+      <div class="fan-card g5" data-i="4"><span class="g-tag" data-i18n="showcase.card5.tag">Motion</span><div><div class="g-title">Kinetic Grid</div><div class="g-sub" data-i18n="showcase.card5.sub">Dashboard temps réel</div></div></div>
+    </div>
+    <div class="showcase-hint" aria-hidden="true" data-i18n="showcase.hint">SCROLLEZ POUR DÉPLOYER</div>
   </section>
 
   <section class="stats section">
     <div class="wrap">
-      <div class="stat"><div class="n" data-count="46">0</div><div class="l">Projets livrés</div></div>
-      <div class="stat"><div class="n" data-count="14">0</div><div class="l">Pays clients</div></div>
-      <div class="stat"><div class="n" data-count="98" data-suffix="%">0%</div><div class="l">Clients satisfaits</div></div>
-      <div class="stat"><div class="n" data-count="5" data-decimals="true">0</div><div class="l">Note moyenne / 5</div></div>
+      <div class="stat"><div class="n" data-count="46">0</div><div class="l" data-i18n="stats.1">Projets livrés</div></div>
+      <div class="stat"><div class="n" data-count="14">0</div><div class="l" data-i18n="stats.2">Pays clients</div></div>
+      <div class="stat"><div class="n" data-count="98" data-suffix="%">0%</div><div class="l" data-i18n="stats.3">Clients satisfaits</div></div>
+      <div class="stat"><div class="n" data-count="4.5" data-decimals="true">0</div><div class="l" data-i18n="stats.4">Note moyenne / 5</div></div>
     </div>
   </section>
 
   <section class="section process" id="process">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker">Process</span>
-        <h2>Du brief au lancement</h2>
+        <span class="kicker" data-i18n="process.kicker">Process</span>
+        <h2 data-i18n="process.title">Du brief au lancement</h2>
       </div>
       <div class="process-track">
         <div class="process-line"></div>
         <div class="process-line-fill" id="processFill"></div>
-        <div class="process-step"><span class="dot"></span><span class="num">01</span><h3>Discovery</h3><p>On cadre l'objectif, le public et les contraintes techniques du projet.</p></div>
-        <div class="process-step"><span class="dot"></span><span class="num">02</span><h3>Design</h3><p>Direction créative, wireframes puis maquettes détaillées sur toutes les vues clés.</p></div>
-        <div class="process-step"><span class="dot"></span><span class="num">03</span><h3>Développement</h3><p>Intégration fidèle au design, animations, responsive et tests sur tous les écrans.</p></div>
-        <div class="process-step"><span class="dot"></span><span class="num">04</span><h3>Lancement</h3><p>Mise en ligne, passation des fichiers et accompagnement les premières semaines.</p></div>
+        <div class="process-step"><span class="dot"></span><span class="num">01</span><h3 data-i18n="process.step1.title">Discovery</h3><p data-i18n="process.step1.desc">On cadre l'objectif, le public et les contraintes techniques du projet.</p></div>
+        <div class="process-step"><span class="dot"></span><span class="num">02</span><h3 data-i18n="process.step2.title">Design</h3><p data-i18n="process.step2.desc">Direction créative, wireframes puis maquettes détaillées sur toutes les vues clés.</p></div>
+        <div class="process-step"><span class="dot"></span><span class="num">03</span><h3 data-i18n="process.step3.title">Développement</h3><p data-i18n="process.step3.desc">Intégration fidèle au design, animations, responsive et tests sur tous les écrans.</p></div>
+        <div class="process-step"><span class="dot"></span><span class="num">04</span><h3 data-i18n="process.step4.title">Lancement</h3><p data-i18n="process.step4.desc">Mise en ligne, passation des fichiers et accompagnement les premières semaines.</p></div>
       </div>
     </div>
   </section>
 
   <section class="section quote-section">
     <div class="wrap">
-      <blockquote>« Le site a été prêt en 3 semaines et il a changé la façon dont on nous perçoit en démo. »</blockquote>
-      <div class="quote-attr">— Julia Renn, cofondatrice, Vertex Labs</div>
+      <blockquote data-i18n="quote.text">« Le site a été prêt en 3 semaines et il a changé la façon dont on nous perçoit en démo. »</blockquote>
+      <div class="quote-attr" data-i18n="quote.attr">— Julia Renn, cofondatrice, Vertex Labs</div>
     </div>
   </section>
 
   <section class="section" id="contact">
     <div class="cta-section">
-      <h2>Un projet tech en tête ?</h2>
-      <p>Écrivez-nous, on revient vers vous sous 48h avec une première direction.</p>
+      <h2 data-i18n="contact.title">Un projet tech en tête ?</h2>
+      <p data-i18n="contact.desc">Écrivez-nous, on revient vers vous sous 48h avec une première direction.</p>
       <span class="magnet-wrap"><a href="mailto:hello@futuro.tech" class="btn btn-solid magnet">hello@futuro.tech</a></span>
     </div>
   </section>
@@ -684,11 +756,11 @@
   <div class="wrap">
     <div class="foot-wordmark">futuro.tech</div>
     <div class="foot-grid">
-      <span>© 2026 futuro_tech_design — studio de design tech</span>
+      <span data-i18n="footer.copy">© 2026 futuro_tech_design — studio de design tech</span>
       <ul class="foot-links">
-        <li><a href="https://www.instagram.com/futuro_tech_design/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="mailto:hello@futuro.tech">Email</a></li>
-        <li><a href="#top">Haut de page</a></li>
+        <li><a href="https://www.instagram.com/futuro_tech_design/" target="_blank" rel="noopener" data-i18n="footer.instagram">Instagram</a></li>
+        <li><a href="mailto:hello@futuro.tech" data-i18n="footer.email">Email</a></li>
+        <li><a href="#top" data-i18n="footer.top">Haut de page</a></li>
       </ul>
     </div>
   </div>
@@ -749,6 +821,261 @@
   document.querySelectorAll('#mobilePanel a').forEach(function(a){
     a.addEventListener('click', function(){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
   });
+
+  /* ---------- i18n dictionary ---------- */
+  var I18N = {
+    FR: {
+      'preloader.label':'futuro.tech — chargement',
+      'nav.expertises':'Expertises','nav.projets':'Projets','nav.process':'Process','nav.contact':'Contact','nav.cta':'Démarrer un projet',
+      'mobile.instagram':'Instagram ↗',
+      'hero.eyebrow':'Studio ouvert à de nouveaux projets — 2026',
+      'hero.title':"On- dessine- des- interfaces- qui- donnent- envie- d'y- revenir.",
+      'hero.sub':'futuro_tech_design est un studio de design pour marques tech : identité, produit digital, site web. On construit vite, on construit propre.',
+      'hero.cta1':'Démarrer un projet','hero.cta2':'Voir les projets','hero.scroll':'SCROLL',
+      'marquee.1':'UI/UX Design','marquee.2':'Sites & apps','marquee.3':'Identité de marque','marquee.4':'Motion design','marquee.5':'Prototypage',
+      'manifesto.line1':'La plupart des marques tech se ressemblent.',
+      'manifesto.line2':'On construit des identités <b class="hl grad-text">qu\'on reconnaît</b>',
+      'manifesto.line3':'sans avoir besoin de lire le nom.',
+      'clients.kicker':'Confiance','clients.title':'Clients & partenaires','clients.desc':'Des indépendants aux grands groupes industriels, quelques marques accompagnées.',
+      'expertise.kicker':'Expertises','expertise.title':"Ce qu'on fait le mieux",'expertise.desc':"Quatre disciplines, toujours pensées ensemble pour que le produit, la marque et le site racontent la même histoire.",
+      'expertise.card1.title':'UI/UX Design','expertise.card1.desc':"Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.",'expertise.card1.tag2':'Design system',
+      'expertise.card2.title':'Sites & apps','expertise.card2.desc':'Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.',
+      'expertise.card3.title':'Identité de marque','expertise.card3.desc':'Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Charte',
+      'expertise.card4.title':'Motion & prototypage','expertise.card4.desc':'Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.',
+      'showcase.kicker':'Projets récents','showcase.title':"Ce qu'on a livré dernièrement",'showcase.desc':'Cinq marques, cinq problèmes différents — un fil conducteur : la clarté.',
+      'showcase.card1.tag':'Identité + site','showcase.card1.sub':"Système d'exploitation cloud",
+      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'App de paiement B2B',
+      'showcase.card3.tag':'Site web','showcase.card3.sub':'Vitrine produit industriel',
+      'showcase.card4.tag':'Branding','showcase.card4.sub':'Studio de recherche IA',
+      'showcase.card5.tag':'Motion','showcase.card5.sub':'Dashboard temps réel',
+      'showcase.hint':'SCROLLEZ POUR DÉPLOYER',
+      'stats.1':'Projets livrés','stats.2':'Pays clients','stats.3':'Clients satisfaits','stats.4':'Note moyenne / 5',
+      'process.kicker':'Process','process.title':'Du brief au lancement',
+      'process.step1.title':'Discovery','process.step1.desc':"On cadre l'objectif, le public et les contraintes techniques du projet.",
+      'process.step2.title':'Design','process.step2.desc':'Direction créative, wireframes puis maquettes détaillées sur toutes les vues clés.',
+      'process.step3.title':'Développement','process.step3.desc':'Intégration fidèle au design, animations, responsive et tests sur tous les écrans.',
+      'process.step4.title':'Lancement','process.step4.desc':'Mise en ligne, passation des fichiers et accompagnement les premières semaines.',
+      'quote.text':'« Le site a été prêt en 3 semaines et il a changé la façon dont on nous perçoit en démo. »',
+      'quote.attr':'— Julia Renn, cofondatrice, Vertex Labs',
+      'contact.title':'Un projet tech en tête ?','contact.desc':'Écrivez-nous, on revient vers vous sous 48h avec une première direction.',
+      'footer.copy':'© 2026 futuro_tech_design — studio de design tech','footer.instagram':'Instagram','footer.email':'Email','footer.top':'Haut de page'
+    },
+    EN: {
+      'preloader.label':'futuro.tech — loading',
+      'nav.expertises':'Expertise','nav.projets':'Work','nav.process':'Process','nav.contact':'Contact','nav.cta':'Start a project',
+      'mobile.instagram':'Instagram ↗',
+      'hero.eyebrow':'Studio open to new projects — 2026',
+      'hero.title':'We design interfaces people want to come back to.',
+      'hero.sub':'futuro_tech_design is a design studio for tech brands: identity, digital product, website. We build fast, we build clean.',
+      'hero.cta1':'Start a project','hero.cta2':'See the work','hero.scroll':'SCROLL',
+      'marquee.1':'UI/UX Design','marquee.2':'Sites & apps','marquee.3':'Brand identity','marquee.4':'Motion design','marquee.5':'Prototyping',
+      'manifesto.line1':'Most tech brands look the same.',
+      'manifesto.line2':'We build identities <b class="hl grad-text">you recognise</b>',
+      'manifesto.line3':'without needing to read the name.',
+      'clients.kicker':'Trust','clients.title':'Clients & partners','clients.desc':'From independents to large industrial groups, a few brands we\'ve worked with.',
+      'expertise.kicker':'Expertise','expertise.title':'What we do best','expertise.desc':'Four disciplines, always thought through together so the product, the brand and the site tell the same story.',
+      'expertise.card1.title':'UI/UX Design','expertise.card1.desc':'Product interfaces designed for clarity and conversion, from wireframes to final design.','expertise.card1.tag2':'Design system',
+      'expertise.card2.title':'Sites & apps','expertise.card2.desc':'Fast, animated, responsive websites and web apps, from the first line of code.',
+      'expertise.card3.title':'Brand identity','expertise.card3.desc':'Logo, typography, palette and a consistent visual system across all your media, print and digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Guidelines',
+      'expertise.card4.title':'Motion & prototyping','expertise.card4.desc':'Micro-interactions and animated prototypes to test and sell an experience before coding it.',
+      'showcase.kicker':'Recent work','showcase.title':'What we shipped lately','showcase.desc':'Five brands, five different problems — one common thread: clarity.',
+      'showcase.card1.tag':'Identity + site','showcase.card1.sub':'Cloud operating system',
+      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B payments app',
+      'showcase.card3.tag':'Website','showcase.card3.sub':'Industrial product showcase',
+      'showcase.card4.tag':'Branding','showcase.card4.sub':'AI research studio',
+      'showcase.card5.tag':'Motion','showcase.card5.sub':'Real-time dashboard',
+      'showcase.hint':'SCROLL TO UNFOLD',
+      'stats.1':'Projects shipped','stats.2':'Client countries','stats.3':'Happy clients','stats.4':'Average rating / 5',
+      'process.kicker':'Process','process.title':'From brief to launch',
+      'process.step1.title':'Discovery','process.step1.desc':"We frame the goal, the audience and the project's technical constraints.",
+      'process.step2.title':'Design','process.step2.desc':'Creative direction, wireframes then detailed mockups across every key screen.',
+      'process.step3.title':'Development','process.step3.desc':'Pixel-accurate build, animations, responsive behaviour and testing on every screen.',
+      'process.step4.title':'Launch','process.step4.desc':'Going live, file handover and support through the first weeks.',
+      'quote.text':'"The site was ready in 3 weeks and it changed how people see us in demos."',
+      'quote.attr':'— Julia Renn, co-founder, Vertex Labs',
+      'contact.title':'Got a tech project in mind?','contact.desc':'Write to us, we get back to you within 48h with a first direction.',
+      'footer.copy':'© 2026 futuro_tech_design — tech design studio','footer.instagram':'Instagram','footer.email':'Email','footer.top':'Back to top'
+    },
+    AR: {
+      'preloader.label':'futuro.tech — جارٍ التحميل',
+      'nav.expertises':'الخبرات','nav.projets':'المشاريع','nav.process':'المسار','nav.contact':'تواصل معنا','nav.cta':'ابدأ مشروعاً',
+      'mobile.instagram':'إنستغرام ↗',
+      'hero.eyebrow':'الاستوديو مفتوح لمشاريع جديدة — 2026',
+      'hero.title':'-نصمم- واجهات -تجعلك -ترغب -في -العودة -إليها.',
+      'hero.sub':'futuro_tech_design استوديو تصميم للعلامات التقنية: الهوية، المنتج الرقمي، الموقع الإلكتروني. نبني بسرعة، ونبني بإتقان.',
+      'hero.cta1':'ابدأ مشروعاً','hero.cta2':'شاهد المشاريع','hero.scroll':'مرّر للأسفل',
+      'marquee.1':'تصميم UI/UX','marquee.2':'مواقع وتطبيقات','marquee.3':'هوية العلامة','marquee.4':'موشن غرافيك','marquee.5':'نمذجة أولية',
+      'manifesto.line1':'معظم العلامات التقنية تتشابه.',
+      'manifesto.line2':'نبني هويات <b class="hl grad-text">تُعرف من أول نظرة</b>',
+      'manifesto.line3':'دون الحاجة لقراءة الاسم.',
+      'clients.kicker':'الثقة','clients.title':'العملاء والشركاء','clients.desc':'من المستقلين إلى المجموعات الصناعية الكبرى، بعض العلامات التي رافقناها.',
+      'expertise.kicker':'الخبرات','expertise.title':'ما نُتقنه أكثر','expertise.desc':'أربعة تخصصات، مُفكَّر فيها دائماً معاً حتى يروي المنتج والعلامة والموقع القصة نفسها.',
+      'expertise.card1.title':'تصميم UI/UX','expertise.card1.desc':'واجهات منتج مصمَّمة من أجل الوضوح والتحويل، من الرسومات التخطيطية إلى التصميم النهائي.','expertise.card1.tag2':'نظام التصميم',
+      'expertise.card2.title':'مواقع وتطبيقات','expertise.card2.desc':'مواقع وتطبيقات ويب سريعة ومتحركة ومتجاوبة منذ أول سطر برمجي.',
+      'expertise.card3.title':'هوية العلامة','expertise.card3.desc':'شعار، خطوط، ألوان، ونظام بصري متسق على جميع الوسائط، المطبوعة والرقمية.','expertise.card3.tag1':'الشعار','expertise.card3.tag2':'الدليل البصري',
+      'expertise.card4.title':'موشن ونمذجة أولية','expertise.card4.desc':'تفاعلات دقيقة ونماذج متحركة لاختبار وبيع تجربة قبل برمجتها.',
+      'showcase.kicker':'مشاريع حديثة','showcase.title':'ما أنجزناه مؤخراً','showcase.desc':'خمس علامات، خمس مشكلات مختلفة — خيط ناظم واحد: الوضوح.',
+      'showcase.card1.tag':'هوية + موقع','showcase.card1.sub':'نظام تشغيل سحابي',
+      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'تطبيق دفع للشركات',
+      'showcase.card3.tag':'موقع إلكتروني','showcase.card3.sub':'واجهة عرض منتج صناعي',
+      'showcase.card4.tag':'هوية بصرية','showcase.card4.sub':'استوديو أبحاث ذكاء اصطناعي',
+      'showcase.card5.tag':'موشن غرافيك','showcase.card5.sub':'لوحة بيانات لحظية',
+      'showcase.hint':'مرّر للأسفل للانتشار',
+      'stats.1':'مشروع مُنجز','stats.2':'دولة عميلة','stats.3':'عملاء راضون','stats.4':'التقييم المتوسط / 5',
+      'process.kicker':'المسار','process.title':'من البريف إلى الإطلاق',
+      'process.step1.title':'الاستكشاف','process.step1.desc':'نحدّد الهدف والجمهور والقيود التقنية للمشروع.',
+      'process.step2.title':'التصميم','process.step2.desc':'توجيه إبداعي، رسومات تخطيطية ثم نماذج مفصّلة لكل الشاشات الأساسية.',
+      'process.step3.title':'التطوير','process.step3.desc':'تطوير مطابق للتصميم، حركات، تجاوب واختبار على جميع الشاشات.',
+      'process.step4.title':'الإطلاق','process.step4.desc':'النشر، تسليم الملفات ومرافقة خلال الأسابيع الأولى.',
+      'quote.text':'«كان الموقع جاهزاً خلال 3 أسابيع وغيّر الطريقة التي يُنظر بها إلينا في العروض التوضيحية.»',
+      'quote.attr':'— جوليا رين، شريكة مؤسسة، Vertex Labs',
+      'contact.title':'لديك مشروع تقني في ذهنك؟','contact.desc':'راسلنا، وسنعود إليك خلال 48 ساعة باتجاه أولي.',
+      'footer.copy':'© 2026 futuro_tech_design — استوديو تصميم تقني','footer.instagram':'إنستغرام','footer.email':'البريد الإلكتروني','footer.top':'العودة للأعلى'
+    },
+    ZH: {
+      'preloader.label':'futuro.tech — 加载中',
+      'nav.expertises':'专业领域','nav.projets':'项目','nav.process':'流程','nav.contact':'联系我们','nav.cta':'开始一个项目',
+      'mobile.instagram':'Instagram ↗',
+      'hero.eyebrow':'工作室现正接受新项目 — 2026',
+      'hero.title':'我们设计让人想一再回来的界面。',
+      'hero.sub':'futuro_tech_design 是一家专为科技品牌服务的设计工作室：品牌形象、数字产品、网站。我们建造得快，也建造得干净利落。',
+      'hero.cta1':'开始一个项目','hero.cta2':'查看项目','hero.scroll':'向下滚动',
+      'marquee.1':'UI/UX 设计','marquee.2':'网站与应用','marquee.3':'品牌形象','marquee.4':'动效设计','marquee.5':'原型设计',
+      'manifesto.line1':'大多数科技品牌看起来都很相似。',
+      'manifesto.line2':'我们打造<b class="hl grad-text">一眼就能认出的</b>品牌形象',
+      'manifesto.line3':'无需阅读名字。',
+      'clients.kicker':'信任','clients.title':'客户与合作伙伴','clients.desc':'从独立品牌到大型工业集团，这是我们合作过的一些品牌。',
+      'expertise.kicker':'专业领域','expertise.title':'我们最擅长的事','expertise.desc':'四个专业领域，始终协同思考，让产品、品牌和网站讲述同一个故事。',
+      'expertise.card1.title':'UI/UX 设计','expertise.card1.desc':'为清晰度和转化率而设计的产品界面，从线框图到最终设计。','expertise.card1.tag2':'设计系统',
+      'expertise.card2.title':'网站与应用','expertise.card2.desc':'快速、有动效、响应式的网站与网页应用，从第一行代码开始。',
+      'expertise.card3.title':'品牌形象','expertise.card3.desc':'标志、字体、色彩，以及在印刷和数字媒介上保持一致的视觉体系。','expertise.card3.tag1':'标志','expertise.card3.tag2':'品牌规范',
+      'expertise.card4.title':'动效与原型','expertise.card4.desc':'微交互与动态原型，在编码之前先测试并展示体验。',
+      'showcase.kicker':'近期项目','showcase.title':'我们最近交付的作品','showcase.desc':'五个品牌，五个不同的问题——一条共同主线：清晰。',
+      'showcase.card1.tag':'品牌形象 + 网站','showcase.card1.sub':'云操作系统',
+      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B 支付应用',
+      'showcase.card3.tag':'网站','showcase.card3.sub':'工业产品展示站',
+      'showcase.card4.tag':'品牌形象','showcase.card4.sub':'AI 研究工作室',
+      'showcase.card5.tag':'动效设计','showcase.card5.sub':'实时数据看板',
+      'showcase.hint':'滚动以展开',
+      'stats.1':'已交付项目','stats.2':'客户所在国家','stats.3':'满意客户','stats.4':'平均评分 / 5',
+      'process.kicker':'流程','process.title':'从需求到上线',
+      'process.step1.title':'探索','process.step1.desc':'明确项目目标、受众以及技术限制。',
+      'process.step2.title':'设计','process.step2.desc':'创意方向、线框图，随后在所有关键页面上完成详细设计稿。',
+      'process.step3.title':'开发','process.step3.desc':'忠实还原设计的开发、动效、响应式适配，并在所有屏幕上测试。',
+      'process.step4.title':'上线','process.step4.desc':'正式上线、交付文件，并在最初几周提供支持。',
+      'quote.text':'「网站在3周内就绪，改变了我们在演示中给人的印象。」',
+      'quote.attr':'— Julia Renn，联合创始人，Vertex Labs',
+      'contact.title':'有科技项目想法吗？','contact.desc':'写信给我们，我们会在48小时内回复初步方向。',
+      'footer.copy':'© 2026 futuro_tech_design — 科技设计工作室','footer.instagram':'Instagram','footer.email':'邮箱','footer.top':'返回顶部'
+    },
+    DE: {
+      'preloader.label':'futuro.tech — lädt',
+      'nav.expertises':'Leistungen','nav.projets':'Projekte','nav.process':'Prozess','nav.contact':'Kontakt','nav.cta':'Projekt starten',
+      'mobile.instagram':'Instagram ↗',
+      'hero.eyebrow':'Studio offen für neue Projekte — 2026',
+      'hero.title':'Wir gestalten Interfaces, zu denen man gerne zurückkehrt.',
+      'hero.sub':'futuro_tech_design ist ein Designstudio für Tech-Marken: Identität, digitales Produkt, Website. Wir bauen schnell, wir bauen sauber.',
+      'hero.cta1':'Projekt starten','hero.cta2':'Projekte ansehen','hero.scroll':'SCROLLEN',
+      'marquee.1':'UI/UX Design','marquee.2':'Websites & Apps','marquee.3':'Markenidentität','marquee.4':'Motion Design','marquee.5':'Prototyping',
+      'manifesto.line1':'Die meisten Tech-Marken sehen gleich aus.',
+      'manifesto.line2':'Wir bauen Identitäten, <b class="hl grad-text">die man wiedererkennt</b>',
+      'manifesto.line3':'ohne den Namen lesen zu müssen.',
+      'clients.kicker':'Vertrauen','clients.title':'Kunden & Partner','clients.desc':'Von Selbstständigen bis zu großen Industriekonzernen — einige Marken, mit denen wir gearbeitet haben.',
+      'expertise.kicker':'Leistungen','expertise.title':'Was wir am besten können','expertise.desc':'Vier Disziplinen, immer zusammen gedacht, damit Produkt, Marke und Website dieselbe Geschichte erzählen.',
+      'expertise.card1.title':'UI/UX Design','expertise.card1.desc':'Produktoberflächen für Klarheit und Conversion, von Wireframes bis zum finalen Design.','expertise.card1.tag2':'Designsystem',
+      'expertise.card2.title':'Websites & Apps','expertise.card2.desc':'Schnelle, animierte, responsive Websites und Web-Apps ab der ersten Codezeile.',
+      'expertise.card3.title':'Markenidentität','expertise.card3.desc':'Logo, Typografie, Farbpalette und ein konsistentes visuelles System für Print und Digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Styleguide',
+      'expertise.card4.title':'Motion & Prototyping','expertise.card4.desc':'Mikrointeraktionen und animierte Prototypen, um eine Erfahrung zu testen und zu verkaufen, bevor sie programmiert wird.',
+      'showcase.kicker':'Aktuelle Projekte','showcase.title':'Was wir zuletzt geliefert haben','showcase.desc':'Fünf Marken, fünf unterschiedliche Probleme — ein roter Faden: Klarheit.',
+      'showcase.card1.tag':'Identität + Website','showcase.card1.sub':'Cloud-Betriebssystem',
+      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B-Zahlungs-App',
+      'showcase.card3.tag':'Website','showcase.card3.sub':'Industrielle Produktvitrine',
+      'showcase.card4.tag':'Branding','showcase.card4.sub':'KI-Forschungsstudio',
+      'showcase.card5.tag':'Motion','showcase.card5.sub':'Echtzeit-Dashboard',
+      'showcase.hint':'SCROLLEN ZUM ENTFALTEN',
+      'stats.1':'Gelieferte Projekte','stats.2':'Länder mit Kunden','stats.3':'Zufriedene Kunden','stats.4':'Durchschnittsbewertung / 5',
+      'process.kicker':'Prozess','process.title':'Vom Briefing zum Launch',
+      'process.step1.title':'Discovery','process.step1.desc':'Wir fassen Ziel, Zielgruppe und technische Rahmenbedingungen des Projekts.',
+      'process.step2.title':'Design','process.step2.desc':'Kreativrichtung, Wireframes, dann detaillierte Entwürfe für alle wichtigen Ansichten.',
+      'process.step3.title':'Entwicklung','process.step3.desc':'Präzise Umsetzung des Designs, Animationen, Responsive-Verhalten und Tests auf allen Bildschirmen.',
+      'process.step4.title':'Launch','process.step4.desc':'Livegang, Übergabe der Dateien und Begleitung in den ersten Wochen.',
+      'quote.text':'„Die Website war in 3 Wochen fertig und hat verändert, wie man uns in Demos wahrnimmt."',
+      'quote.attr':'— Julia Renn, Mitgründerin, Vertex Labs',
+      'contact.title':'Ein Tech-Projekt im Kopf?','contact.desc':'Schreiben Sie uns, wir melden uns innerhalb von 48h mit einer ersten Richtung.',
+      'footer.copy':'© 2026 futuro_tech_design — Tech-Designstudio','footer.instagram':'Instagram','footer.email':'E-Mail','footer.top':'Nach oben'
+    }
+  };
+
+  /* ---------- language switcher ---------- */
+  (function(){
+    var switchEl = document.getElementById('langSwitch');
+    var btn = document.getElementById('langBtn');
+    var code = document.getElementById('langCode');
+    var menu = document.getElementById('langMenu');
+    var mobileLang = document.getElementById('mobileLang');
+    var heroTitleEl = document.getElementById('heroTitle');
+
+    function applyDict(lang){
+      var dict = I18N[lang] || I18N.FR;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined){ el.textContent = dict[key]; }
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+        var key = el.getAttribute('data-i18n-html');
+        if(dict[key] !== undefined){ el.innerHTML = dict[key]; }
+      });
+      // hero title needs re-splitting into words for the reveal animation markup
+      if(heroTitleEl && dict['hero.title'] !== undefined){
+        var words = dict['hero.title'].trim().split(' ');
+        heroTitleEl.innerHTML = words.map(function(w){ return '<span class="word"><span>'+w+' </span></span>'; }).join('');
+        gsap.set(heroTitleEl.querySelectorAll('.word span'), { yPercent:0, opacity:1 });
+      }
+    }
+
+    function setLang(lang){
+      code.textContent = lang;
+      document.querySelectorAll('.lang-option').forEach(function(o){
+        o.classList.toggle('active', o.getAttribute('data-lang') === lang);
+      });
+      if(mobileLang){
+        mobileLang.querySelectorAll('button').forEach(function(b){
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+      }
+      document.documentElement.setAttribute('dir', lang === 'AR' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', lang.toLowerCase());
+      applyDict(lang);
+      switchEl.dispatchEvent(new CustomEvent('langchange', { detail:{ lang: lang } }));
+    }
+
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = switchEl.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true':'false');
+    });
+    document.addEventListener('click', function(e){
+      if(!switchEl.contains(e.target)){
+        switchEl.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ switchEl.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+    });
+    menu.querySelectorAll('.lang-option').forEach(function(opt){
+      opt.addEventListener('click', function(){
+        setLang(opt.getAttribute('data-lang'));
+        switchEl.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      });
+    });
+    if(mobileLang){
+      mobileLang.querySelectorAll('button').forEach(function(b){
+        b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+      });
+    }
+  })();
 
   /* ---------- magnetic buttons ---------- */
   if(!isTouch && !reduced){
@@ -824,25 +1151,76 @@
     });
   }
 
-  /* horizontal gallery pin */
-  var track = document.getElementById('galleryTrack');
-  function setupGallery(){
-    if(window.innerWidth <= 760 || reduced){ return; }
-    var distance = track.scrollWidth - track.parentElement.clientWidth + 80;
-    gsap.to(track, {
-      x: -distance,
-      ease:'none',
+  /* ---------- showcase fan deck (Shopify-style spread) ---------- */
+  (function(){
+    var cards = gsap.utils.toArray('.fan-card');
+    if(!cards.length) return;
+
+    // Final fanned layout: spread across the stage, alternating rotation, like a hand of cards.
+    var layout = [
+      { x:-380, y: 26, r:-14, z:1 },
+      { x:-190, y:-10, r:-7,  z:2 },
+      { x:   0, y:-28, r: 0,  z:5 },
+      { x: 190, y:-10, r: 7,  z:2 },
+      { x: 380, y: 26, r: 14, z:1 }
+    ];
+
+    function scale(){
+      var stage = document.getElementById('showcaseStage');
+      var f = stage.clientWidth < 700 ? stage.clientWidth/1040 : 1;
+      return f;
+    }
+
+    cards.forEach(function(card, i){
+      gsap.set(card, { xPercent:-50, yPercent:-50, x:0, y:0, rotation:0, scale:0.92, opacity:0, zIndex:10-i });
+    });
+
+    if(reduced){
+      var f0 = scale();
+      cards.forEach(function(card, i){
+        var l = layout[i];
+        gsap.set(card, { x:l.x*f0, y:l.y*f0, rotation:l.r, scale:1, opacity:1, zIndex:l.z });
+      });
+      return;
+    }
+
+    var tl = gsap.timeline({
       scrollTrigger:{
-        trigger:'.gallery-pin',
-        start:'top top',
-        end:'+='+(distance+window.innerHeight),
-        scrub:0.6,
-        pin:true,
-        invalidateOnRefresh:true
+        trigger:'.showcase',
+        start:'top 75%',
+        end:'top 20%',
+        scrub:0.7
       }
     });
-  }
-  setupGallery();
+
+    cards.forEach(function(card, i){
+      var l = layout[i];
+      var f = scale();
+      tl.to(card, {
+        x: l.x*f, y: l.y*f, rotation: l.r, scale:1, opacity:1, zIndex:l.z,
+        ease:'power2.out', duration:1
+      }, i*0.12);
+    });
+
+    // subtle hover lift on desktop, matching the studio's hand-crafted feel
+    if(!isTouch){
+      cards.forEach(function(card, i){
+        var l = layout[i];
+        card.addEventListener('mouseenter', function(){
+          var f = scale();
+          gsap.to(card, { y:(l.y-18)*f, scale:1.05, zIndex:9, duration:0.35, ease:'power2.out' });
+        });
+        card.addEventListener('mouseleave', function(){
+          var f = scale();
+          gsap.to(card, { y:l.y*f, scale:1, zIndex:l.z, duration:0.35, ease:'power2.out' });
+        });
+      });
+    }
+
+    window.addEventListener('resize', function(){
+      ScrollTrigger.refresh();
+    });
+  })();
 
   /* stat counters */
   document.querySelectorAll('.stat .n').forEach(function(el){
