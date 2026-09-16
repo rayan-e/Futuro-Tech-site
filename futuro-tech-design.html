@@ -7,7 +7,7 @@
 <meta name="description" content="futuro_tech_design conçoit des identités, sites et interfaces pour des marques tech. UI/UX, branding, motion.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" type="image/png" href="logo/logo-FT_Design2026.png">
+<link rel="icon" type="image/png" href="logo/logo-FT_Design_2026.png">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -385,22 +385,54 @@
   .manifesto p .line span{ display:block; color:var(--fg); }
   .manifesto p .hl{ color:var(--fg); }
 
-  /* services */
-  .service-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .service-card{
-    background:var(--bg);
-    padding:var(--sp-4) var(--sp-3);
+  /* services — style "post Instagram" */
+  .service-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-3); }
+  .service-post{
+    display:block;
+    background:var(--bg-2);
+    border:1px solid var(--line-strong);
+    border-radius:18px;
+    overflow:hidden;
     perspective:800px;
+    transition:border-color .25s ease, transform .25s var(--ease), box-shadow .25s var(--ease);
   }
-  .service-card .inner{
+  .service-post:hover{ border-color:var(--lime); transform:translateY(-6px); box-shadow:0 24px 48px rgba(0,0,0,0.4); }
+  .service-post .inner{
     transition:transform .12s ease-out;
     transform-style:preserve-3d;
   }
-  .service-card .num{ font-family:'Sora',sans-serif; color:var(--muted); font-size:0.85rem; }
-  .service-card h3{ font-size:1.3rem; margin-top:var(--sp-3); }
-  .service-card p{ color:var(--muted); font-size:0.92rem; margin-top:var(--sp-2); }
-  .service-card .tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:var(--sp-3); }
-  .service-card .tags span{ font-size:0.72rem; color:var(--cyan); border:1px solid rgba(53,231,255,0.3); padding:3px 9px; border-radius:100px; }
+  .post-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px;
+    border-bottom:1px solid var(--line);
+  }
+  .post-logo{ display:flex; align-items:center; gap:8px; font-family:'Sora',sans-serif; font-weight:600; font-size:0.82rem; color:var(--fg); }
+  .post-logo .post-dot{ width:8px; height:8px; border-radius:50%; background:var(--lime); display:inline-block; }
+  .post-more{ color:var(--muted); font-size:0.85rem; letter-spacing:0.1em; }
+  .post-media{
+    position:relative;
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .post-media svg{ width:34%; height:34%; }
+  .post-media-1{ background:radial-gradient(circle at 30% 20%, rgba(53,231,255,0.35), transparent 60%), linear-gradient(150deg,#14141b,#0e1a1f); }
+  .post-media-2{ background:radial-gradient(circle at 70% 20%, rgba(200,255,77,0.28), transparent 60%), linear-gradient(150deg,#14141b,#141c10); }
+  .post-media-3{ background:radial-gradient(circle at 30% 80%, rgba(140,77,255,0.35), transparent 60%), linear-gradient(150deg,#14141b,#1a1424); }
+  .post-media-4{ background:radial-gradient(circle at 70% 80%, rgba(53,231,255,0.28), rgba(140,77,255,0.22) 55%, transparent 75%), linear-gradient(150deg,#14141b,#101018); }
+  .post-media .num{ position:absolute; top:14px; left:16px; font-family:'Sora',sans-serif; color:rgba(243,243,241,0.5); font-size:0.85rem; }
+  .post-body{ padding:var(--sp-3) 16px 18px; }
+  .service-post h3{ font-size:1.2rem; }
+  .service-post p{ color:var(--muted); font-size:0.88rem; margin-top:8px; }
+  .service-post .tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:var(--sp-3); }
+  .service-post .tags span{ font-size:0.7rem; color:var(--cyan); border:1px solid rgba(53,231,255,0.3); padding:3px 9px; border-radius:100px; }
+  .post-footer{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    margin-top:var(--sp-3); padding-top:var(--sp-3); border-top:1px solid var(--line);
+  }
+  .post-price{ font-family:'Sora',sans-serif; font-weight:600; color:var(--lime); font-size:0.88rem; }
+  .post-cta{ font-family:'Sora',sans-serif; font-size:0.82rem; color:var(--fg); display:inline-flex; align-items:center; gap:6px; }
+  .service-post:hover .post-cta{ color:var(--lime); }
 
   /* showcase (fan reveal, projets) */
   .showcase{
@@ -665,48 +697,89 @@
     </div>
     <div class="wrap">
       <div class="service-grid">
-        <div class="service-card tilt"><div class="inner">
-          <span class="num">01</span>
-          <h3 data-i18n="expertise.card1.title">UI/UX Design</h3>
-          <p data-i18n="expertise.card1.desc">Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.</p>
-          <div class="tags"><span>Figma</span><span data-i18n="expertise.card1.tag2">Design system</span></div>
-        </div></div>
-        <div class="service-card tilt"><div class="inner">
-          <span class="num">02</span>
-          <h3 data-i18n="expertise.card2.title">Sites &amp; apps</h3>
-          <p data-i18n="expertise.card2.desc">Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.</p>
-          <div class="tags"><span>React</span><span>Webflow</span></div>
-        </div></div>
-        <div class="service-card tilt"><div class="inner">
-          <span class="num">03</span>
-          <h3 data-i18n="expertise.card3.title">Identité de marque</h3>
-          <p data-i18n="expertise.card3.desc">Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.</p>
-          <div class="tags"><span data-i18n="expertise.card3.tag1">Logo</span><span data-i18n="expertise.card3.tag2">Charte</span></div>
-        </div></div>
-        <div class="service-card tilt"><div class="inner">
-          <span class="num">04</span>
-          <h3 data-i18n="expertise.card4.title">Motion &amp; prototypage</h3>
-          <p data-i18n="expertise.card4.desc">Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.</p>
-          <div class="tags"><span>GSAP</span><span>Lottie</span></div>
-        </div></div>
+
+        <a href="#contact" class="service-post tilt" aria-label="UI/UX Design — aller au formulaire de contact"><div class="inner">
+          <div class="post-head">
+            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
+            <span class="post-more">•••</span>
+          </div>
+          <div class="post-media post-media-1">
+            <span class="num">01</span>
+            <svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.6"><rect x="7" y="9" width="34" height="24" rx="3"/><path d="M15 40h18M24 33v7"/><circle cx="15" cy="17" r="1.4" fill="var(--cyan)" stroke="none"/><path d="M15 27l6-6 5 5 7-8" /></svg>
+          </div>
+          <div class="post-body">
+            <h3 data-i18n="expertise.card1.title">UI/UX Design</h3>
+            <p data-i18n="expertise.card1.desc">Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.</p>
+            <div class="tags"><span>Figma</span><span data-i18n="expertise.card1.tag2">Design system</span></div>
+            <div class="post-footer">
+              <span class="post-price" data-i18n="expertise.card1.price">Sur devis</span>
+              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#contact" class="service-post tilt" aria-label="Sites & apps — aller au formulaire de contact"><div class="inner">
+          <div class="post-head">
+            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
+            <span class="post-more">•••</span>
+          </div>
+          <div class="post-media post-media-2">
+            <span class="num">02</span>
+            <svg viewBox="0 0 48 48" fill="none" stroke="var(--lime)" stroke-width="1.6"><rect x="4" y="10" width="26" height="18" rx="2"/><path d="M11 34h12"/><rect x="33" y="13" width="11" height="20" rx="2"/><path d="M9 15h22"/></svg>
+          </div>
+          <div class="post-body">
+            <h3 data-i18n="expertise.card2.title">Sites &amp; apps</h3>
+            <p data-i18n="expertise.card2.desc">Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.</p>
+            <div class="tags"><span>React</span><span>Webflow</span></div>
+            <div class="post-footer">
+              <span class="post-price" data-i18n="expertise.card2.price">À partir de 490€</span>
+              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#contact" class="service-post tilt" aria-label="Identité de marque — aller au formulaire de contact"><div class="inner">
+          <div class="post-head">
+            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
+            <span class="post-more">•••</span>
+          </div>
+          <div class="post-media post-media-3">
+            <span class="num">03</span>
+            <svg viewBox="0 0 48 48" fill="none" stroke="var(--violet)" stroke-width="1.6"><circle cx="24" cy="24" r="15"/><path d="M24 9v30M9 24h30"/></svg>
+          </div>
+          <div class="post-body">
+            <h3 data-i18n="expertise.card3.title">Identité de marque</h3>
+            <p data-i18n="expertise.card3.desc">Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.</p>
+            <div class="tags"><span data-i18n="expertise.card3.tag1">Logo</span><span data-i18n="expertise.card3.tag2">Charte</span></div>
+            <div class="post-footer">
+              <span class="post-price" data-i18n="expertise.card3.price">À partir de 290€</span>
+              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#contact" class="service-post tilt" aria-label="Motion & prototypage — aller au formulaire de contact"><div class="inner">
+          <div class="post-head">
+            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
+            <span class="post-more">•••</span>
+          </div>
+          <div class="post-media post-media-4">
+            <span class="num">04</span>
+            <svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.6"><path d="M16 13l19 11-19 11z"/></svg>
+          </div>
+          <div class="post-body">
+            <h3 data-i18n="expertise.card4.title">Motion &amp; prototypage</h3>
+            <p data-i18n="expertise.card4.desc">Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.</p>
+            <div class="tags"><span>GSAP</span><span>Lottie</span></div>
+            <div class="post-footer">
+              <span class="post-price" data-i18n="expertise.card4.price">Sur devis</span>
+              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
+            </div>
+          </div>
+        </div></a>
+
       </div>
     </div>
-  </section>
-
-  <section class="showcase" id="projets">
-    <div class="wrap showcase-head">
-      <span class="kicker" data-i18n="showcase.kicker">Projets récents</span>
-      <h2 data-i18n="showcase.title">Ce qu'on a livré dernièrement</h2>
-      <p data-i18n="showcase.desc">Cinq marques, cinq problèmes différents — un fil conducteur : la clarté.</p>
-    </div>
-    <div class="showcase-stage" id="showcaseStage">
-      <div class="fan-card g1" data-i="0"><span class="g-tag" data-i18n="showcase.card1.tag">Identité + site</span><div><div class="g-title">Nebula OS</div><div class="g-sub" data-i18n="showcase.card1.sub">Système d'exploitation cloud</div></div></div>
-      <div class="fan-card g2" data-i="1"><span class="g-tag" data-i18n="showcase.card2.tag">UI/UX</span><div><div class="g-title">Orbit Pay</div><div class="g-sub" data-i18n="showcase.card2.sub">App de paiement B2B</div></div></div>
-      <div class="fan-card g3" data-i="2"><span class="g-tag" data-i18n="showcase.card3.tag">Site web</span><div><div class="g-title">Halo Robotics</div><div class="g-sub" data-i18n="showcase.card3.sub">Vitrine produit industriel</div></div></div>
-      <div class="fan-card g4" data-i="3"><span class="g-tag" data-i18n="showcase.card4.tag">Branding</span><div><div class="g-title">Vertex Labs</div><div class="g-sub" data-i18n="showcase.card4.sub">Studio de recherche IA</div></div></div>
-      <div class="fan-card g5" data-i="4"><span class="g-tag" data-i18n="showcase.card5.tag">Motion</span><div><div class="g-title">Kinetic Grid</div><div class="g-sub" data-i18n="showcase.card5.sub">Dashboard temps réel</div></div></div>
-    </div>
-    <div class="showcase-hint" aria-hidden="true" data-i18n="showcase.hint">SCROLLEZ POUR DÉPLOYER</div>
   </section>
 
   <section class="stats section">
@@ -842,6 +915,7 @@
       'expertise.card2.title':'Sites & apps','expertise.card2.desc':'Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.',
       'expertise.card3.title':'Identité de marque','expertise.card3.desc':'Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Charte',
       'expertise.card4.title':'Motion & prototypage','expertise.card4.desc':'Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.',
+      'expertise.card1.price':'Sur devis','expertise.card2.price':'À partir de 490€','expertise.card3.price':'À partir de 290€','expertise.card4.price':'Sur devis','expertise.cta':'Demander un devis →',
       'showcase.kicker':'Projets récents','showcase.title':"Ce qu'on a livré dernièrement",'showcase.desc':'Cinq marques, cinq problèmes différents — un fil conducteur : la clarté.',
       'showcase.card1.tag':'Identité + site','showcase.card1.sub':"Système d'exploitation cloud",
       'showcase.card2.tag':'UI/UX','showcase.card2.sub':'App de paiement B2B',
@@ -878,6 +952,7 @@
       'expertise.card2.title':'Sites & apps','expertise.card2.desc':'Fast, animated, responsive websites and web apps, from the first line of code.',
       'expertise.card3.title':'Brand identity','expertise.card3.desc':'Logo, typography, palette and a consistent visual system across all your media, print and digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Guidelines',
       'expertise.card4.title':'Motion & prototyping','expertise.card4.desc':'Micro-interactions and animated prototypes to test and sell an experience before coding it.',
+      'expertise.card1.price':'Custom quote','expertise.card2.price':'From €490','expertise.card3.price':'From €290','expertise.card4.price':'Custom quote','expertise.cta':'Request a quote →',
       'showcase.kicker':'Recent work','showcase.title':'What we shipped lately','showcase.desc':'Five brands, five different problems — one common thread: clarity.',
       'showcase.card1.tag':'Identity + site','showcase.card1.sub':'Cloud operating system',
       'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B payments app',
@@ -914,6 +989,7 @@
       'expertise.card2.title':'مواقع وتطبيقات','expertise.card2.desc':'مواقع وتطبيقات ويب سريعة ومتحركة ومتجاوبة منذ أول سطر برمجي.',
       'expertise.card3.title':'هوية العلامة','expertise.card3.desc':'شعار، خطوط، ألوان، ونظام بصري متسق على جميع الوسائط، المطبوعة والرقمية.','expertise.card3.tag1':'الشعار','expertise.card3.tag2':'الدليل البصري',
       'expertise.card4.title':'موشن ونمذجة أولية','expertise.card4.desc':'تفاعلات دقيقة ونماذج متحركة لاختبار وبيع تجربة قبل برمجتها.',
+      'expertise.card1.price':'حسب الطلب','expertise.card2.price':'ابتداءً من 490€','expertise.card3.price':'ابتداءً من 290€','expertise.card4.price':'حسب الطلب','expertise.cta':'← اطلب عرض سعر',
       'showcase.kicker':'مشاريع حديثة','showcase.title':'ما أنجزناه مؤخراً','showcase.desc':'خمس علامات، خمس مشكلات مختلفة — خيط ناظم واحد: الوضوح.',
       'showcase.card1.tag':'هوية + موقع','showcase.card1.sub':'نظام تشغيل سحابي',
       'showcase.card2.tag':'UI/UX','showcase.card2.sub':'تطبيق دفع للشركات',
@@ -950,6 +1026,7 @@
       'expertise.card2.title':'网站与应用','expertise.card2.desc':'快速、有动效、响应式的网站与网页应用，从第一行代码开始。',
       'expertise.card3.title':'品牌形象','expertise.card3.desc':'标志、字体、色彩，以及在印刷和数字媒介上保持一致的视觉体系。','expertise.card3.tag1':'标志','expertise.card3.tag2':'品牌规范',
       'expertise.card4.title':'动效与原型','expertise.card4.desc':'微交互与动态原型，在编码之前先测试并展示体验。',
+      'expertise.card1.price':'按需报价','expertise.card2.price':'起价 490€','expertise.card3.price':'起价 290€','expertise.card4.price':'按需报价','expertise.cta':'获取报价 →',
       'showcase.kicker':'近期项目','showcase.title':'我们最近交付的作品','showcase.desc':'五个品牌，五个不同的问题——一条共同主线：清晰。',
       'showcase.card1.tag':'品牌形象 + 网站','showcase.card1.sub':'云操作系统',
       'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B 支付应用',
@@ -986,6 +1063,7 @@
       'expertise.card2.title':'Websites & Apps','expertise.card2.desc':'Schnelle, animierte, responsive Websites und Web-Apps ab der ersten Codezeile.',
       'expertise.card3.title':'Markenidentität','expertise.card3.desc':'Logo, Typografie, Farbpalette und ein konsistentes visuelles System für Print und Digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Styleguide',
       'expertise.card4.title':'Motion & Prototyping','expertise.card4.desc':'Mikrointeraktionen und animierte Prototypen, um eine Erfahrung zu testen und zu verkaufen, bevor sie programmiert wird.',
+      'expertise.card1.price':'Auf Anfrage','expertise.card2.price':'Ab 490€','expertise.card3.price':'Ab 290€','expertise.card4.price':'Auf Anfrage','expertise.cta':'Angebot anfragen →',
       'showcase.kicker':'Aktuelle Projekte','showcase.title':'Was wir zuletzt geliefert haben','showcase.desc':'Fünf Marken, fünf unterschiedliche Probleme — ein roter Faden: Klarheit.',
       'showcase.card1.tag':'Identität + Website','showcase.card1.sub':'Cloud-Betriebssystem',
       'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B-Zahlungs-App',
@@ -1092,7 +1170,7 @@
 
   /* ---------- tilt cards ---------- */
   if(!isTouch && !reduced){
-    document.querySelectorAll('.service-card.tilt').forEach(function(card){
+    document.querySelectorAll('.service-post.tilt').forEach(function(card){
       var inner = card.querySelector('.inner');
       card.addEventListener('mousemove', function(e){
         var r = card.getBoundingClientRect();
@@ -1145,7 +1223,7 @@
 
   /* service cards stagger in */
   if(!reduced){
-    gsap.from('.service-card', {
+    gsap.from('.service-post', {
       opacity:0, y:30, duration:0.7, ease:'power2.out', stagger:0.08,
       scrollTrigger:{ trigger:'.service-grid', start:'top 80%' }
     });
