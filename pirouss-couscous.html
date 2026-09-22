@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pirouss · Couscous maison</title>
+<meta name="description" content="Pirouss, le couscous qui rassemble. Découvre la carte et commande en message privé sur Instagram @couscous_pirouss.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="logocsc.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF3E4; --bg2:#F3E3C3; --surface:#FFFAF0; --ink:#2A1A12; --muted:#6B5346;
+  --saffron:#E8A317; --terra:#C4532D; --terra-text:#A8401F; --harissa:#8F2A1C; --olive:#3E4A2A;
+  --line:rgba(42,26,18,.14); --shadow:0 18px 40px -18px rgba(90,45,15,.35);
+  --btn-bg:#A8401F; --btn-ink:#FFF6E6; --header-bg:rgba(251,243,228,.82);
+  --plate:#FFFAF0; --rim:#E9D3A8; --plate2:#FBF0D8;
+  --font-display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --radius:24px;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#1A110C; --bg2:#241811; --surface:#2B1D14; --ink:#F7EBD3; --muted:#CDB89E;
+    --terra:#E0704A; --terra-text:#F09A72; --line:rgba(247,235,211,.16); --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+    --btn-bg:#E8A317; --btn-ink:#2A1A12; --header-bg:rgba(26,17,12,.82);
+    --plate:#3A281B; --rim:#5A3C27; --plate2:#2F2117;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#1A110C; --bg2:#241811; --surface:#2B1D14; --ink:#F7EBD3; --muted:#CDB89E;
+  --terra:#E0704A; --terra-text:#F09A72; --line:rgba(247,235,211,.16); --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+  --btn-bg:#E8A317; --btn-ink:#2A1A12; --header-bg:rgba(26,17,12,.82);
+  --plate:#3A281B; --rim:#5A3C27; --plate2:#2F2117;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(88px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-display);line-height:1.08;margin:0;text-wrap:balance;font-weight:600;letter-spacing:-.01em}
+p{margin:0;text-wrap:pretty}
+.wrap{width:min(1160px,100% - clamp(40px,10vw,80px));margin-inline:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-text)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor;border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:3px;border-radius:8px}
+.icon{width:1.25em;height:1.25em;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--header-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:72px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:1.45rem;letter-spacing:-.02em}
+.brand-mark{width:38px;height:38px;color:var(--terra)}
+nav.main ul{display:flex;gap:.25rem;list-style:none;margin:0;padding:0;align-items:center}
+nav.main a{display:inline-flex;align-items:center;min-height:44px;padding:0 .9rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;transition:background .25s ease}
+nav.main a:hover{background:var(--bg2)}
+.actions{display:flex;align-items:center;gap:.5rem}
+.icon-btn{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:transparent;color:inherit;cursor:pointer;transition:background .25s ease,transform .2s ease}
+.icon-btn:hover{background:var(--bg2)}
+.icon-btn:active{transform:scale(.94)}
+.menu-btn{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:50px;padding:0 1.5rem;border-radius:999px;background:var(--btn-bg);color:var(--btn-ink);font-weight:700;font-size:1rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease,background .25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(168,64,31,.6)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg);box-shadow:none}
+.theme-sun{display:none}
+:root[data-theme="dark"] .theme-sun{display:block}
+:root[data-theme="dark"] .theme-moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .theme-sun{display:block}:root:not([data-theme="light"]) .theme-moon{display:none}}
+
+/* Hero */
+.hero{position:relative;isolation:isolate;padding:clamp(40px,7vw,96px) 0 clamp(56px,8vw,110px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(2.7rem,7.2vw,5.6rem);margin:1.1rem 0 1.4rem}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--terra-text)}
+.hero p.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:34ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2.6rem;padding-top:1.4rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.hero-meta strong{display:block;color:var(--ink);font-family:var(--font-display);font-size:1.15rem}
+.stage{position:relative;aspect-ratio:1;width:min(100%,520px);margin-inline:auto}
+.halo{position:absolute;inset:-6%;color:var(--saffron);opacity:.55;animation:spin 90s linear infinite}
+.halo-2{inset:6%;color:var(--terra);opacity:.35;animation-duration:140s;animation-direction:reverse}
+.disc{position:absolute;inset:9%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD877,var(--saffron) 62%,#D68A0C);box-shadow:inset 0 -20px 50px rgba(143,42,28,.25)}
+.bowl{position:absolute;inset:0;animation:float 6s ease-in-out infinite;filter:drop-shadow(0 22px 24px rgba(60,20,5,.28))}
+.steam path{fill:none;stroke:var(--ink);stroke-opacity:.45;stroke-width:5;stroke-linecap:round;transform-box:fill-box;animation:steam 3.8s ease-in-out infinite}
+.steam path:nth-child(2){animation-delay:1.2s}.steam path:nth-child(3){animation-delay:2.4s}
+.pattern-bg{position:absolute;inset:0;z-index:-1;color:var(--terra);opacity:.09;-webkit-mask-image:radial-gradient(ellipse at 70% 30%,#000 0,transparent 70%);mask-image:radial-gradient(ellipse at 70% 30%,#000 0,transparent 70%)}
+.pattern-bg svg{width:100%;height:100%}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes steam{0%{transform:translateY(14px);opacity:0}35%{opacity:1}100%{transform:translateY(-30px);opacity:0}}
+
+/* Marquee */
+.marquee{background:var(--olive);color:#F7EBD3;overflow:hidden;border-block:1px solid rgba(0,0,0,.2)}
+.marquee-track{display:flex;width:max-content;animation:scroll 38s linear infinite}
+.marquee ul{display:flex;gap:2.4rem;list-style:none;margin:0;padding:1rem 1.2rem;font-family:var(--font-display);font-style:italic;font-size:1.35rem;white-space:nowrap}
+.marquee li{display:flex;align-items:center;gap:2.4rem}
+.marquee li::after{content:"✦";color:var(--saffron);font-style:normal;font-size:1rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(64px,9vw,120px) 0}
+.sec-head{max-width:640px;margin-bottom:clamp(32px,5vw,56px)}
+.sec-head h2{font-size:clamp(2rem,4.6vw,3.4rem);margin-top:1rem}
+.sec-head p{margin-top:1rem;color:var(--muted)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,90px);align-items:start}
+.story-grid > p{font-size:1.2rem;color:var(--muted)}
+.features{display:grid;gap:1rem;margin-top:0}
+.feature{display:flex;gap:1.1rem;padding:1.3rem 1.4rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);transition:transform .3s ease,box-shadow .3s ease}
+.feature:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.feature-ico{flex:none;width:48px;height:48px;border-radius:14px;background:var(--bg2);color:var(--terra-text);display:grid;place-items:center}
+.feature h3{font-size:1.25rem;margin-bottom:.2rem}
+.feature p{color:var(--muted);font-size:1rem}
+
+.menu-sec{background:var(--bg2)}
+.dishes{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.dish{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease}
+.dish:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.dish-art{aspect-ratio:1.15;display:grid;place-items:center;padding:1rem}
+.dish-art svg{width:78%;height:auto;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.dish:hover .dish-art svg{transform:rotate(18deg) scale(1.04)}
+.dish:nth-child(1) .dish-art{background:#F0C55E}.dish:nth-child(2) .dish-art{background:#E4A07E}.dish:nth-child(3) .dish-art{background:#C9B27A}.dish:nth-child(4) .dish-art{background:#A9B888}
+.dish-body{padding:1.3rem 1.4rem 1.6rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.tag{align-self:flex-start;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px;background:var(--bg2);color:var(--terra-text)}
+.dish h3{font-size:1.35rem}
+.dish p{color:var(--muted);font-size:.98rem}
+.note{margin-top:2rem;display:flex;align-items:center;gap:.7rem;color:var(--muted);font-size:.98rem}
+
+.gram-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.8rem}
+.tile{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;display:block;text-decoration:none;isolation:isolate}
+.tile svg.art{position:absolute;inset:0;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.tile:hover svg.art{transform:scale(1.08)}
+.tile .over{position:absolute;inset:0;display:grid;place-items:center;background:rgba(42,26,18,.55);color:#FFF6E6;opacity:0;transition:opacity .3s ease}
+.tile:hover .over,.tile:focus-visible .over{opacity:1}
+.t1{--plate:#FFFAF0;--rim:#E9D3A8;--plate2:#FBF0D8;background:#C4532D}
+.t2{background:#3E4A2A;color:#E8A317}
+.t3{--plate:#FFFAF0;--rim:#E8C982;--plate2:#FBF0D8;background:#E8A317}
+.t4{background:#8F2A1C;color:#F0C55E}
+.t5{--plate:#FFFAF0;--rim:#C9D3A3;--plate2:#F3F5E4;background:#5D7040}
+.t6{background:#F0C55E;color:#8F2A1C}
+.gram-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.6rem}
+.gram-cta p{color:var(--muted)}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;counter-reset:s}
+.step{position:relative;padding:2rem 1.6rem 1.7rem;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line)}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-22px;left:1.4rem;width:46px;height:46px;border-radius:50%;background:var(--saffron);color:#2A1A12;font-family:var(--font-display);font-weight:700;font-size:1.4rem;display:grid;place-items:center;box-shadow:0 8px 16px -8px rgba(120,70,0,.6)}
+.step h3{font-size:1.3rem;margin-bottom:.4rem}
+.step p{color:var(--muted)}
+
+.final{padding-top:0}
+.final-card{position:relative;overflow:hidden;border-radius:36px;background:var(--harissa);color:#FFF1DC;padding:clamp(40px,7vw,88px) clamp(24px,6vw,72px);text-align:center;isolation:isolate}
+.final-card .pattern-bg{color:#F0C55E;opacity:.16;-webkit-mask-image:none;mask-image:none;z-index:-1}
+.final-card h2{font-size:clamp(2.2rem,5.6vw,4.2rem);max-width:16ch;margin:0 auto 1rem}
+.final-card p{max-width:46ch;margin:0 auto 2rem;color:#F6DCC0}
+.final-card .btn{background:var(--saffron);color:#2A1A12;font-size:1.05rem}
+.final-card .btn:hover{box-shadow:0 12px 26px -10px rgba(0,0,0,.5)}
+
+footer{border-top:1px solid var(--line);padding:2rem 0 2.4rem;color:var(--muted);font-size:.95rem}
+.foot{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+.foot a{text-decoration:none;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:.5rem;min-height:44px}
+.foot a:hover{color:var(--terra-text)}
+
+
+/* Avis Google */
+.rating-band{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(20px,4vw,52px);align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:32px;padding:clamp(24px,4vw,44px);box-shadow:var(--shadow)}
+.rating-big{font-family:var(--font-display);font-weight:600;font-size:clamp(4.2rem,9vw,6.5rem);line-height:1;letter-spacing:-.03em}
+.rating-big small{font-size:.32em;font-weight:400;color:var(--muted);letter-spacing:0}
+.stars{position:relative;width:132px;height:24px;flex:none}
+.stars svg{position:absolute;left:0;top:0;width:132px;height:24px;max-width:none;fill:currentColor}
+.stars .bg{color:var(--muted);opacity:.35}
+.stars-fill{position:absolute;left:0;top:0;bottom:0;overflow:hidden;width:var(--pct,90%);color:var(--saffron)}
+.rating-meta{display:flex;flex-direction:column;gap:.7rem}
+.rating-meta h3{font-size:1.5rem}
+.rating-meta p{color:var(--muted)}
+.rating-actions{display:flex;flex-direction:column;gap:.7rem}
+.rating-src{margin-top:1rem;font-size:.85rem;color:var(--muted)}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;margin-top:1.2rem}
+.rev{display:flex;flex-direction:column;gap:.8rem;padding:1.5rem;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line)}
+.rev .stars{width:99px;height:18px}.rev .stars svg{width:99px;height:18px}
+.rev blockquote{margin:0;font-size:1.02rem}
+.rev footer{border:0;padding:0;margin-top:auto;font-size:.9rem;color:var(--muted);display:flex;justify-content:space-between;gap:1rem}
+.rev footer strong{color:var(--ink)}
+
+/* Réservation */
+[hidden]{display:none!important}
+.btn.sm{min-height:44px;padding:0 1.1rem;font-size:.95rem}
+.book-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(20px,4vw,48px);align-items:stretch}
+.book-card{position:relative;overflow:hidden;isolation:isolate;border-radius:32px;background:var(--olive);color:#F7EBD3;padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between;gap:2.2rem}
+.book-card .pattern-bg{opacity:.14;-webkit-mask-image:none;mask-image:none}
+.book-card .eyebrow{color:var(--saffron)}
+.book-card h2{font-size:clamp(2.1rem,4.6vw,3.4rem);margin:1rem 0 .9rem}
+.book-card p{color:#E9DBBE;max-width:36ch}
+.book-points{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.book-points li{display:flex;gap:.9rem;align-items:flex-start;font-size:1rem;color:#F7EBD3}
+.book-points .pico{flex:none;width:42px;height:42px;border-radius:12px;background:rgba(247,235,211,.12);color:var(--saffron);display:grid;place-items:center}
+.book-form{background:var(--surface);border:1px solid var(--line);border-radius:32px;padding:clamp(24px,4vw,44px);box-shadow:var(--shadow)}
+.book-form h3{font-size:1.5rem;margin-bottom:1.4rem}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.field{display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-weight:700;font-size:.9rem}
+.field label small{font-weight:500;color:var(--muted)}
+.field input,.field textarea{width:100%;min-height:52px;padding:.75rem 1rem;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:1rem;transition:border-color .2s ease,box-shadow .2s ease}
+.field textarea{min-height:104px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.8}
+.field input:hover,.field textarea:hover{border-color:var(--muted)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--terra-text);box-shadow:0 0 0 4px rgba(232,163,23,.35)}
+.field input:user-invalid{border-color:#C0392B}
+.stepper{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:16px;background:var(--bg);min-height:52px;overflow:hidden}
+.stepper button{flex:none;width:52px;align-self:stretch;border:0;background:transparent;color:var(--ink);font-size:1.4rem;cursor:pointer;transition:background .2s ease}
+.stepper button:hover{background:var(--bg2)}
+.stepper input{border:0!important;box-shadow:none!important;text-align:center;font-weight:700;min-height:50px;background:transparent;-moz-appearance:textfield;appearance:textfield;padding:0}
+.stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.stepper:focus-within{border-color:var(--terra-text);box-shadow:0 0 0 4px rgba(232,163,23,.35)}
+.book-submit{width:100%;margin-top:1.4rem;min-height:56px;font-size:1.05rem}
+.book-hint{margin-top:.9rem;font-size:.9rem;color:var(--muted);text-align:center}
+.book-status{margin-top:1.2rem;padding:1.1rem 1.2rem;border-radius:18px;background:var(--bg2);border:1px solid var(--line)}
+.book-status pre{margin:.8rem 0 0;white-space:pre-wrap;font:inherit;font-size:.92rem;color:var(--muted);background:var(--bg);padding:.8rem 1rem;border-radius:12px}
+.status-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.9rem}
+
+/* Reveal */
+.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* Responsive */
+@media (max-width:1000px){
+  .dishes{grid-template-columns:repeat(2,1fr)}
+  .gram-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:820px){
+  .menu-btn{display:inline-grid}
+  nav.main{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);display:none;padding:.6rem 0 1rem}
+  nav.main.open{display:block}
+  nav.main ul{flex-direction:column;align-items:stretch;width:min(1160px,100% - 40px);margin-inline:auto}
+  nav.main a{padding:0 1rem;font-size:1.1rem}
+  .actions .btn{display:none}
+  .hero-grid,.story-grid{grid-template-columns:1fr}
+  .stage{order:-1;width:min(100%,380px)}
+  .steps{grid-template-columns:1fr;gap:2rem}
+  .book-grid{grid-template-columns:1fr}
+  .rating-band{grid-template-columns:1fr}
+  .rating-actions{flex-direction:row;flex-wrap:wrap}
+}
+@media (max-width:520px){
+  .fields{grid-template-columns:1fr}
+  .dishes{grid-template-columns:1fr}
+  .gram-grid{grid-template-columns:repeat(2,1fr)}
+  .cta-row .btn{flex:1 1 100%}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .reveal{opacity:1;transform:none}
+  .marquee-track{flex-wrap:wrap;width:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Shared SVG defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.15" fill="#C98A0D"/><circle cx="4.5" cy="4.5" r="1.15" fill="#F7D57A"/><circle cx="4.5" cy="1.2" r=".8" fill="#E9AE2A"/>
+    </pattern>
+    <pattern id="zellige" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#C4532D" stroke-width="1.5">
+        <rect x="20" y="20" width="40" height="40"/>
+        <rect x="20" y="20" width="40" height="40" transform="rotate(45 40 40)"/>
+        <circle cx="40" cy="40" r="7"/>
+        <circle cx="0" cy="0" r="5"/><circle cx="80" cy="0" r="5"/><circle cx="0" cy="80" r="5"/><circle cx="80" cy="80" r="5"/>
+      </g>
+    </pattern>
+    <pattern id="zellige-gold" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#F0C55E" stroke-width="1.5">
+        <rect x="20" y="20" width="40" height="40"/>
+        <rect x="20" y="20" width="40" height="40" transform="rotate(45 40 40)"/>
+        <circle cx="40" cy="40" r="7"/>
+        <circle cx="0" cy="0" r="5"/><circle cx="80" cy="0" r="5"/><circle cx="0" cy="80" r="5"/><circle cx="80" cy="80" r="5"/>
+      </g>
+    </pattern>
+    <symbol id="plate" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="94" fill="var(--plate)"/>
+      <circle cx="100" cy="100" r="82" fill="var(--rim)"/>
+      <circle cx="100" cy="100" r="72" fill="var(--plate2)"/>
+      <circle cx="100" cy="100" r="54" fill="#EBAE2B"/>
+      <circle cx="100" cy="100" r="54" fill="url(#grain)"/>
+      <g fill="#DDAF62" stroke="#B98436" stroke-width="1.5">
+        <circle cx="82" cy="86" r="7"/><circle cx="116" cy="82" r="7"/><circle cx="96" cy="112" r="7"/><circle cx="124" cy="114" r="7"/><circle cx="72" cy="112" r="6"/>
+      </g>
+      <g fill="#E27B2C"><circle cx="104" cy="98" r="9"/><circle cx="76" cy="98" r="8"/><circle cx="118" cy="128" r="8"/></g>
+      <g fill="#F0A052"><circle cx="104" cy="98" r="4"/><circle cx="76" cy="98" r="3.5"/><circle cx="118" cy="128" r="3.5"/></g>
+      <g fill="#5B7A3A"><ellipse cx="92" cy="72" rx="8" ry="4" transform="rotate(-30 92 72)"/><ellipse cx="132" cy="100" rx="8" ry="4" transform="rotate(50 132 100)"/><ellipse cx="88" cy="132" rx="8" ry="4" transform="rotate(20 88 132)"/></g>
+    </symbol>
+    <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-grain" viewBox="0 0 24 24"><path d="M12 3v18M12 8c-3 0-4-2-4-4 3 0 4 2 4 4zM12 8c3 0 4-2 4-4-3 0-4 2-4 4zM12 14c-3 0-4-2-4-4 3 0 4 2 4 4zM12 14c3 0 4-2 4-4-3 0-4 2-4 4z"/></symbol>
+    <symbol id="i-pot" viewBox="0 0 24 24"><path d="M4 11h16v2a8 8 0 0 1-16 0v-2zM3 11h18M9 4c0 1.5 1 1.5 1 3M14 4c0 1.5 1 1.5 1 3"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 2 1.500 2C10 8 11 5 12 3z"/></symbol>
+    <symbol id="star" viewBox="0 0 22 22"><path d="M11 1.500l2.900 6.200 6.600.8-4.900 4.600 1.300 6.600L11 16.400 5.100 19.700l1.300-6.600L1.500 8.600l6.600-.8z"/></symbol>
+    <symbol id="stars5" viewBox="0 0 120 22"><use href="#star" x="0" width="22" height="22"/><use href="#star" x="24" width="22" height="22"/><use href="#star" x="48" width="22" height="22"/><use href="#star" x="72" width="22" height="22"/><use href="#star" x="96" width="22" height="22"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.700-5A9 9 0 1 1 8 19.300L3 21z"/><path d="M9 8.500c.3 2.600 2.900 5.200 6 6l1.300-1.300-2-1-1 .8c-.9-.4-1.800-1.300-2.200-2.200l.8-1-1-2L9 8.500z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.500"/><path d="M4 7.500l8 6 8-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7.500"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.500-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.500-7 10-7 10z"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Pirouss, accueil">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="currentColor"/><g fill="none" stroke="#FFF1DC" stroke-width="1.8"><rect x="11" y="11" width="18" height="18"/><rect x="11" y="11" width="18" height="18" transform="rotate(45 20 20)"/></g><circle cx="20" cy="20" r="3.500" fill="#E8A317"/></svg>
+      Pirouss
+    </a>
+    <nav class="main" id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#histoire">Le couscous</a></li>
+        <li><a href="#carte">La carte</a></li>
+        <li><a href="#reserver">Réserver</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+        <li><a href="#commander">Commander</a></li>
+      </ul>
+    </nav>
+    <div class="actions">
+      <button class="icon-btn" id="theme" type="button" aria-label="Changer de thème">
+        <svg class="icon theme-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        <svg class="icon theme-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+      <a class="btn" href="menu.html" target="_blank" rel="noopener">
+         Menu
+      </a>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="pattern-bg" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#zellige)"/></svg></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow reveal">@couscous_pirouss</span>
+        <h1 class="reveal" style="--d:.08s">Le couscous qui <em>rassemble</em>.</h1>
+        <p class="lead reveal" style="--d:.16s">Une semoule légère, un bouillon parfumé, des légumes fondants. Un grand plat au centre de la table, et tout le monde se sert.</p>
+        <div class="cta-row reveal" style="--d:.24s">
+          <a class="btn" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg>  Instagram
+          </a>
+          <a class="btn ghost" href="#reserver">Réserver une table</a>
+        </div>
+        <div class="hero-meta reveal" style="--d:.32s">
+          <div><strong>Fait avec soin</strong>du grain à la harissa</div>
+          <div><strong>À partager</strong>pour 2, 4 ou toute la tablée</div>
+          <div><strong><span data-rating>4,5</span> ★ sur Google</strong><span data-count>557</span> avis</div>
+        </div>
+      </div>
+
+      <div class="stage reveal" style="--d:.15s">
+        <svg class="halo" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".8"><rect x="38" y="38" width="124" height="124"/><rect x="38" y="38" width="124" height="124" transform="rotate(45 100 100)"/></g></svg>
+        <svg class="halo halo-2" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="3 3"><rect x="38" y="38" width="124" height="124"/><rect x="38" y="38" width="124" height="124" transform="rotate(45 100 100)"/></g></svg>
+        <div class="disc" aria-hidden="true"></div>
+        <svg class="bowl" viewBox="0 0 400 400" role="img" aria-label="Illustration d'un bol de couscous fumant">
+          <g class="steam">
+            <path d="M165 150C145 128 185 114 165 90"/>
+            <path d="M205 146C185 122 225 108 205 82"/>
+            <path d="M245 150C225 128 265 114 245 92"/>
+          </g>
+          <path d="M82 238C96 158 304 158 318 238Z" fill="#EBAE2B"/>
+          <g id="grains"></g>
+          <g fill="#DDAF62" stroke="#B98436" stroke-width="2">
+            <circle cx="152" cy="206" r="9"/><circle cx="222" cy="192" r="9"/><circle cx="256" cy="210" r="9"/><circle cx="186" cy="220" r="9"/><circle cx="130" cy="224" r="8"/><circle cx="238" cy="226" r="8"/>
+          </g>
+          <g fill="#E27B2C"><circle cx="178" cy="198" r="12"/><circle cx="246" cy="196" r="11"/><circle cx="206" cy="212" r="12"/><circle cx="278" cy="224" r="10"/></g>
+          <g fill="#F0A052"><circle cx="178" cy="198" r="5.500"/><circle cx="246" cy="196" r="5"/><circle cx="206" cy="212" r="5.500"/><circle cx="278" cy="224" r="4.500"/></g>
+          <g fill="#5B7A3A"><ellipse cx="200" cy="184" rx="11" ry="5" transform="rotate(-25 200 184)"/><ellipse cx="212" cy="180" rx="10" ry="4.500" transform="rotate(35 212 180)"/><ellipse cx="160" cy="220" rx="10" ry="4.500" transform="rotate(20 160 220)"/></g>
+          <ellipse cx="200" cy="386" rx="120" ry="10" fill="rgba(0,0,0,.16)"/>
+          <rect x="158" y="360" width="84" height="18" rx="6" fill="#7A2416"/>
+          <path d="M56 234H344C344 320 290 368 200 368C110 368 56 320 56 234Z" fill="#C4532D"/>
+          <path d="M56 234H344C344 246 342 256 340 262H60C58 256 56 246 56 234Z" fill="#A8401F"/>
+          <rect x="48" y="224" width="304" height="20" rx="10" fill="#8F2A1C"/>
+          <g fill="#FFF1DC"><polygon points="100,272 112,284 100,296 88,284"/><polygon points="148,272 160,284 148,296 136,284"/><polygon points="196,272 208,284 196,296 184,284"/><polygon points="244,272 256,284 244,296 232,284"/><polygon points="292,272 304,284 292,296 280,284"/></g>
+          <g fill="#E8A317"><circle cx="124" cy="284" r="4"/><circle cx="172" cy="284" r="4"/><circle cx="220" cy="284" r="4"/><circle cx="268" cy="284" r="4"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <ul><li>Semoule fine</li><li>Légumes du jour</li><li>Bouillon parfumé</li><li>Pois chiches</li><li>Merguez</li><li>Harissa</li><li>À partager</li></ul>
+      <ul><li>Semoule fine</li><li>Légumes du jour</li><li>Bouillon parfumé</li><li>Pois chiches</li><li>Merguez</li><li>Harissa</li><li>À partager</li></ul>
+    </div>
+  </div>
+
+  <!-- HISTOIRE -->
+  <section id="histoire">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Le couscous</span>
+        <h2>Une semoule légère, un bouillon qui fait du bien.</h2>
+      </div>
+      <div class="story-grid">
+        <p class="reveal">Le couscous, c'est le plat du partage : une grande assiette au centre, des cuillères qui se croisent et personne pour compter les rappels. Ici, tout est pensé pour ce moment-là, du grain jusqu'à la petite touche de harissa.</p>
+        <div class="features">
+          <div class="feature reveal">
+            <div class="feature-ico"><svg class="icon" aria-hidden="true"><use href="#i-grain"/></svg></div>
+            <div><h3>Un grain aéré</h3><p>Une semoule fine, travaillée pour rester légère et bien détachée.</p></div>
+          </div>
+          <div class="feature reveal" style="--d:.08s">
+            <div class="feature-ico"><svg class="icon" aria-hidden="true"><use href="#i-pot"/></svg></div>
+            <div><h3>Un bouillon parfumé</h3><p>Des épices douces qui réchauffent sans écraser les légumes.</p></div>
+          </div>
+          <div class="feature reveal" style="--d:.16s">
+            <div class="feature-ico"><svg class="icon" aria-hidden="true"><use href="#i-flame"/></svg></div>
+            <div><h3>Le piment à part</h3><p>La harissa se sert à côté : chacun règle son niveau.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTE -->
+  <section class="menu-sec" id="carte">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">La carte</span>
+        <h2>Les classiques, à partager.</h2>
+        <p>Un choix simple pour que chacun y trouve son bonheur.</p>
+      </div>
+      <div class="dishes">
+        <article class="dish reveal">
+          <div class="p-img"><img src="image1.png" alt="plat"></div>
+          
+          <div class="dish-body"><span class="tag">Le classique</span><h3>Couscous royal</h3><p>Semoule, légumes, poulet, agneau et merguez : la totale.</p></div>
+        </article>
+        <article class="dish reveal" style="--d:.08s">
+          <div class="p-img"><img src="image2.png" alt="plat"></div>
+          <div class="dish-body"><span class="tag">Réconfort</span><h3>Poulet &amp; pois chiches</h3><p>Un bouillon doré, du poulet fondant et des légumes de saison.</p></div>
+        </article>
+        <article class="dish reveal" style="--d:.16s">
+          <div class="p-img"><img src="image3.png" alt="plat"></div>
+          <div class="dish-body"><span class="tag">Mijoté</span><h3>Agneau &amp; légumes</h3><p>Longuement mijoté, aux épices douces, pour les grandes faims.</p></div>
+        </article>
+        <article class="dish reveal" style="--d:.24s">
+          <div class="p-img"><img src="image4.png" alt="plat"></div>
+          <div class="dish-body"><span class="tag">Végétarien</span><h3>Légumes &amp; raisins secs</h3><p>Légumes rôtis, pois chiches et une touche sucrée.</p></div>
+        </article>
+      </div>
+      <p class="note reveal">
+        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+        La carte évolue : retrouve les plats du moment, les tarifs et les disponibilités sur Instagram.
+      </p>
+    </div>
+  </section>
+
+  <!-- AVIS GOOGLE -->
+  <section id="avis" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Avis</span>
+        <h2>Ils sont venus, ils ont adoré.</h2>
+      </div>
+      <div class="rating-band reveal">
+        <div class="rating-big"><span data-rating>4,5</span><small> / 5</small></div>
+        <div class="rating-meta">
+          <div class="stars" id="mainStars" role="img" aria-label="Note de 4,5 sur 5" style="--pct:90%">
+            <svg class="bg" aria-hidden="true"><use href="#stars5"/></svg>
+            <div class="stars-fill"><svg aria-hidden="true"><use href="#stars5"/></svg></div>
+          </div>
+          <h3><span data-count>557</span> avis sur Google</h3>
+          <p>Merci à toutes celles et ceux qui prennent le temps de nous laisser un mot.</p>
+        </div>
+        <div class="rating-actions">
+          <a class="btn sm" id="allReviews" href="https://www.google.com/maps/search/?api=1&query=Couscous%20Pirouss&query_place_id=ChIJe3v8g1T3wkcRHjQxEu7OK0g" target="_blank" rel="noopener">Lire les avis</a>
+          <a class="btn ghost sm" id="writeReview" href="https://search.google.com/local/writereview?placeid=ChIJe3v8g1T3wkcRHjQxEu7OK0g" target="_blank" rel="noopener">Laisser un avis</a>
+        </div>
+      </div>
+      <div class="rev-grid" id="reviewGrid" hidden></div>
+      <p class="rating-src">Note et nombre d’avis d’après Google Maps.</p>
+    </div>
+  </section>
+
+  <!-- RÉSERVATION -->
+  <section id="reserver">
+    <div class="wrap book-grid">
+      <div class="book-card reveal">
+        <div class="pattern-bg" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#zellige-gold)"/></svg></div>
+        <div>
+          <span class="eyebrow">Réservation</span>
+          <h2>Réserve ta table.</h2>
+          <p>Dis-nous quand tu viens et combien vous êtes, on prépare le reste.</p>
+        </div>
+        <ul class="book-points">
+          <li><span class="pico"><svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg></span><span>Ta demande arrive au restaurant <strong>par WhatsApp et par e-mail</strong>, en même temps.</span></li>
+          <li><span class="pico"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span><span>Le restaurant te confirme ta table par message.</span></li>
+          <li><span class="pico"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg></span><span>Vous êtes plus de 12 ou une demande particulière ? Précise-le dans le message.</span></li>
+        </ul>
+      </div>
+
+      <form class="book-form reveal" id="bookForm" style="--d:.1s" autocomplete="on">
+        <h3>Ta demande de réservation</h3>
+        <div class="fields">
+          <div class="field full">
+            <label for="bk-name">Nom</label>
+            <input id="bk-name" name="name" type="text" autocomplete="name" placeholder="Ton nom" required>
+          </div>
+          <div class="field">
+            <label for="bk-phone">Téléphone</label>
+            <input id="bk-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" required>
+          </div>
+          <div class="field">
+            <label for="bk-email">E-mail <small>(facultatif)</small></label>
+            <input id="bk-email" name="email" type="email" autocomplete="email" placeholder="toi@exemple.fr">
+          </div>
+          <div class="field">
+            <label for="bk-date">Date</label>
+            <input id="bk-date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="bk-time">Heure</label>
+            <input id="bk-time" name="time" type="time" required>
+          </div>
+          <div class="field full">
+            <label for="bk-guests">Nombre de personnes</label>
+            <div class="stepper">
+              <button type="button" id="gMinus" aria-label="Une personne de moins">−</button>
+              <input id="bk-guests" name="guests" type="number" min="1" max="30" value="2" inputmode="numeric" required>
+              <button type="button" id="gPlus" aria-label="Une personne de plus">+</button>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="bk-msg">Message <small>(facultatif)</small></label>
+            <textarea id="bk-msg" name="message" placeholder="Allergies, chaise bébé, occasion spéciale…"></textarea>
+          </div>
+        </div>
+        <button class="btn book-submit" type="submit">
+          <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>
+          <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+          Envoyer ma demande
+        </button>
+        <p class="book-hint">WhatsApp et ta messagerie e-mail s'ouvrent avec ta demande déjà rédigée : il ne reste qu'à appuyer sur « Envoyer ».</p>
+        <div class="book-status" id="bookStatus" role="status" aria-live="polite" hidden>
+          <p id="statusText"></p>
+          <pre id="statusPre" hidden></pre>
+          <div class="status-actions" id="statusActions" hidden>
+            <a class="btn sm" id="waLink" href="#" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg> WhatsApp</a>
+            <a class="btn ghost sm" id="mailLink" href="#"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> E-mail</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+
+  <section id="instagram">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Sur Instagram</span>
+        <h2>Toute la table, en images.</h2>
+        <p>Les dernières photos, les plats du jour et les coulisses se passent sur <strong>@couscous_pirouss</strong>.</p>
+      </div>
+      <div class="gram-grid">
+        <a class="tile t1 reveal" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener" aria-label="Voir les publications sur Instagram">
+          <div class="p-img"><img src="image00.png" alt="plat"></div>
+          <span class="over"><svg class="icon" style="width:2rem;height:2rem" aria-hidden="true"><use href="#i-insta"/></svg></span>
+        </a>
+        <a class="tile t2 reveal" style="--d:.05s" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener" aria-label="Voir les publications sur Instagram">
+        <div class="p-img"><img src="image01.png" alt="plat"></div>
+          <span class="over"><svg class="icon" style="width:2rem;height:2rem" aria-hidden="true"><use href="#i-insta"/></svg></span>
+        </a>
+        <a class="tile t3 reveal" style="--d:.1s" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener" aria-label="Voir les publications sur Instagram">
+          <div class="p-img"><img src="image02.png" alt="plat"></div>
+          <span class="over"><svg class="icon" style="width:2rem;height:2rem" aria-hidden="true"><use href="#i-insta"/></svg></span>
+        </a>
+        <a class="tile t4 reveal" style="--d:.15s" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener" aria-label="Voir les publications sur Instagram">
+          <div class="p-img"><img src="image03.png" alt="plat"></div>
+          <span class="over"><svg class="icon" style="width:2rem;height:2rem" aria-hidden="true"><use href="#i-insta"/></svg></span>
+        </a>
+        <a class="tile t5 reveal" style="--d:.2s" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener" aria-label="Voir les publications sur Instagram">
+          <div class="p-img"><img src="image04.png" alt="plat"></div>
+          <span class="over"><svg class="icon" style="width:2rem;height:2rem" aria-hidden="true"><use href="#i-insta"/></svg></span>
+        </a>
+        <a class="tile t6 reveal" style="--d:.25s" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener" aria-label="Voir les publications sur Instagram">
+          <div class="p-img"><img src="image05.png" alt="plat"></div>
+          <span class="over"><svg class="icon" style="width:2rem;height:2rem" aria-hidden="true"><use href="#i-insta"/></svg></span>
+        </a>
+      </div>
+      <div class="gram-cta reveal">
+        <p>Suis la page pour ne rien rater des prochains plats.</p>
+        <a class="btn ghost" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg> Ouvrir Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMANDER -->
+  <section id="commander" style="padding-top:clamp(20px,4vw,50px)">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Commander</span>
+        <h2>Simple comme un message.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h3>Écris-nous</h3><p>Envoie un message privé sur Instagram pour dire ce dont tu as envie.</p></div>
+        <div class="step reveal" style="--d:.1s"><h3>Choisis ton plat</h3><p>Le plat, le nombre de personnes, et les petites demandes particulières.</p></div>
+        <div class="step reveal" style="--d:.2s"><h3>On s'organise</h3><p>On confirme ensemble la date et la façon de récupérer ta commande.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="wrap">
+      <div class="final-card reveal">
+        <div class="pattern-bg" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#zellige-gold)"/></svg></div>
+        <h2>Une envie de couscous ?</h2>
+        <p>Un message suffit. On s'occupe du bouillon, de la semoule et de la harissa.</p>
+        <a class="btn" href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg> @couscous_pirouss
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Pirouss · Couscous maison</span>
+    <a href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg> Instagram · @couscous_pirouss
+    </a>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+/* Theme toggle */
+(function(){
+  var root=document.documentElement, btn=document.getElementById('theme');
+  try{var saved=localStorage.getItem('theme'); if(saved) root.setAttribute('data-theme',saved);}catch(e){}
+  btn.addEventListener('click',function(){
+    var isDark = root.getAttribute('data-theme')==='dark' ||
+      (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = isDark ? 'light' : 'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+  });
+})();
+
+/* Mobile menu */
+(function(){
+  var btn=document.getElementById('menuBtn'), nav=document.getElementById('menu');
+  function set(open){nav.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);btn.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');}
+  btn.addEventListener('click',function(){set(!nav.classList.contains('open'));});
+  nav.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
+})();
+
+/* Couscous grains on the hero bowl */
+(function(){
+  var g=document.getElementById('grains'); if(!g) return;
+  var NS='http://www.w3.org/2000/svg', s=7;
+  function rnd(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+  var cols=['#F6D06F','#EBAE2B','#D9930F','#F2C14E','#C98A0D'], n=0, tries=0;
+  while(n<560 && tries<8000){
+    tries++;
+    var x=84+rnd()*232, y=170+rnd()*68, u=(x-200)/118;
+    if(Math.abs(u)>=1) continue;
+    var top=238-58*Math.pow(1-u*u,0.75);
+    if(y<top||y>238) continue;
+    var c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
+    c.setAttribute('r',(1.7+rnd()*1.1).toFixed(1));
+    c.setAttribute('fill',cols[Math.floor(rnd()*cols.length)]);
+    g.appendChild(c); n++;
+  }
+})();
+
+/* Avis Google : note + avis à afficher */
+(function(){
+  var REVIEWS_CONFIG={
+    placeId:'ChIJe3v8g1T3wkcRHjQxEu7OK0g',
+    rating:4.5,          /* note Google : à mettre à jour de temps en temps */
+    count:557,           /* nombre d'avis Google */
+    /* Ajoute ici les avis que tu veux afficher (copie-les depuis Google Maps) :
+       { author:'Prénom N.', rating:5, text:'Texte de l’avis', when:'Il y a 2 semaines' } */
+    reviews:[]
+  };
+  var rt=REVIEWS_CONFIG.rating.toLocaleString('fr-FR',{minimumFractionDigits:1});
+  document.querySelectorAll('[data-rating]').forEach(function(el){el.textContent=rt;});
+  document.querySelectorAll('[data-count]').forEach(function(el){el.textContent=REVIEWS_CONFIG.count.toLocaleString('fr-FR');});
+  var main=document.getElementById('mainStars');
+  if(main){main.style.setProperty('--pct',(REVIEWS_CONFIG.rating/5*100)+'%');main.setAttribute('aria-label','Note de '+rt+' sur 5');}
+
+  var grid=document.getElementById('reviewGrid'); if(!grid||!REVIEWS_CONFIG.reviews.length) return;
+  var NS='http://www.w3.org/2000/svg';
+  REVIEWS_CONFIG.reviews.forEach(function(r){
+    var card=document.createElement('article'); card.className='rev';
+    var st=document.createElement('div'); st.className='stars'; st.setAttribute('role','img'); st.setAttribute('aria-label','Note de '+r.rating+' sur 5'); st.style.setProperty('--pct',(r.rating/5*100)+'%');
+    [['bg',null],['',true]].forEach(function(cfg){
+      var svg=document.createElementNS(NS,'svg'); svg.setAttribute('aria-hidden','true');
+      var use=document.createElementNS(NS,'use'); use.setAttribute('href','#stars5'); svg.appendChild(use);
+      if(cfg[1]){var w=document.createElement('div'); w.className='stars-fill'; w.appendChild(svg); st.appendChild(w);}
+      else{svg.setAttribute('class','bg'); st.appendChild(svg);}
+    });
+    var q=document.createElement('blockquote'); q.textContent=r.text;
+    var f=document.createElement('footer'); var a=document.createElement('strong'); a.textContent=r.author; var w2=document.createElement('span'); w2.textContent=r.when||'Avis Google';
+    f.appendChild(a); f.appendChild(w2);
+    card.appendChild(st); card.appendChild(q); card.appendChild(f); grid.appendChild(card);
+  });
+  grid.hidden=false;
+})();
+
+/* Réservation : WhatsApp + e-mail en même temps */
+(function(){
+  /* ▼▼▼ RESERVATION_CONFIG : à modifier ▼▼▼
+     whatsapp : numéro au format international, sans + ni espaces (ex. France : 33612345678)
+     email    : adresse qui reçoit les réservations */
+  var RESERVATION_CONFIG = {
+    whatsapp: '33746238327',
+    email: 'rayanesaya@gmail.com',
+    restaurant: 'Pirouss'
+  };
+  /* ▲▲▲ */
+
+  var form=document.getElementById('bookForm'); if(!form) return;
+  var dateEl=document.getElementById('bk-date'), guests=document.getElementById('bk-guests');
+  var box=document.getElementById('bookStatus'), txt=document.getElementById('statusText'),
+      pre=document.getElementById('statusPre'), actions=document.getElementById('statusActions'),
+      waLink=document.getElementById('waLink'), mailLink=document.getElementById('mailLink');
+
+  var t=new Date();
+  dateEl.min=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+
+  function bump(d){var v=(parseInt(guests.value,10)||1)+d; guests.value=Math.min(30,Math.max(1,v));}
+  document.getElementById('gMinus').addEventListener('click',function(){bump(-1);});
+  document.getElementById('gPlus').addEventListener('click',function(){bump(1);});
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d=new FormData(form);
+    var when=new Date(d.get('date')+'T12:00');
+    var dateFr=when.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    var lines=[
+      '🍽️ Nouvelle demande de réservation — '+RESERVATION_CONFIG.restaurant,
+      '',
+      'Nom : '+d.get('name'),
+      'Téléphone : '+d.get('phone')
+    ];
+    if(d.get('email')) lines.push('E-mail : '+d.get('email'));
+    lines.push('Date : '+dateFr,'Heure : '+d.get('time'),'Personnes : '+d.get('guests'));
+    if((d.get('message')||'').trim()) lines.push('Message : '+d.get('message').trim());
+    var text=lines.join('\n');
+
+    var wa='https://wa.me/'+RESERVATION_CONFIG.whatsapp+'?text='+encodeURIComponent(text);
+    var subject='Réservation '+dateFr+' à '+d.get('time')+' — '+d.get('guests')+' pers. — '+d.get('name');
+    var mail='mailto:'+RESERVATION_CONFIG.email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(text);
+
+    box.hidden=false;
+    var isDemo=/X/.test(RESERVATION_CONFIG.whatsapp)||/exemple/.test(RESERVATION_CONFIG.email);
+    if(isDemo){
+      txt.textContent='Mode démo : renseigne le numéro WhatsApp et l’e-mail du restaurant dans RESERVATION_CONFIG (fin du fichier) pour activer l’envoi. Voici le message qui serait envoyé :';
+      pre.textContent=text; pre.hidden=false; actions.hidden=true;
+    }else{
+      pre.hidden=true;
+      waLink.href=wa; mailLink.href=mail;
+      txt.textContent='Merci ! Ta demande est prête. Si WhatsApp ou ta messagerie ne s’est pas ouvert, utilise ces boutons :';
+      actions.hidden=false;
+      window.open(wa,'_blank','noopener');
+      var a=document.createElement('a'); a.href=mail; a.style.display='none';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+})();
+
+/* Scroll reveal */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+</script>
+</body>
+</html>

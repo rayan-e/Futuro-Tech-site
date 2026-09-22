@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La carte · Pirouss</title>
+<meta name="description" content="La carte de Pirouss : entrées, couscous, tajines et grillades. Disponible en français, anglais, arabe, chinois et allemand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="logocsc.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF3E4; --bg2:#F3E3C3; --surface:#FFFAF0; --ink:#2A1A12; --muted:#6B5346;
+  --saffron:#E8A317; --terra:#C4532D; --terra-text:#A8401F; --harissa:#8F2A1C; --olive:#3E4A2A;
+  --line:rgba(42,26,18,.14); --dot:rgba(42,26,18,.38); --shadow:0 18px 40px -18px rgba(90,45,15,.35);
+  --btn-bg:#A8401F; --btn-ink:#FFF6E6; --header-bg:rgba(251,243,228,.86);
+  --font-display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --hdr:72px; --nav:60px;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#1A110C; --bg2:#241811; --surface:#2B1D14; --ink:#F7EBD3; --muted:#CDB89E;
+    --terra:#E0704A; --terra-text:#F09A72; --line:rgba(247,235,211,.16); --dot:rgba(247,235,211,.4); --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+    --btn-bg:#E8A317; --btn-ink:#2A1A12; --header-bg:rgba(26,17,12,.86);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#1A110C; --bg2:#241811; --surface:#2B1D14; --ink:#F7EBD3; --muted:#CDB89E;
+  --terra:#E0704A; --terra-text:#F09A72; --line:rgba(247,235,211,.16); --dot:rgba(247,235,211,.4); --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+  --btn-bg:#E8A317; --btn-ink:#2A1A12; --header-bg:rgba(26,17,12,.86);
+}
+/* Polices selon la langue */
+[lang="ar"]{--font-body:'Noto Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;--font-display:'Noto Naskh Arabic','Noto Sans Arabic',Georgia,serif}
+[lang="zh"]{--font-body:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;--font-display:'Noto Serif SC','Songti SC','SimSun',serif}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + var(--nav) + 16px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{max-width:100%}
+a{color:inherit}
+h1,h2{font-family:var(--font-display);line-height:1.15;margin:0;text-wrap:balance;font-weight:600}
+p{margin:0;text-wrap:pretty}
+.wrap{width:min(1120px,100% - clamp(40px,8vw,80px));margin-inline:auto}
+.icon{width:1.25em;height:1.25em;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+[dir="rtl"] .flip{transform:scaleX(-1)}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:3px;border-radius:8px}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-text)}
+[dir="rtl"] .eyebrow,[lang="ar"] .eyebrow,[lang="zh"] .eyebrow{letter-spacing:.04em}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor;border-radius:2px}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--header-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:var(--hdr)}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.45rem;letter-spacing:-.02em}
+.brand-mark{width:38px;height:38px;color:var(--terra)}
+.actions{display:flex;align-items:center;gap:.5rem}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-width:46px;height:46px;padding:0 .8rem;border-radius:999px;border:1px solid var(--line);background:transparent;color:inherit;cursor:pointer;font:inherit;font-weight:700;font-size:.9rem;transition:background .25s ease,transform .2s ease}
+.icon-btn.round{padding:0;width:46px;border-radius:50%}
+.icon-btn:hover{background:var(--bg2)}
+.icon-btn:active{transform:scale(.95)}
+.theme-sun{display:none}
+:root[data-theme="dark"] .theme-sun{display:block}
+:root[data-theme="dark"] .theme-moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .theme-sun{display:block}:root:not([data-theme="light"]) .theme-moon{display:none}}
+
+/* Sélecteur de langue */
+.lang{position:relative}
+.lang-menu{position:absolute;top:calc(100% + 10px);inset-inline-end:0;min-width:210px;padding:.4rem;margin:0;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);z-index:70}
+.lang-menu[hidden]{display:none}
+.lang-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:1rem;min-height:46px;padding:0 .9rem;border:0;border-radius:12px;background:transparent;color:var(--ink);font:inherit;font-size:1rem;cursor:pointer;text-align:start}
+.lang-menu button:hover{background:var(--bg2)}
+.lang-menu button[aria-checked="true"]{background:var(--bg2);font-weight:700}
+.lang-menu button>span:first-child{flex:1}
+.lang-menu .code{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--terra-text)}
+.lang-menu svg{visibility:hidden;width:1.1em;height:1.1em}
+.lang-menu button[aria-checked="true"] svg{visibility:visible}
+
+/* Hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:clamp(36px,6vw,80px) 0 clamp(32px,5vw,56px);text-align:center}
+.pattern-bg{position:absolute;inset:0;z-index:-1;opacity:.09;-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 0,transparent 72%);mask-image:radial-gradient(ellipse at 50% 20%,#000 0,transparent 72%)}
+.pattern-bg svg{width:100%;height:100%}
+.hero h1{font-size:clamp(2.8rem,8vw,5.4rem);margin:1rem 0 1rem}
+.hero .lead{max-width:44ch;margin-inline:auto;color:var(--muted);font-size:clamp(1.02rem,1.6vw,1.2rem)}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.8rem}
+.pill{min-height:46px;padding:0 1.15rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.pill:hover{border-color:var(--terra-text)}
+.pill:active{transform:scale(.96)}
+.pill[aria-pressed="true"]{background:var(--btn-bg);color:var(--btn-ink);border-color:transparent}
+.hero-cta{margin-top:1.4rem;display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:50px;padding:0 1.5rem;border-radius:999px;background:var(--btn-bg);color:var(--btn-ink);font-weight:700;font-size:1rem;text-decoration:none;border:2px solid transparent;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(168,64,31,.6)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg);box-shadow:none}
+.price-note{margin-top:1rem;font-size:.9rem;color:var(--muted)}
+
+/* Navigation des catégories */
+.catnav{position:sticky;top:calc(var(--hdr) + env(safe-area-inset-top,0px));z-index:50;background:var(--header-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.catnav ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:.55rem 0;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+.catnav ul::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 1.1rem;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-weight:600;font-size:.98rem;white-space:nowrap;transition:background .2s ease}
+.chip:hover{background:var(--bg2)}
+.chip.on{background:var(--btn-bg);color:var(--btn-ink);border-color:transparent}
+
+/* Carte */
+.cat{padding:clamp(44px,7vw,80px) 0 0}
+.cat-title{display:flex;align-items:center;gap:1.2rem;font-size:clamp(1.9rem,4.6vw,3rem);margin-bottom:1.6rem}
+.cat-title::before,.cat-title::after{content:"";flex:1;height:2px;background:var(--saffron);opacity:.65;border-radius:2px}
+.cat-title span{text-align:center}
+.cat-note{margin:-.6rem auto 1.4rem;max-width:60ch;text-align:center;font-size:.9rem;font-weight:700;letter-spacing:.03em;color:var(--terra-text)}
+.items{list-style:none;margin:0;padding:0}
+@media (min-width:900px){.items{columns:2;column-gap:3.5rem}}
+.item{break-inside:avoid;display:grid;grid-template-columns:minmax(0,auto) minmax(14px,1fr) auto;align-items:end;column-gap:.6rem;padding:.7rem .4rem;border-radius:12px;transition:background .2s ease}
+.item:hover{background:var(--bg2)}
+.nm{font-weight:700}
+.ds{color:var(--muted);font-size:.94rem}
+.ds::before{content:" – "}
+.lead-dots{align-self:end;height:1px;border-bottom:2px dotted var(--dot);margin-bottom:.5em}
+.price{font-weight:700;color:var(--terra-text);white-space:nowrap;font-variant-numeric:tabular-nums}
+.item.sauce{column-span:all;margin-top:.6rem;background:var(--bg2);padding:.9rem 1rem}
+.item.sauce .nm{color:var(--terra-text)}
+
+footer{margin-top:clamp(56px,8vw,96px);border-top:1px solid var(--line);padding:2rem 0 2.4rem;color:var(--muted);font-size:.95rem}
+.foot{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+.foot a{text-decoration:none;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:.5rem;min-height:44px}
+.foot a:hover{color:var(--terra-text)}
+
+@media (max-width:520px){
+  .brand{font-size:1.25rem}.brand-mark{width:32px;height:32px}
+  .item{padding:.65rem .2rem;grid-template-columns:minmax(0,1fr) auto;align-items:start}
+  .lead-dots{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="zellige" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#C4532D" stroke-width="1.5">
+        <rect x="20" y="20" width="40" height="40"/>
+        <rect x="20" y="20" width="40" height="40" transform="rotate(45 40 40)"/>
+        <circle cx="40" cy="40" r="7"/>
+        <circle cx="0" cy="0" r="5"/><circle cx="80" cy="0" r="5"/><circle cx="0" cy="80" r="5"/><circle cx="80" cy="80" r="5"/>
+      </g>
+    </pattern>
+    <symbol id="i-lang" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="pirouss-couscous.html" aria-label="Pirouss">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="currentColor"/><g fill="none" stroke="#FFF1DC" stroke-width="1.8"><rect x="11" y="11" width="18" height="18"/><rect x="11" y="11" width="18" height="18" transform="rotate(45 20 20)"/></g><circle cx="20" cy="20" r="3.5" fill="#E8A317"/></svg>
+      Pirouss
+    </a>
+    <div class="actions">
+      <div class="lang">
+        <button class="icon-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="Langue">
+          <svg class="icon" aria-hidden="true"><use href="#i-lang"/></svg>
+          <span id="langCode">FR</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="menu" hidden>
+          <li role="none"><button type="button" role="menuitemradio" data-lang="fr" lang="fr"><span>Français</span><span class="code">FR</span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="none"><button type="button" role="menuitemradio" data-lang="en" lang="en"><span>English</span><span class="code">EN</span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="none"><button type="button" role="menuitemradio" data-lang="ar" lang="ar"><span>العربية</span><span class="code">AR</span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="none"><button type="button" role="menuitemradio" data-lang="zh" lang="zh"><span>中文</span><span class="code">ZH</span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="none"><button type="button" role="menuitemradio" data-lang="de" lang="de"><span>Deutsch</span><span class="code">DE</span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn round" id="theme" type="button" aria-label="Thème">
+        <svg class="icon theme-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        <svg class="icon theme-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="pattern-bg" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#zellige)"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow" id="eyebrow">Pirouss</span>
+      <h1 id="title">La carte</h1>
+      <p class="lead" id="lead"></p>
+      <div class="pills" role="group" aria-label="Langue" id="pills">
+        <button class="pill" type="button" data-lang="fr" lang="fr">Français</button>
+        <button class="pill" type="button" data-lang="en" lang="en">English</button>
+        <button class="pill" type="button" data-lang="ar" lang="ar">العربية</button>
+        <button class="pill" type="button" data-lang="zh" lang="zh">中文</button>
+        <button class="pill" type="button" data-lang="de" lang="de">Deutsch</button>
+      </div>
+      <div class="hero-cta">
+        <a class="btn" id="book" href="pirouss-couscous.html#reserver"></a>
+      </div>
+      <p class="price-note" id="prices"></p>
+    </div>
+  </div>
+
+  <nav class="catnav" aria-label="Catégories">
+    <div class="wrap"><ul id="cats"></ul></div>
+  </nav>
+
+  <div class="wrap" id="menu"></div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="pirouss-couscous.html"><svg class="icon flip" aria-hidden="true"><use href="#i-back"/></svg><span id="back">Retour à l’accueil</span></a>
+    <a href="https://www.instagram.com/couscous_pirouss/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg> @couscous_pirouss</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- Données : chaque plat = prix + « nom|description » dans 5 langues ---------- */
+  var T={fr:"sauce tomate, chermoula et légumes",en:"tomato sauce, chermoula and vegetables",ar:"صلصة الطماطم والشرمولة والخضار",zh:"番茄酱、查莫拉酱和蔬菜",de:"Tomatensauce, Chermoula und Gemüse"};
+  function I(p,fr,en,ar,zh,de){return {p:p,t:{fr:fr,en:en,ar:ar,zh:zh,de:de}};}
+
+  var SAUCES=I(4,
+    "Nos sauces|Poivre, champignons, maroilles",
+    "Our sauces|Pepper, mushroom, Maroilles cheese",
+    "صلصاتنا|الفلفل، الفطر، جبن ماروال",
+    "我们的酱汁|黑胡椒、蘑菇、马鲁瓦耶奶酪",
+    "Unsere Saucen|Pfeffer, Champignons, Maroilles");
+  SAUCES.sauce=true;
+
+  var CATS=[
+    {id:"cold",items:[
+      I(12,"Piraous|Kefta, merguez, salade, tomate, olives","Piraous|Kefta, merguez, salad, tomato, olives","بيراوس|كفتة، مرقاز، سلطة، طماطم، زيتون","Piraous 冷拼|库夫塔肉丸、梅尔盖兹香肠、沙拉、番茄、橄榄","Piraous|Kefta, Merguez, Salat, Tomate, Oliven"),
+      I(12,"Louient|Salade, anchois, olives, œufs","Louient|Salad, anchovies, olives, eggs","Louient|سلطة، أنشوجة، زيتون، بيض","Louient 冷拼|沙拉、凤尾鱼、橄榄、鸡蛋","Louient|Salat, Sardellen, Oliven, Eier"),
+      I(12,"Agadir|Boulette de sardine, salade, olive, tomate","Agadir|Sardine ball, salad, olives, tomato","أكادير|كرات السردين، سلطة، زيتون، طماطم","Agadir 冷拼|沙丁鱼丸、沙拉、橄榄、番茄","Agadir|Sardinenbällchen, Salat, Oliven, Tomate")
+    ]},
+    {id:"hot",items:[
+      I(12,"Assiette merguez folle|Petits pois, pois chiches, raisins secs, tomates cerises à la coriandre","Crazy merguez plate|Peas, chickpeas, raisins, cherry tomatoes with coriander","طبق المرقاز المجنون|بازلاء، حمص، زبيب، طماطم كرزية بالكزبرة","疯狂梅尔盖兹拼盘|豌豆、鹰嘴豆、葡萄干、香菜樱桃番茄","Verrückter Merguez-Teller|Erbsen, Kichererbsen, Rosinen, Kirschtomaten mit Koriander"),
+      I(12,"Brick kefta à l’œuf|Viande hachée de bœuf aux saveurs du Maghreb","Kefta and egg brik|Minced beef with North African flavors","بريك الكفتة بالبيض|لحم بقري مفروم بنكهات المغرب العربي","库夫塔鸡蛋酥皮卷 (Brik)|牛肉末，北非风味","Brik mit Kefta und Ei|Rinderhack mit maghrebinischen Aromen"),
+      I(12,"Brick poulet au citron confit","Chicken and preserved lemon brik","بريك الدجاج بالليمون المخلل","腌柠檬鸡肉酥皮卷 (Brik)","Brik mit Hähnchen und eingelegter Zitrone"),
+      I(12,"Brick de chèvre à la menthe au miel et amande","Goat cheese brik with mint, honey and almond","بريك جبن الماعز بالنعناع والعسل واللوز","薄荷蜂蜜杏仁山羊奶酪酥皮卷 (Brik)","Brik mit Ziegenkäse, Minze, Honig und Mandeln"),
+      I(18,"Scampis grillés à l’huile d’argan","Grilled scampi with argan oil","جمبري مشوي بزيت الأركان","阿甘油烤大虾","Gegrillte Scampi mit Arganöl"),
+      I(18,"Brick de chèvre au saumon","Goat cheese and salmon brik","بريك جبن الماعز بالسلمون","山羊奶酪三文鱼酥皮卷 (Brik)","Brik mit Ziegenkäse und Lachs"),
+      I(19,"Pastilla de poulet|Amandes, miel, raisins, cannelle","Chicken pastilla|Almonds, honey, raisins, cinnamon","بسطيلة الدجاج|لوز، عسل، زبيب، قرفة","鸡肉馅饼 (Pastilla)|杏仁、蜂蜜、葡萄干、肉桂","Hähnchen-Pastilla|Mandeln, Honig, Rosinen, Zimt")
+    ]},
+    {id:"couscous",items:[
+      I(13,"Couscous végétarien|Aux sept légumes, une semoule fine roulée à la main","Vegetarian couscous|With seven vegetables and fine hand-rolled semolina","كسكس نباتي|بسبع خضار وسميد ناعم مفتول باليد","素食库斯库斯|七种蔬菜，手工搓制的细粒粗麦粉","Vegetarisches Couscous|Mit sieben Gemüsesorten und von Hand gerolltem feinem Grieß"),
+      I(21,"Couscous brochettes de kefta|Brochettes de bœuf maison","Kefta skewer couscous|Homemade beef skewers","كسكس بأسياخ الكفتة|أسياخ لحم بقري منزلية","库夫塔串库斯库斯|自制牛肉串","Couscous mit Kefta-Spießen|Hausgemachte Rinderspieße"),
+      I(18,"Couscous merguez grillées|3 pièces","Couscous with grilled merguez|3 pieces","كسكس بالمرقاز المشوي|3 قطع","烤梅尔盖兹香肠库斯库斯|3根","Couscous mit gegrillten Merguez|3 Stück"),
+      I(16,"Couscous poulet|Épice raisin","Chicken couscous|Spiced raisins","كسكس بالدجاج|زبيب متبّل","鸡肉库斯库斯|香料葡萄干","Hähnchen-Couscous|Gewürzte Rosinen"),
+      I(20,"Couscous brochettes de poulet","Chicken skewer couscous","كسكس بأسياخ الدجاج","鸡肉串库斯库斯","Couscous mit Hähnchenspießen"),
+      I(24,"Couscous brochettes de bœuf grillées","Grilled beef skewer couscous","كسكس بأسياخ اللحم البقري المشوية","烤牛肉串库斯库斯","Couscous mit gegrillten Rinderspießen"),
+      I(24,"Couscous brochettes d’agneau grillées","Grilled lamb skewer couscous","كسكس بأسياخ لحم الضأن المشوية","烤羊肉串库斯库斯","Couscous mit gegrillten Lammspießen"),
+      I(24,"Couscous d’agneau en sauce","Lamb couscous in sauce","كسكس بلحم الضأن بالمرق","酱汁羊肉库斯库斯","Couscous mit Lamm in Sauce"),
+      I(29,"Couscous Royal|Brochette de bœuf, merguez, cuisses de poulet, côtes d’agneau","Royal couscous|Beef skewer, merguez, chicken legs, lamb chops","كسكس رويال|سيخ لحم بقري، مرقاز، أفخاذ دجاج، ضلوع ضأن","皇家库斯库斯|牛肉串、梅尔盖兹香肠、鸡腿、羊排","Couscous Royal|Rinderspieß, Merguez, Hähnchenkeulen, Lammkoteletts"),
+      I(21,"Couscous brochettes de scampis au sésame","Sesame scampi skewer couscous","كسكس بأسياخ الجمبري بالسمسم","芝麻大虾串库斯库斯","Couscous mit Scampi-Spießen und Sesam"),
+      I(21,"Couscous au thon à l’huile d’argan","Tuna couscous with argan oil","كسكس بالتونة وزيت الأركان","阿甘油金枪鱼库斯库斯","Couscous mit Thunfisch und Arganöl"),
+      I(29,"Couscous Méchoui|Épaule d’agneau rôtie","Méchoui couscous|Roasted lamb shoulder","كسكس المشوي|كتف ضأن مشوي","烤羊肩库斯库斯 (Méchoui)|烤羊肩肉","Couscous Méchoui|Gebratene Lammschulter"),
+      I(22,"Couscous tranche de gigot d’agneau|env. 350 gr","Lamb leg slice couscous|approx. 350 g","كسكس بشريحة فخذ الضأن|حوالي 350 غ","羊腿排库斯库斯|约350克","Couscous mit Lammkeulenscheibe|ca. 350 g"),
+      I(38,"Couscous côte à l’os «Limousin»|env. 980 gr","Bone-in rib steak couscous “Limousin”|approx. 980 g","كسكس بشريحة لحم بالعظم «ليموزان»|حوالي 980 غ","带骨牛排库斯库斯 “Limousin”|约980克","Couscous mit Rippenstück am Knochen „Limousin“|ca. 980 g"),
+      I(33,"Couscous couronne d’agneau","Crown of lamb couscous","كسكس بتاج الضأن","羊排皇冠库斯库斯","Couscous mit Lammkrone"),
+      I(24,"Couscous Ouiza|Merguez, poulet, boulettes de bœuf maison","Ouiza couscous|Merguez, chicken, homemade beef meatballs","كسكس ويزة|مرقاز، دجاج، كرات لحم بقري منزلية","Ouiza库斯库斯|梅尔盖兹香肠、鸡肉、自制牛肉丸","Couscous Ouiza|Merguez, Hähnchen, hausgemachte Rinderbällchen"),
+      I(27,"Couscous Timgad|Souris d’agneau, poulet, merguez","Timgad couscous|Lamb shank, chicken, merguez","كسكس تيمقاد|ساق ضأن، دجاج، مرقاز","Timgad库斯库斯|羊小腿、鸡肉、梅尔盖兹香肠","Couscous Timgad|Lammhaxe, Hähnchen, Merguez"),
+      SAUCES
+    ]},
+    {id:"tajines",note:true,items:[
+      I(21,"Tajine kefta à l’œuf|"+T.fr,"Kefta and egg tagine|"+T.en,"طاجين الكفتة بالبيض|"+T.ar,"库夫塔鸡蛋塔吉锅|"+T.zh,"Kefta-Tajine mit Ei|"+T.de),
+      I(20,"Tajine de poulet aux dattes et miel aux noix","Chicken tagine with dates and walnut honey","طاجين الدجاج بالتمر وعسل الجوز","椰枣核桃蜂蜜鸡肉塔吉锅","Hähnchen-Tajine mit Datteln und Walnusshonig"),
+      I(20,"Tajine poulet olive citron confit","Chicken tagine with olives and preserved lemon","طاجين الدجاج بالزيتون والليمون المخلل","橄榄腌柠檬鸡肉塔吉锅","Hähnchen-Tajine mit Oliven und eingelegter Zitrone"),
+      I(23,"Tajine d’agneau aux légumes, petits pois, feuille d’artichaut","Lamb tagine with vegetables, peas and artichoke","طاجين الضأن بالخضار والبازلاء والخرشوف","蔬菜豌豆洋蓟羊肉塔吉锅","Lamm-Tajine mit Gemüse, Erbsen und Artischocke"),
+      I(22,"Tajine d’agneau pruneaux et amandes","Lamb tagine with prunes and almonds","طاجين الضأن بالبرقوق واللوز","西梅杏仁羊肉塔吉锅","Lamm-Tajine mit Pflaumen und Mandeln"),
+      I(22,"Tajine d’agneau aux poires","Lamb tagine with pears","طاجين الضأن بالكمثرى","梨子羊肉塔吉锅","Lamm-Tajine mit Birnen"),
+      I(20,"Tajine d’espadon|"+T.fr,"Swordfish tagine|"+T.en,"طاجين سمك أبو سيف|"+T.ar,"剑鱼塔吉锅|"+T.zh,"Schwertfisch-Tajine|"+T.de),
+      I(20,"Tajine calamars|"+T.fr,"Squid tagine|"+T.en,"طاجين الحبار|"+T.ar,"鱿鱼塔吉锅|"+T.zh,"Calamari-Tajine|"+T.de),
+      I(20,"Tajine scampis|"+T.fr,"Scampi tagine|"+T.en,"طاجين الجمبري|"+T.ar,"大虾塔吉锅|"+T.zh,"Scampi-Tajine|"+T.de),
+      I(21,"Tajine de thon à l’huile d’argan|"+T.fr,"Tuna tagine with argan oil|"+T.en,"طاجين التونة بزيت الأركان|"+T.ar,"阿甘油金枪鱼塔吉锅|"+T.zh,"Thunfisch-Tajine mit Arganöl|"+T.de),
+      I(20,"Tajine de boulettes de sardines|"+T.fr,"Sardine ball tagine|"+T.en,"طاجين كرات السردين|"+T.ar,"沙丁鱼丸塔吉锅|"+T.zh,"Tajine mit Sardinenbällchen|"+T.de)
+    ]},
+    {id:"grills",items:[
+      I(18,"Merguez|3 pièces","Merguez|3 pieces","مرقاز|3 قطع","梅尔盖兹香肠|3根","Merguez|3 Stück"),
+      I(20,"Brochettes de poulet","Chicken skewers","أسياخ الدجاج","鸡肉串","Hähnchenspieße"),
+      I(24,"Brochettes d’agneau","Lamb skewers","أسياخ الضأن","羊肉串","Lammspieße"),
+      I(24,"Brochettes de bœuf","Beef skewers","أسياخ اللحم البقري","牛肉串","Rinderspieße"),
+      I(26,"Côte d’agneau|1 pièce","Lamb chop|1 piece","ضلع ضأن|قطعة واحدة","羊排|1块","Lammkotelett|1 Stück"),
+      I(38,"Côte d’os|Limousin, env. 950 gr","Bone-in rib steak|Limousin, approx. 950 g","شريحة لحم بالعظم|ليموزان، حوالي 950 غ","带骨牛排|Limousin，约950克","Rippenstück am Knochen|Limousin, ca. 950 g"),
+      I(32,"Entrecôte «charolaise»|env. 450 gr","Charolais rib steak|approx. 450 g","أنتركوت «شارولي»|حوالي 450 غ","夏洛来肋眼牛排|约450克","Entrecôte „Charolais“|ca. 450 g"),
+      I(33,"Couronne d’agneau au thym et à l’ail","Crown of lamb with thyme and garlic","تاج الضأن بالزعتر والثوم","百里香大蒜羊排皇冠","Lammkrone mit Thymian und Knoblauch"),
+      I(21,"Brochettes de scampis","Scampi skewers","أسياخ الجمبري","大虾串","Scampi-Spieße"),
+      I(17,"Poulet","Chicken","دجاج","鸡肉","Hähnchen"),
+      I(22,"Tranche de gigot d’agneau|env. 350 gr","Slice of lamb leg|approx. 350 g","شريحة فخذ الضأن|حوالي 350 غ","羊腿排|约350克","Lammkeulenscheibe|ca. 350 g"),
+      I(36,"Filet d’agneau|env. 450 gr","Lamb fillet|approx. 450 g","فيليه الضأن|حوالي 450 غ","羊里脊|约450克","Lammfilet|ca. 450 g"),
+      I(34,"Filet pur|env. 450 gr","Beef tenderloin|approx. 450 g","فيليه لحم بقري|حوالي 450 غ","牛里脊|约450克","Rinderfilet|ca. 450 g"),
+      I(29,"Mixte viande|Brochette de bœuf, côte d’agneau, brochette de poulet, merguez","Mixed grill|Beef skewer, lamb chop, chicken skewer, merguez","مشاوي مشكّلة|سيخ لحم بقري، ضلع ضأن، سيخ دجاج، مرقاز","烤肉拼盘|牛肉串、羊排、鸡肉串、梅尔盖兹香肠","Gemischter Grillteller|Rinderspieß, Lammkotelett, Hähnchenspieß, Merguez"),
+      SAUCES
+    ]},
+    {id:"extras",items:[
+      I(3,"Merguez|1 pièce","Merguez|1 piece","مرقاز|قطعة واحدة","梅尔盖兹香肠|1根","Merguez|1 Stück"),
+      I(5,"Poulet cuisse|1 pièce","Chicken leg|1 piece","فخذ دجاج|قطعة واحدة","鸡腿|1只","Hähnchenkeule|1 Stück"),
+      I(10,"Brochette d’agneau, bœuf, scampis, poulet ou kefta|1 pièce au choix","Skewer of lamb, beef, scampi, chicken or kefta|1 piece, your choice","سيخ ضأن أو لحم بقري أو جمبري أو دجاج أو كفتة|قطعة واحدة حسب الاختيار","羊肉、牛肉、大虾、鸡肉或库夫塔串|1串，任选","Spieß mit Lamm, Rind, Scampi, Hähnchen oder Kefta|1 Stück nach Wahl"),
+      I(6,"Côte d’agneau|1 pièce","Lamb chop|1 piece","ضلع ضأن|قطعة واحدة","羊排|1块","Lammkotelett|1 Stück"),
+      I(11,"Souris d’agneau","Lamb shank","ساق ضأن","羊小腿","Lammhaxe")
+    ]}
+  ];
+
+  /* ---------- Textes de l'interface ---------- */
+  var UI={
+    fr:{title:"La carte",lead:"Entrées, couscous, tajines et grillades : tout ce qu’on aime partager.",book:"Réserver une table",back:"Retour à l’accueil",lang:"Langue",prices:"Prix en euros.",note:"La disponibilité des ingrédients peut varier en fonction des saisons.",theme:"Thème",cats:{cold:"Nos entrées froides",hot:"Nos entrées chaudes",couscous:"Nos couscous",tajines:"Nos tajines",grills:"Nos grillades",extras:"Suppléments de viandes"}},
+    en:{title:"The menu",lead:"Starters, couscous, tagines and grills: everything we love to share.",book:"Book a table",back:"Back to home",lang:"Language",prices:"Prices in euros.",note:"Ingredient availability may vary with the seasons.",theme:"Theme",cats:{cold:"Cold starters",hot:"Hot starters",couscous:"Couscous",tajines:"Tagines",grills:"Grills",extras:"Extra meat"}},
+    ar:{title:"قائمة الطعام",lead:"مقبلات وكسكس وطواجن ومشويات: كل ما نحب مشاركته.",book:"احجز طاولة",back:"العودة إلى الرئيسية",lang:"اللغة",prices:"الأسعار باليورو.",note:"قد يختلف توفّر المكوّنات حسب المواسم.",theme:"المظهر",cats:{cold:"المقبلات الباردة",hot:"المقبلات الساخنة",couscous:"الكسكس",tajines:"الطواجن",grills:"المشويات",extras:"إضافات اللحوم"}},
+    zh:{title:"菜单",lead:"前菜、库斯库斯、塔吉锅与烧烤：都是适合分享的美味。",book:"预订餐桌",back:"返回首页",lang:"语言",prices:"价格单位：欧元。",note:"食材供应可能因季节而异。",theme:"主题",cats:{cold:"冷前菜",hot:"热前菜",couscous:"库斯库斯",tajines:"塔吉锅",grills:"烧烤",extras:"加肉"}},
+    de:{title:"Speisekarte",lead:"Vorspeisen, Couscous, Tajines und Gegrilltes: alles zum Teilen.",book:"Tisch reservieren",back:"Zurück zur Startseite",lang:"Sprache",prices:"Preise in Euro.",note:"Die Verfügbarkeit der Zutaten kann saisonal variieren.",theme:"Design",cats:{cold:"Kalte Vorspeisen",hot:"Warme Vorspeisen",couscous:"Couscous",tajines:"Tajines",grills:"Gegrilltes",extras:"Fleisch-Extras"}}
+  };
+  var SUP=["fr","en","ar","zh","de"], lang="fr", spy=null;
+  var root=document.documentElement;
+  function $(id){return document.getElementById(id);}
+
+  /* ---------- Affichage ---------- */
+  function render(){
+    var u=UI[lang], chips="", body="";
+    CATS.forEach(function(c){
+      chips+='<li><a class="chip" href="#c-'+c.id+'" data-id="'+c.id+'">'+u.cats[c.id]+'</a></li>';
+      var items=c.items.map(function(it){
+        var parts=it.t[lang].split("|");
+        var ds=parts[1]?'<span class="ds">'+parts[1]+'</span>':"";
+        return '<li class="item'+(it.sauce?' sauce':'')+'"><p class="txt"><span class="nm">'+parts[0]+'</span>'+ds+'</p><span class="lead-dots" aria-hidden="true"></span><span class="price" dir="ltr">'+it.p+' €</span></li>';
+      }).join("");
+      body+='<section class="cat" id="c-'+c.id+'" aria-labelledby="h-'+c.id+'"><h2 class="cat-title" id="h-'+c.id+'"><span>'+u.cats[c.id]+'</span></h2>'+(c.note?'<p class="cat-note">'+u.note+'</p>':'')+'<ul class="items">'+items+'</ul></section>';
+    });
+    $("cats").innerHTML=chips;
+    $("menu").innerHTML=body;
+    observe();
+  }
+
+  /* Fait défiler UNIQUEMENT la barre de catégories horizontalement pour centrer
+     l'onglet actif, sans jamais toucher au défilement vertical de la page
+     (c'est ce qui provoquait les sauts/saccades pendant le scroll). */
+  function centerChip(chip){
+    var nav=chip.closest("ul");
+    if(!nav) return;
+    var target=chip.offsetLeft-(nav.clientWidth-chip.offsetWidth)/2;
+    var max=nav.scrollWidth-nav.clientWidth;
+    target=Math.max(0,Math.min(target,max));
+    nav.scrollTo({left:target,behavior:"smooth"});
+  }
+
+  function observe(){
+    if(spy) spy.disconnect();
+    if(!("IntersectionObserver" in window)) return;
+    spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var id=en.target.id.replace("c-","");
+        document.querySelectorAll(".chip").forEach(function(ch){
+          var on=ch.getAttribute("data-id")===id;
+          ch.classList.toggle("on",on);
+          if(on) ch.setAttribute("aria-current","true"); else ch.removeAttribute("aria-current");
+          if(on) centerChip(ch);
+        });
+      });
+    },{rootMargin:"-30% 0px -60% 0px"});
+    document.querySelectorAll(".cat").forEach(function(s){spy.observe(s);});
+  }
+  var tick=false;
+  window.addEventListener("scroll",function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      tick=false;
+      var first=document.querySelector(".cat");
+      if(first && first.getBoundingClientRect().top>window.innerHeight*0.7){
+        document.querySelectorAll(".chip.on").forEach(function(c){c.classList.remove("on");c.removeAttribute("aria-current");});
+      }
+    });
+  },{passive:true});
+
+  function setLang(l,persist){
+    if(SUP.indexOf(l)<0) l="fr";
+    lang=l;
+    root.setAttribute("lang",l);
+    root.setAttribute("dir",l==="ar"?"rtl":"ltr");
+    var u=UI[l];
+    $("title").textContent=u.title; $("lead").textContent=u.lead; $("book").textContent=u.book;
+    $("back").textContent=u.back; $("prices").textContent=u.prices;
+    $("langBtn").setAttribute("aria-label",u.lang); $("pills").setAttribute("aria-label",u.lang);
+    $("theme").setAttribute("aria-label",u.theme);
+    $("langCode").textContent=l.toUpperCase();
+    document.title=u.title+" · Pirouss";
+    document.querySelectorAll("[data-lang]").forEach(function(b){
+      var on=b.getAttribute("data-lang")===l;
+      if(b.classList.contains("pill")) b.setAttribute("aria-pressed",on);
+      else b.setAttribute("aria-checked",on);
+    });
+    if(persist){try{localStorage.setItem("lang",l);}catch(e){}}
+    render();
+  }
+
+  function initial(){
+    var q=new URLSearchParams(location.search).get("lang");
+    if(SUP.indexOf(q)>-1) return q;
+    try{var s=localStorage.getItem("lang"); if(SUP.indexOf(s)>-1) return s;}catch(e){}
+    var n=(navigator.language||"fr").slice(0,2).toLowerCase();
+    return SUP.indexOf(n)>-1?n:"fr";
+  }
+
+  /* ---------- Menu de langue ---------- */
+  var btn=$("langBtn"), menu=$("langMenu");
+  function toggle(open){menu.hidden=!open;btn.setAttribute("aria-expanded",open);}
+  btn.addEventListener("click",function(e){e.stopPropagation();toggle(menu.hidden);});
+  document.addEventListener("click",function(e){if(!menu.hidden&&!menu.contains(e.target))toggle(false);});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!menu.hidden){toggle(false);btn.focus();}});
+  document.querySelectorAll("[data-lang]").forEach(function(b){
+    b.addEventListener("click",function(){setLang(b.getAttribute("data-lang"),true);toggle(false);});
+  });
+
+  /* ---------- Thème ---------- */
+  try{var saved=localStorage.getItem("theme"); if(saved) root.setAttribute("data-theme",saved);}catch(e){}
+  $("theme").addEventListener("click",function(){
+    var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&window.matchMedia("(prefers-color-scheme: dark)").matches);
+    var next=dark?"light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("theme",next);}catch(e){}
+  });
+
+  setLang(initial(),false);
+})();
+</script>
+</body>
+</html>
