@@ -1,1337 +1,235 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>futuro.tech — Studio de design tech</title>
-<meta name="description" content="futuro_tech_design conçoit des identités, sites et interfaces pour des marques tech. UI/UX, branding, motion.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" type="image/png" href="logo/logo-FT_Design_2026.png">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>futuro.tech Design Studio — Sites internet & supports d'impression</title>
+<meta name="description" content="Sites vitrine, boutiques en ligne, logos et supports imprimés. Promo -35 % sur les sites internet.">
 <style>
+:root{
+  --bg:#f6f8f4;--surface:#ffffff;--ink:#0b1a22;--muted:#4a5a62;--line:#dbe3dc;
+  --lime:#b4ee12;--lime-ink:#0b1a22;--accent-text:#4f7a00;--navy:#0b1a22;--on-navy:#ffffff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --font:"Poppins","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1a22;--surface:#12262f;--ink:#f2f7ee;--muted:#a7b8bf;--line:#223a45;--accent-text:#b4ee12;}}
+:root[data-theme="dark"]{--bg:#0b1a22;--surface:#12262f;--ink:#f2f7ee;--muted:#a7b8bf;--line:#223a45;--accent-text:#b4ee12;}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--navy);color:var(--on-navy)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.25rem;text-decoration:none;letter-spacing:-.02em}
+.logo .dot{width:30px;height:30px;border:2px solid #4b6470;border-radius:50%;display:grid;place-items:center}
+.logo .dot i{width:12px;height:12px;border-radius:50%;background:var(--lime)}
+.logo b{color:var(--lime)}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font-size:.95rem;opacity:.9;padding:10px 4px}
+.nav ul a:hover{color:var(--lime)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;background:var(--lime);color:var(--lime-ink);font-weight:600;text-decoration:none;border:2px solid var(--lime);transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(180,238,18,.35)}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+.hero{background:var(--navy);color:var(--on-navy);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;bottom:-160px;width:460px;height:460px;background:var(--lime);opacity:.9;border-radius:0 100% 0 100%;transform:rotate(-10deg)}
+.hero .wrap{position:relative;z-index:1;padding-top:72px;padding-bottom:96px;max-width:1120px}
+.badge{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--lime);color:var(--lime);border-radius:999px;padding:6px 16px;font-weight:600;font-size:.9rem}
+h1{font-size:clamp(2.2rem,6vw,4rem);line-height:1.08;letter-spacing:-.03em;margin:20px 0 16px;max-width:15ch}
+h1 em{font-style:normal;color:var(--lime)}
+.hero p{max-width:52ch;color:#c9d6db;font-size:1.1rem;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.promo{position:absolute;z-index:2;right:max(20px,calc(50% - 540px));top:56px;width:120px;height:120px;border-radius:50%;background:var(--navy);border:3px solid var(--lime);display:grid;place-items:center;text-align:center;transform:rotate(-8deg);line-height:1}
+.promo small{display:block;color:var(--lime);font-weight:700;letter-spacing:.12em;font-size:.7rem}
+.promo strong{font-size:1.9rem}
+section{padding:72px 0}
+.eyebrow{color:var(--accent-text);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.85rem}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;line-height:1.15;margin:6px 0 12px}
+.lead{color:var(--muted);max-width:56ch;margin:0 0 36px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:8px;transition:transform .2s ease,border-color .2s ease}
+.card:hover{transform:translateY(-4px);border-color:var(--lime)}
+.card h3{margin:0;font-size:1.1rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+.price{display:flex;align-items:baseline;gap:10px;margin-top:8px}
+.price .new{font-size:1.9rem;font-weight:700;background:var(--lime);color:var(--lime-ink);padding:0 10px;border-radius:8px}
+.price .old{color:var(--muted);text-decoration:line-through}
+.print{background:var(--navy);color:var(--on-navy)}
+.print .lead{color:#a7b8bf}.print .eyebrow{color:var(--lime)}
+.list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 48px}
+.list li{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid #223a45;font-size:1.05rem}
+.list li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--lime);flex:none}
+.list li span{margin-inline-start:auto;color:var(--lime);font-weight:700;font-size:1.15rem;white-space:nowrap}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.why div{display:flex;gap:16px;align-items:flex-start}
+.ic{flex:none;width:52px;height:52px;border-radius:14px;background:var(--lime);display:grid;place-items:center}
+.ic svg{width:26px;height:26px;stroke:var(--lime-ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.why h3{margin:0 0 4px;font-size:1.1rem}.why p{margin:0;color:var(--muted);font-size:.95rem}
+.contact{background:var(--navy);color:var(--on-navy);text-align:center;border-radius:28px;padding:56px 24px;position:relative;overflow:hidden}
+.contact h2{margin-top:0}
+.contact p{color:#c9d6db;max-width:46ch;margin:0 auto 28px}
+.contact .cta{justify-content:center}
+.contact .btn.ghost{color:#fff}
+footer{background:var(--navy);color:#a7b8bf;padding:28px 0;font-size:.9rem;text-align:center}
+footer b{color:var(--lime)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:760px){
+  .nav ul{display:none}
+  .promo{width:92px;height:92px;top:20px;right:16px}.promo strong{font-size:1.4rem}
+  .hero .wrap{padding-top:96px;padding-bottom:72px}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}
+}
 
-  :root{
-    --bg:#0A0A0D;
-    --bg-2:#101015;
-    --bg-3:#16161C;
-    --fg:#F3F3F1;
-    --muted:#8C8C97;
-    --cyan:#35E7FF;
-    --violet:#8C4DFF;
-    --lime:#C8FF4D;
-    --line: rgba(243,243,241,0.12);
-    --line-strong: rgba(243,243,241,0.22);
-    --wrap: 1240px;
-    --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 40px; --sp-5: 64px; --sp-6: 100px; --sp-7: 150px;
-    --ease: cubic-bezier(.16,.84,.32,1);
-  }
-
-  *{ box-sizing:border-box; }
-  html{ background:var(--bg); }
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
-  }
-
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--fg);
-    font-family:'Inter', sans-serif;
-    font-size:16px;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  h1,h2,h3{
-    font-family:'Sora', sans-serif;
-    font-weight:600;
-    line-height:1.02;
-    margin:0;
-    letter-spacing:-0.015em;
-  }
-
-  a{ color:inherit; text-decoration:none; }
-  img,svg{ display:block; max-width:100%; }
-
-  .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--sp-3); }
-
-  a:focus-visible, button:focus-visible{
-    outline:2px solid var(--cyan);
-    outline-offset:4px;
-  }
-
-  ::selection{ background:var(--violet); color:#fff; }
-
-  .grad-text{
-    background:linear-gradient(92deg, var(--cyan), var(--violet) 60%, var(--lime));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-
-  /* grain overlay */
-  .grain{
-    position:fixed; inset:0;
-    pointer-events:none;
-    z-index:9998;
-    opacity:0.05;
-    mix-blend-mode:overlay;
-  }
-
-  /* custom cursor */
-  .cursor{
-    position:fixed;
-    top:0; left:0;
-    width:10px; height:10px;
-    border-radius:50%;
-    background:var(--lime);
-    pointer-events:none;
-    z-index:9999;
-    transform:translate(-50%,-50%);
-    transition:width .25s var(--ease), height .25s var(--ease), background .25s ease;
-  }
-  .cursor-ring{
-    position:fixed;
-    top:0; left:0;
-    width:34px; height:34px;
-    border-radius:50%;
-    border:1px solid var(--line-strong);
-    pointer-events:none;
-    z-index:9999;
-    transform:translate(-50%,-50%);
-    transition:width .3s var(--ease), height .3s var(--ease), border-color .3s ease, background .3s ease;
-  }
-  .cursor.hover{ width:6px; height:6px; }
-  .cursor-ring.hover{ width:64px; height:64px; background:rgba(200,255,77,0.08); border-color:var(--lime); }
-  @media (pointer: coarse){
-    .cursor, .cursor-ring{ display:none; }
-  }
-  body.no-cursor .cursor, body.no-cursor .cursor-ring{ display:none; }
-
-  /* preloader */
-  .preloader{
-    position:fixed; inset:0;
-    background:var(--bg);
-    z-index:10000;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:flex-end;
-    padding:var(--sp-3);
-  }
-  .preloader .pl-count{
-    font-family:'Sora', sans-serif;
-    font-size:clamp(3rem,10vw,7rem);
-    font-weight:700;
-  }
-  .preloader .pl-label{
-    color:var(--muted);
-    font-size:0.85rem;
-    margin-bottom:8px;
-    letter-spacing:0.02em;
-  }
-
-  /* nav */
-  .nav{
-    position:fixed; top:0; left:0; right:0; z-index:200;
-    background:rgba(10,10,13,0.7);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
-  .brand{ display:flex; align-items:baseline; gap:2px; font-family:'Sora', sans-serif; font-weight:700; font-size:1.2rem; }
-  .brand .dot{ color:var(--lime); }
-  .brand small{ font-family:'Inter',sans-serif; font-weight:500; color:var(--muted); font-size:0.7rem; margin-left:8px; letter-spacing:0.04em; }
-
-  .nav-right{ display:flex; align-items:center; gap:var(--sp-3); }
-
-  .nav-links{ display:flex; gap:var(--sp-4); list-style:none; margin:0; padding:0; font-size:0.9rem; }
-  .nav-links a{ position:relative; padding:4px 0; }
-  .nav-links a::after{
-    content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--lime);
-    transition:width .3s var(--ease);
-  }
-  .nav-links a:hover::after{ width:100%; }
-
-  .nav-cta{
-    display:inline-flex; align-items:center; gap:8px;
-    border:1px solid var(--line-strong);
-    padding:9px 18px; border-radius:100px; font-size:0.85rem;
-    transition:border-color .25s ease, background .25s ease;
-  }
-  .nav-cta:hover{ border-color:var(--lime); background:rgba(200,255,77,0.08); }
-
-  .nav-toggle{
-    display:none; background:none; border:1px solid var(--line-strong);
-    width:44px; height:44px; border-radius:50%; align-items:center; justify-content:center; cursor:pointer; color:var(--fg);
-  }
-
-  /* language switcher */
-  .lang-switch{ position:relative; }
-  .lang-btn{
-    display:inline-flex; align-items:center; gap:7px;
-    background:none; border:1px solid var(--line-strong); color:var(--fg);
-    padding:8px 14px 8px 12px; border-radius:100px; font-size:0.82rem; font-family:'Sora',sans-serif;
-    cursor:pointer; transition:border-color .25s ease, background .25s ease;
-  }
-  .lang-btn:hover{ border-color:var(--lime); background:rgba(200,255,77,0.08); }
-  .lang-btn svg{ width:16px; height:16px; flex:0 0 auto; }
-  .lang-btn .chev{ width:10px; height:10px; transition:transform .25s var(--ease); }
-  .lang-switch.open .lang-btn .chev{ transform:rotate(180deg); }
-  .lang-code{ letter-spacing:0.03em; }
-
-  .lang-menu{
-    position:absolute; top:calc(100% + 10px); right:0;
-    min-width:184px;
-    background:var(--bg-3);
-    border:1px solid var(--line-strong);
-    border-radius:14px;
-    padding:6px;
-    box-shadow:0 18px 40px rgba(0,0,0,0.45);
-    opacity:0; visibility:hidden; transform:translateY(-6px);
-    transition:opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
-    z-index:210;
-  }
-  .lang-switch.open .lang-menu{ opacity:1; visibility:visible; transform:translateY(0); }
-  .lang-option{
-    display:flex; align-items:center; gap:10px;
-    width:100%; background:none; border:none; color:var(--fg);
-    padding:10px 12px; border-radius:9px; font-size:0.88rem; font-family:'Inter',sans-serif;
-    cursor:pointer; text-align:left; transition:background .2s ease;
-  }
-  .lang-option:hover{ background:rgba(243,243,241,0.06); }
-  .lang-option.active{ background:rgba(200,255,77,0.1); color:var(--lime); }
-  .lang-flag{ font-size:1.15rem; line-height:1; width:22px; text-align:center; }
-  .lang-name{ flex:1; }
-  .lang-native{ color:var(--muted); font-size:0.78rem; }
-  .lang-option.active .lang-native{ color:rgba(200,255,77,0.7); }
-
-  .mobile-lang{
-    display:flex; flex-wrap:wrap; gap:8px; margin-top:var(--sp-2); padding-top:var(--sp-2); border-top:1px solid var(--line);
-  }
-  .mobile-lang button{
-    display:inline-flex; align-items:center; gap:6px;
-    background:none; border:1px solid var(--line-strong); color:var(--fg);
-    padding:8px 14px; border-radius:100px; font-size:0.85rem; font-family:'Inter',sans-serif; cursor:pointer;
-  }
-  .mobile-lang button.active{ border-color:var(--lime); color:var(--lime); }
-
-  /* hero */
-  .hero{
-    position:relative;
-    min-height:100svh;
-    display:flex;
-    align-items:center;
-    padding-top:74px;
-    overflow:hidden;
-  }
-  .hero-glow{
-    position:absolute;
-    width:60vw; height:60vw;
-    max-width:800px; max-height:800px;
-    border-radius:50%;
-    top:50%; left:50%;
-    background:radial-gradient(circle, rgba(140,77,255,0.35), rgba(53,231,255,0.14) 45%, transparent 70%);
-    transform:translate(-50%,-50%);
-    filter:blur(20px);
-    pointer-events:none;
-    z-index:0;
-  }
-    .clients{ padding-top:0; padding-bottom:0; }
-  .clients-marquee{
-    overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-    padding:var(--sp-4) 0; margin-top:var(--sp-4);
-  }
-  .clients-marquee{ white-space:nowrap; }
-  .clients-track{
-    display:inline-flex;
-    align-items:center;
-    gap:var(--sp-5);
-    animation:clients-scroll 14s linear infinite;
-  }
-  .clients-marquee:hover .clients-track{ animation-play-state:paused; }
-  @media (prefers-reduced-motion: reduce){
-    .clients-track{ animation:none; flex-wrap:wrap; justify-content:center; }
-  }
-  @keyframes clients-scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
-  .client-chip{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    height:44px;
-    flex:0 0 auto;
-    filter:grayscale(1) brightness(1.6);
-    opacity:0.7;
-    transition:opacity .25s ease, filter .25s ease;
-  }
-  .client-chip:hover{
-    filter:grayscale(0) brightness(1);
-    opacity:1;
-  }
-  .client-chip img{
-    max-height:100%;
-    width:auto;
-    object-fit:contain;
-  }
-  .hero-grid{
-    position:absolute; inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:64px 64px;
-    mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, black 40%, transparent 85%);
-    opacity:0.5;
-    z-index:0;
-  }
-  .hero .wrap{ position:relative; z-index:1; }
-  .hero-eyebrow{
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:0.8rem; color:var(--muted);
-    border:1px solid var(--line-strong);
-    padding:6px 14px; border-radius:100px;
-    margin-bottom:var(--sp-3);
-  }
-  .hero-eyebrow .pulse{
-    width:6px; height:6px; border-radius:50%; background:var(--lime);
-    box-shadow:0 0 0 0 rgba(200,255,77,0.6);
-    animation:pulse 2s infinite;
-  }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(200,255,77,0.5); }
-    70%{ box-shadow:0 0 0 8px rgba(200,255,77,0); }
-    100%{ box-shadow:0 0 0 0 rgba(200,255,77,0); }
-  }
-
-  .hero h1{
-    font-size:clamp(2.6rem, 6.4vw, 5.6rem);
-    max-width:16ch;
-  }
-  .hero h1 .word{ display:inline-block; overflow:hidden; }
-  .hero h1 .word span{ display:inline-block; }
-
-  .hero-sub{
-    max-width:44ch;
-    margin-top:var(--sp-3);
-    color:var(--muted);
-    font-size:1.08rem;
-  }
-  .hero-actions{ display:flex; gap:var(--sp-3); align-items:center; margin-top:var(--sp-4); flex-wrap:wrap; }
-
-  .btn{
-    position:relative;
-    display:inline-flex; align-items:center; gap:10px;
-    padding:16px 30px;
-    border-radius:100px;
-    font-size:0.95rem; font-weight:500;
-    font-family:'Sora',sans-serif;
-  }
-  .btn-solid{ background:var(--lime); color:#0A0A0D; }
-  .btn-line{ border:1px solid var(--line-strong); color:var(--fg); }
-  .btn-line:hover{ border-color:var(--fg); }
-
-  .scroll-cue{
-    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
-    display:flex; flex-direction:column; align-items:center; gap:8px;
-    color:var(--muted); font-size:0.75rem; letter-spacing:0.05em;
-    z-index:1;
-  }
-  .scroll-cue .line{ width:1px; height:36px; background:linear-gradient(var(--line-strong), transparent); position:relative; overflow:hidden; }
-  .scroll-cue .line::after{
-    content:""; position:absolute; top:-100%; left:0; width:100%; height:100%;
-    background:linear-gradient(var(--lime), transparent);
-    animation:scrollcue 1.8s infinite;
-  }
-  @keyframes scrollcue{ to{ top:100%; } }
-
-  /* marquee */
-  .marquee{
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-    overflow:hidden; white-space:nowrap; padding:16px 0;
-    background:var(--bg-2);
-  }
-  .marquee-track{ display:inline-flex; gap:3rem; animation:scroll-left 22s linear infinite; }
-  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
-  .marquee-track span{ font-family:'Sora',sans-serif; font-size:1rem; color:var(--muted); display:inline-flex; align-items:center; gap:3rem; }
-  .marquee-track span b{ color:var(--fg); font-weight:600; }
-  .marquee-track span::after{ content:"◆"; color:var(--cyan); font-size:0.6rem; }
-  @keyframes scroll-left{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
-
-  /* sections */
-  .section{ padding:var(--sp-6) 0; position:relative; }
-  .section-head{ margin-bottom:var(--sp-5); max-width:60ch; }
-  .kicker{ color:var(--cyan); font-size:0.85rem; font-family:'Sora',sans-serif; font-weight:600; margin-bottom:12px; display:block; }
-  .section-head h2{ font-size:clamp(2rem,4vw,3rem); color:var(--lime); }
-  .section-head p{ color:var(--fg); margin-top:var(--sp-2); font-size:1.02rem; max-width:52ch; }
-
-  /* manifesto / mask reveal */
-  .manifesto{
-    padding:var(--sp-7) 0;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-  }
-  .manifesto .wrap{ max-width:900px; }
-  .manifesto p{
-    font-family:'Sora', sans-serif;
-    font-size:clamp(1.5rem, 3.4vw, 2.5rem);
-    font-weight:500;
-    line-height:1.3;
-    color:var(--muted);
-  }
-  .manifesto p .line{ overflow:hidden; display:block; }
-  .manifesto p .line span{ display:block; color:var(--fg); }
-  .manifesto p .hl{ color:var(--fg); }
-
-  /* services — style "post Instagram" */
-  .service-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-3); }
-  .service-post{
-    display:block;
-    background:var(--bg-2);
-    border:1px solid var(--line-strong);
-    border-radius:18px;
-    overflow:hidden;
-    perspective:800px;
-    transition:border-color .25s ease, transform .25s var(--ease), box-shadow .25s var(--ease);
-  }
-  .service-post:hover{ border-color:var(--lime); transform:translateY(-6px); box-shadow:0 24px 48px rgba(0,0,0,0.4); }
-  .service-post .inner{
-    transition:transform .12s ease-out;
-    transform-style:preserve-3d;
-  }
-  .post-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 16px;
-    border-bottom:1px solid var(--line);
-  }
-  .post-logo{ display:flex; align-items:center; gap:8px; font-family:'Sora',sans-serif; font-weight:600; font-size:0.82rem; color:var(--fg); }
-  .post-logo .post-dot{ width:8px; height:8px; border-radius:50%; background:var(--lime); display:inline-block; }
-  .post-more{ color:var(--muted); font-size:0.85rem; letter-spacing:0.1em; }
-  .post-media{
-    position:relative;
-    aspect-ratio:1/1;
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-  }
-  .post-media svg{ width:34%; height:34%; }
-  .post-media-1{ background:radial-gradient(circle at 30% 20%, rgba(53,231,255,0.35), transparent 60%), linear-gradient(150deg,#14141b,#0e1a1f); }
-  .post-media-2{ background:radial-gradient(circle at 70% 20%, rgba(200,255,77,0.28), transparent 60%), linear-gradient(150deg,#14141b,#141c10); }
-  .post-media-3{ background:radial-gradient(circle at 30% 80%, rgba(140,77,255,0.35), transparent 60%), linear-gradient(150deg,#14141b,#1a1424); }
-  .post-media-4{ background:radial-gradient(circle at 70% 80%, rgba(53,231,255,0.28), rgba(140,77,255,0.22) 55%, transparent 75%), linear-gradient(150deg,#14141b,#101018); }
-  .post-media .num{ position:absolute; top:14px; left:16px; font-family:'Sora',sans-serif; color:rgba(243,243,241,0.5); font-size:0.85rem; }
-  .post-body{ padding:var(--sp-3) 16px 18px; }
-  .service-post h3{ font-size:1.2rem; }
-  .service-post p{ color:var(--muted); font-size:0.88rem; margin-top:8px; }
-  .service-post .tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:var(--sp-3); }
-  .service-post .tags span{ font-size:0.7rem; color:var(--cyan); border:1px solid rgba(53,231,255,0.3); padding:3px 9px; border-radius:100px; }
-  .post-footer{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    margin-top:var(--sp-3); padding-top:var(--sp-3); border-top:1px solid var(--line);
-  }
-  .post-price{ font-family:'Sora',sans-serif; font-weight:600; color:var(--lime); font-size:0.88rem; }
-  .post-cta{ font-family:'Sora',sans-serif; font-size:0.82rem; color:var(--fg); display:inline-flex; align-items:center; gap:6px; }
-  .service-post:hover .post-cta{ color:var(--lime); }
-
-  /* showcase (fan reveal, projets) */
-  .showcase{
-    padding:var(--sp-7) 0;
-    overflow:hidden;
-  }
-  .showcase-head{ text-align:center; max-width:640px; margin:0 auto var(--sp-6); }
-  .showcase-head h2{ font-size:clamp(2rem,4.4vw,3.2rem); }
-  .showcase-head p{ color:var(--muted); margin-top:var(--sp-2); font-size:1.02rem; }
-  .showcase-stage{
-    position:relative;
-    height:560px;
-    max-width:1040px;
-    margin:0 auto;
-  }
-  .fan-card{
-    position:absolute;
-    top:50%; left:50%;
-    width:min(64vw, 360px);
-    aspect-ratio:4/5;
-    border-radius:18px;
-    padding:var(--sp-3);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    border:1px solid var(--line-strong);
-    box-shadow:0 30px 60px rgba(0,0,0,0.5);
-    will-change:transform, opacity;
-  }
-  .fan-card .g-tag{ font-size:0.78rem; color:var(--bg); background:rgba(10,10,13,0.15); align-self:flex-start; padding:5px 12px; border-radius:100px; font-family:'Sora',sans-serif; }
-  .fan-card .g-title{ font-family:'Sora',sans-serif; font-size:1.7rem; font-weight:600; }
-  .fan-card .g-sub{ font-size:0.88rem; opacity:0.75; margin-top:4px; }
-  .fan-card.g2 .g-tag, .fan-card.g5 .g-tag{ background:rgba(243,243,241,0.1); color:var(--fg); }
-  .showcase-hint{ text-align:center; color:var(--muted); font-size:0.8rem; margin-top:var(--sp-3); letter-spacing:0.03em; }
-
-  @media (max-width: 760px){
-    .showcase-stage{ height:420px; }
-    .fan-card{ width:min(72vw, 300px); }
-  }
-
-  /* stats */
-  .stats{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .stats .wrap{ display:grid; grid-template-columns:repeat(4,1fr); }
-  .stat{ padding:var(--sp-5) var(--sp-3); border-left:1px solid var(--line); }
-  .stat:first-child{ border-left:none; }
-  .stat .n{ font-family:'Sora',sans-serif; font-size:clamp(2.2rem,4.4vw,3.4rem); font-weight:700; }
-  .stat .l{ color:var(--lime); font-size:0.85rem; margin-top:6px; }
-
-  /* process */
-  .process{ position:relative; }
-  .process-track{ position:relative; padding-left:var(--sp-4); }
-  .process-line{ position:absolute; left:0; top:0; bottom:0; width:1px; background:var(--line); }
-  .process-line-fill{ position:absolute; left:0; top:0; width:1px; height:0%; background:linear-gradient(var(--cyan), var(--violet)); }
-  .process-step{ position:relative; padding:var(--sp-4) 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:80px 1fr 1.4fr; gap:var(--sp-3); align-items:baseline; }
-  .process-step:first-child{ border-top:1px solid var(--line); }
-  .process-step .dot{ position:absolute; left:calc(-1 * var(--sp-4) - 3.5px); top:calc(var(--sp-4) + 2px); width:8px; height:8px; border-radius:50%; background:var(--bg); border:1px solid var(--line-strong); }
-  .process-step .num{ font-family:'Sora',sans-serif; color:var(--muted); }
-  .process-step h3{ font-size:1.4rem; }
-  .process-step p{ color:var(--muted); font-size:0.94rem; margin:0; }
-
-  /* quote */
-  .quote-section{ text-align:left; }
-  .quote-section blockquote{
-    font-family:'Sora',sans-serif; font-weight:500;
-    font-size:clamp(1.6rem,3.4vw,2.6rem);
-    max-width:24ch; margin:0; line-height:1.25;
-  }
-  .quote-attr{ margin-top:var(--sp-3); color:var(--muted); font-size:0.9rem; }
-
-  /* cta */
-  .cta-section{
-    margin:0 var(--sp-3) var(--sp-6);
-    border-radius:16px;
-    padding:var(--sp-6) var(--sp-4);
-    background:linear-gradient(135deg, #14141b, #1c1230);
-    border:1px solid var(--line-strong);
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .cta-section h2{ font-size:clamp(2.2rem,5vw,4rem); max-width:16ch; margin:0 auto; }
-  .cta-section p{ color:var(--muted); max-width:44ch; margin:var(--sp-2) auto 0; }
-  .cta-section .btn{ margin-top:var(--sp-4); }
-  .magnet-wrap{ display:inline-block; }
-
-  /* footer */
-  footer{ padding:var(--sp-5) 0 var(--sp-4); }
-  .foot-wordmark{
-    font-family:'Sora',sans-serif; font-weight:700;
-    font-size:clamp(3rem,10vw,8rem);
-    color:transparent;
-    -webkit-text-stroke:1px var(--line-strong);
-    line-height:1;
-    margin-bottom:var(--sp-4);
-  }
-  .foot-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--sp-3); border-top:1px solid var(--line); padding-top:var(--sp-3); font-size:0.85rem; color:var(--muted); }
-  .foot-links{ display:flex; gap:var(--sp-3); list-style:none; margin:0; padding:0; }
-  .foot-links a:hover{ color:var(--fg); }
-
-  /* mobile panel */
-  .mobile-panel{
-    display:none; position:fixed; top:74px; left:0; right:0; bottom:0;
-    background:var(--bg); z-index:199; flex-direction:column; padding:var(--sp-3); gap:4px; overflow-y:auto;
-  }
-  .mobile-panel a{ font-family:'Sora',sans-serif; font-size:1.6rem; padding:16px 4px; border-bottom:1px solid var(--line); }
-  .nav.open .mobile-panel{ display:flex; }
-
-  @media (max-width: 900px){
-    .service-grid{ grid-template-columns:repeat(2,1fr); }
-    .stats .wrap{ grid-template-columns:repeat(2,1fr); }
-    .stat:nth-child(3){ border-left:none; }
-    .process-step{ grid-template-columns:50px 1fr; }
-    .process-step p{ grid-column:2/3; }
-  }
-  @media (max-width: 760px){
-    .nav-links{ display:none; }
-    .nav-cta{ display:none; }
-    .lang-switch{ display:none; }
-    .nav-toggle{ display:flex; }
-    .service-grid{ grid-template-columns:1fr; }
-    .stats .wrap{ grid-template-columns:1fr 1fr; }
-    .stat{ border-left:none; border-top:1px solid var(--line); }
-  }
+.tools{display:flex;align-items:center;gap:8px}
+.tbtn,.lang{height:44px;border-radius:999px;border:2px solid #4b6470;background:transparent;color:#fff;cursor:pointer;font:inherit}
+.tbtn{width:44px;display:grid;place-items:center;padding:0}
+.tbtn:hover,.lang:hover{border-color:var(--lime)}
+.tbtn svg,.globe svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.globe{position:relative;display:flex;align-items:center}
+.globe svg{position:absolute;inset-inline-start:12px;pointer-events:none;color:#fff}
+.lang{appearance:none;-webkit-appearance:none;padding:0 14px;padding-inline-start:38px;font-size:.9rem}
+.lang option{color:#0b1a22}
+:root[data-theme="dark"] .i-moon,:root:not([data-theme="dark"]) .i-sun{display:none}
+[dir="rtl"] .promo{transform:rotate(8deg)}
+@media (max-width:760px){.nav>.btn{display:none}.lang{padding-inline-end:8px}}
 </style>
 </head>
-<body class="no-cursor">
-
-<svg class="grain" width="0" height="0">
-  <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
-</svg>
-<div style="position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0.045;mix-blend-mode:overlay;filter:url(#noiseFilter);background:#fff;"></div>
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<div class="preloader" id="preloader">
-  <span class="pl-label" data-i18n="preloader.label">futuro.tech — chargement</span>
-  <div class="pl-count" id="plCount">0%</div>
-</div>
-
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a href="#top" class="brand">futuro<span class="dot">.</span>tech<small>DESIGN STUDIO</small></a>
-    <nav aria-label="Navigation principale">
-      <ul class="nav-links">
-        <li><a href="#expertises" data-i18n="nav.expertises">Expertises</a></li>
-        <li><a href="#projets" data-i18n="nav.projets">Projets</a></li>
-        <li><a href="#process" data-i18n="nav.process">Process</a></li>
-        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="nav-right">
-      <div class="lang-switch" id="langSwitch">
-        <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Changer de langue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9Z"/></svg>
-          <span class="lang-code" id="langCode">FR</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="lang-menu" id="langMenu" role="menu">
-          <button class="lang-option active" role="menuitem" data-lang="FR" data-name="Français"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span></button>
-          <button class="lang-option" role="menuitem" data-lang="EN" data-name="English"><span class="lang-flag">🇬🇧</span><span class="lang-name">English<div class="lang-native">Anglais</div></span></button>
-          <button class="lang-option" role="menuitem" data-lang="AR" data-name="العربية"><span class="lang-flag">🇸🇦</span><span class="lang-name">العربية<div class="lang-native">Arabe</div></span></button>
-          <button class="lang-option" role="menuitem" data-lang="ZH" data-name="中文"><span class="lang-flag">🇨🇳</span><span class="lang-name">中文<div class="lang-native">Chinois</div></span></button>
-          <button class="lang-option" role="menuitem" data-lang="DE" data-name="Deutsch"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch<div class="lang-native">Allemand</div></span></button>
-        </div>
-      </div>
-      <a href="#contact" class="nav-cta" data-i18n="nav.cta">Démarrer un projet</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="futuro.tech Design Studio, accueil"><span class="dot"><i></i></span><span>futuro<b>.</b>tech</span></a>
+    <ul>
+      <li><a href="#sites">Sites internet</a></li>
+      <li><a href="#impression">Impression</a></li>
+      <li><a href="#pourquoi">Pourquoi nous</a></li>
+    </ul>
+    <div class="tools">
+      <label class="globe"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.500 3 14.500 0 18M12 3c-3 3.500-3 14.500 0 18"/></svg>
+        <select class="lang" id="lang" aria-label="Langue / Language">
+          <option value="fr">FR</option><option value="en">EN</option><option value="ar">AR</option><option value="de">DE</option><option value="zh">中文</option>
+        </select></label>
+      <button class="tbtn" id="theme" type="button" aria-label="Mode clair / sombre">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.800A9 9 0 1111.200 3a7 7 0 009.800 9.800z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg>
       </button>
     </div>
-  </div>
-  <div class="mobile-panel" id="mobilePanel">
-    <a href="#expertises" data-i18n="nav.expertises">Expertises</a>
-    <a href="#projets" data-i18n="nav.projets">Projets</a>
-    <a href="#process" data-i18n="nav.process">Process</a>
-    <a href="#contact" data-i18n="nav.contact">Contact</a>
-    <a href="https://www.instagram.com/futuro_tech_design/" target="_blank" rel="noopener" data-i18n="mobile.instagram">Instagram ↗</a>
-    <div class="mobile-lang" id="mobileLang">
-      <button class="active" data-lang="FR">🇫🇷 FR</button>
-      <button data-lang="EN">🇬🇧 EN</button>
-      <button data-lang="AR">🇸🇦 AR</button>
-      <button data-lang="ZH">🇨🇳 ZH</button>
-      <button data-lang="DE">🇩🇪 DE</button>
-    </div>
+    <a class="btn" href="#contact" style="min-height:44px;padding:0 20px">Devis gratuit</a>
   </div>
 </header>
 
 <main id="top">
-
-  <section class="hero">
-    <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
-    <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero">
+    <div class="promo" aria-label="Promotion 35 pour cent"><div><small>PROMO</small><strong>35 %</strong></div></div>
     <div class="wrap">
-      <span class="hero-eyebrow" data-i18n="hero.eyebrow"><span class="pulse"></span> Studio ouvert à de nouveaux projets — 2026</span>
-      <h1 id="heroTitle" data-i18n="hero.title">On- dessine- des- interfaces- qui- donnent- envie- d'y- revenir.</h1>
-      <p class="hero-sub" data-i18n="hero.sub">futuro_tech_design est un studio de design pour marques tech : identité, produit digital, site web. On construit vite, on construit propre.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-solid magnet" data-i18n="hero.cta1">Démarrer un projet</a>
-        <a href="#projets" class="btn btn-line magnet" data-i18n="hero.cta2">Voir les projets</a>
+      <span class="badge">DESIGN STUDIO</span>
+      <h1>Votre projet, <em>notre créativité&nbsp;!</em></h1>
+      <p>Sites internet sur mesure, logos et supports d'impression : une identité cohérente, du premier écran jusqu'à la dernière carte de visite.</p>
+      <div class="cta">
+        <a class="btn" href="#sites">Voir les tarifs</a>
+        <a class="btn ghost" href="#contact">Nous contacter</a>
       </div>
-    </div>
-    <div class="scroll-cue" aria-hidden="true"><span class="line"></span><span data-i18n="hero.scroll">SCROLL</span></div>
-  </section>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span><b data-i18n="marquee.1">UI/UX Design</b></span><span><b data-i18n="marquee.2">Sites &amp; apps</b></span><span><b data-i18n="marquee.3">Identité de marque</b></span><span><b data-i18n="marquee.4">Motion design</b></span><span><b data-i18n="marquee.5">Prototypage</b></span>
-      <span><b data-i18n="marquee.1">UI/UX Design</b></span><span><b data-i18n="marquee.2">Sites &amp; apps</b></span><span><b data-i18n="marquee.3">Identité de marque</b></span><span><b data-i18n="marquee.4">Motion design</b></span><span><b data-i18n="marquee.5">Prototypage</b></span>
     </div>
   </div>
 
-  <section class="manifesto">
+  <section id="sites">
     <div class="wrap">
-      <p class="reveal-lines">
-        <span class="line"><span data-i18n="manifesto.line1">La plupart des marques tech se ressemblent.</span></span>
-        <span class="line"><span data-i18n-html="manifesto.line2">On construit des identités <b class="hl grad-text">qu'on reconnaît</b></span></span>
-        <span class="line"><span data-i18n="manifesto.line3">sans avoir besoin de lire le nom.</span></span>
-      </p>
-    </div>
-  </section>
-
-  <section class="section clients" id="clients">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker" data-i18n="clients.kicker">Confiance</span>
-        <h2 data-i18n="clients.title">Clients &amp; partenaires</h2>
-        <p data-i18n="clients.desc">Des indépendants aux grands groupes industriels, quelques marques accompagnées.</p>
-      </div>
-    </div>
-    <div class="clients-marquee" aria-label="Nos clients et partenaires">
-      <div class="clients-track">
-        <div class="client-chip"><img src="images/partenaire1.png" alt="Habita Auto & Lubrifiants" loading="lazy"></div>
-        <div class="client-chip"><img src="images/partenaire2.png" alt="CDTA" loading="lazy"></div>
-        <div class="client-chip"><img src="images/partenaire3.png" alt="Vitesco Technologies" loading="lazy"></div>
-        <div class="client-chip"><img src="images/partenaire4.png" alt="Continental" loading="lazy"></div>
-        <div class="client-chip"><img src="images/partenaire5.png" alt="Continental" loading="lazy"></div>
-        <div class="client-chip"><img src="images/partenaire6.png" alt="Continental" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire1.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire2.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire3.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire4.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire5.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire6.png" alt="" loading="lazy"></div>
-                <div class="client-chip" aria-hidden="true"><img src="images/partenaire1.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire2.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire3.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire4.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire5.png" alt="" loading="lazy"></div>
-        <div class="client-chip" aria-hidden="true"><img src="images/partenaire6.png" alt="" loading="lazy"></div>
+      <div class="eyebrow">Nos prestations</div>
+      <h2>Site internet</h2>
+      <p class="lead">Moderne, rapide et adapté à votre activité. Tarifs promotionnels de -35 % sur toutes les formules.</p>
+      <div class="cards">
+        <article class="card reveal"><h3>Vitrine</h3><p>Présentez votre activité avec un site clair et professionnel.</p><div class="price"><span class="new">490 €</span><span class="old">750 €</span></div></article>
+        <article class="card reveal"><h3>Vitrine + réservation</h3><p>Vos clients réservent directement en ligne.</p><div class="price"><span class="new">560 €</span><span class="old">850 €</span></div></article>
+        <article class="card reveal"><h3>Boutique en ligne</h3><p>Vendez vos produits 24h/24, partout.</p><div class="price"><span class="new">620 €</span><span class="old">950 €</span></div></article>
+        <article class="card reveal"><h3>Boutique + réservation</h3><p>Vente en ligne et prise de rendez-vous réunies.</p><div class="price"><span class="new">720 €</span><span class="old">1100 €</span></div></article>
+        <article class="card reveal"><h3>Mise à jour – maintenance</h3><p>Votre site reste à jour, sécurisé et performant.</p><div class="price"><span class="new">65 €</span><span class="old">100 €</span></div></article>
       </div>
     </div>
   </section>
 
-  <section class="section" id="expertises">
+  <section id="impression" class="print">
     <div class="wrap">
-      <div class="section-head">
-        <span class="kicker" data-i18n="expertise.kicker">Expertises</span>
-        <h2 data-i18n="expertise.title">Ce qu'on fait le mieux</h2>
-        <p data-i18n="expertise.desc">Quatre disciplines, toujours pensées ensemble pour que le produit, la marque et le site racontent la même histoire.</p>
-      </div>
-    </div>
-    <div class="wrap">
-      <div class="service-grid">
-
-        <a href="#contact" class="service-post tilt" aria-label="UI/UX Design — aller au formulaire de contact"><div class="inner">
-          <div class="post-head">
-            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
-            <span class="post-more">•••</span>
-          </div>
-          <div class="post-media post-media-1">
-            <span class="num">01</span>
-            <svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.6"><rect x="7" y="9" width="34" height="24" rx="3"/><path d="M15 40h18M24 33v7"/><circle cx="15" cy="17" r="1.4" fill="var(--cyan)" stroke="none"/><path d="M15 27l6-6 5 5 7-8" /></svg>
-          </div>
-          <div class="post-body">
-            <h3 data-i18n="expertise.card1.title">UI/UX Design</h3>
-            <p data-i18n="expertise.card1.desc">Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.</p>
-            <div class="tags"><span>Figma</span><span data-i18n="expertise.card1.tag2">Design system</span></div>
-            <div class="post-footer">
-              <span class="post-price" data-i18n="expertise.card1.price">Sur devis</span>
-              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
-            </div>
-          </div>
-        </div></a>
-
-        <a href="#contact" class="service-post tilt" aria-label="Sites & apps — aller au formulaire de contact"><div class="inner">
-          <div class="post-head">
-            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
-            <span class="post-more">•••</span>
-          </div>
-          <div class="post-media post-media-2">
-            <span class="num">02</span>
-            <svg viewBox="0 0 48 48" fill="none" stroke="var(--lime)" stroke-width="1.6"><rect x="4" y="10" width="26" height="18" rx="2"/><path d="M11 34h12"/><rect x="33" y="13" width="11" height="20" rx="2"/><path d="M9 15h22"/></svg>
-          </div>
-          <div class="post-body">
-            <h3 data-i18n="expertise.card2.title">Sites &amp; apps</h3>
-            <p data-i18n="expertise.card2.desc">Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.</p>
-            <div class="tags"><span>React</span><span>Webflow</span></div>
-            <div class="post-footer">
-              <span class="post-price" data-i18n="expertise.card2.price">À partir de 490€</span>
-              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
-            </div>
-          </div>
-        </div></a>
-
-        <a href="#contact" class="service-post tilt" aria-label="Identité de marque — aller au formulaire de contact"><div class="inner">
-          <div class="post-head">
-            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
-            <span class="post-more">•••</span>
-          </div>
-          <div class="post-media post-media-3">
-            <span class="num">03</span>
-            <svg viewBox="0 0 48 48" fill="none" stroke="var(--violet)" stroke-width="1.6"><circle cx="24" cy="24" r="15"/><path d="M24 9v30M9 24h30"/></svg>
-          </div>
-          <div class="post-body">
-            <h3 data-i18n="expertise.card3.title">Identité de marque</h3>
-            <p data-i18n="expertise.card3.desc">Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.</p>
-            <div class="tags"><span data-i18n="expertise.card3.tag1">Logo</span><span data-i18n="expertise.card3.tag2">Charte</span></div>
-            <div class="post-footer">
-              <span class="post-price" data-i18n="expertise.card3.price">À partir de 290€</span>
-              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
-            </div>
-          </div>
-        </div></a>
-
-        <a href="#contact" class="service-post tilt" aria-label="Motion & prototypage — aller au formulaire de contact"><div class="inner">
-          <div class="post-head">
-            <span class="post-logo"><span class="post-dot"></span>futuro.tech</span>
-            <span class="post-more">•••</span>
-          </div>
-          <div class="post-media post-media-4">
-            <span class="num">04</span>
-            <svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.6"><path d="M16 13l19 11-19 11z"/></svg>
-          </div>
-          <div class="post-body">
-            <h3 data-i18n="expertise.card4.title">Motion &amp; prototypage</h3>
-            <p data-i18n="expertise.card4.desc">Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.</p>
-            <div class="tags"><span>GSAP</span><span>Lottie</span></div>
-            <div class="post-footer">
-              <span class="post-price" data-i18n="expertise.card4.price">Sur devis</span>
-              <span class="post-cta" data-i18n="expertise.cta">Demander un devis →</span>
-            </div>
-          </div>
-        </div></a>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="stats section">
-    <div class="wrap">
-      <div class="stat"><div class="n" data-count="46">0</div><div class="l" data-i18n="stats.1">Projets livrés</div></div>
-      <div class="stat"><div class="n" data-count="14">0</div><div class="l" data-i18n="stats.2">Pays clients</div></div>
-      <div class="stat"><div class="n" data-count="98" data-suffix="%">0%</div><div class="l" data-i18n="stats.3">Clients satisfaits</div></div>
-      <div class="stat"><div class="n" data-count="4.5" data-decimals="true">0</div><div class="l" data-i18n="stats.4">Note moyenne / 5</div></div>
-    </div>
-  </section>
-
-  <section class="section process" id="process">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker" data-i18n="process.kicker">Process</span>
-        <h2 data-i18n="process.title">Du brief au lancement</h2>
-      </div>
-      <div class="process-track">
-        <div class="process-line"></div>
-        <div class="process-line-fill" id="processFill"></div>
-        <div class="process-step"><span class="dot"></span><span class="num">01</span><h3 data-i18n="process.step1.title">Discovery</h3><p data-i18n="process.step1.desc">On cadre l'objectif, le public et les contraintes techniques du projet.</p></div>
-        <div class="process-step"><span class="dot"></span><span class="num">02</span><h3 data-i18n="process.step2.title">Design</h3><p data-i18n="process.step2.desc">Direction créative, wireframes puis maquettes détaillées sur toutes les vues clés.</p></div>
-        <div class="process-step"><span class="dot"></span><span class="num">03</span><h3 data-i18n="process.step3.title">Développement</h3><p data-i18n="process.step3.desc">Intégration fidèle au design, animations, responsive et tests sur tous les écrans.</p></div>
-        <div class="process-step"><span class="dot"></span><span class="num">04</span><h3 data-i18n="process.step4.title">Lancement</h3><p data-i18n="process.step4.desc">Mise en ligne, passation des fichiers et accompagnement les premières semaines.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section quote-section">
-    <div class="wrap">
-      <blockquote data-i18n="quote.text">« Le site a été prêt en 3 semaines et il a changé la façon dont on nous perçoit en démo. »</blockquote>
-      <div class="quote-attr" data-i18n="quote.attr">— Julia Renn, cofondatrice, Vertex Labs</div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="cta-section">
-      <h2 data-i18n="contact.title">Un projet tech en tête ?</h2>
-      <p data-i18n="contact.desc">Écrivez-nous, on revient vers vous sous 48h avec une première direction.</p>
-      <span class="magnet-wrap"><a href="mailto:hello@futuro.tech" class="btn btn-solid magnet">hello@futuro.tech</a></span>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="foot-wordmark">futuro.tech</div>
-    <div class="foot-grid">
-      <span data-i18n="footer.copy">© 2026 futuro_tech_design — studio de design tech</span>
-      <ul class="foot-links">
-        <li><a href="https://www.instagram.com/futuro_tech_design/" target="_blank" rel="noopener" data-i18n="footer.instagram">Instagram</a></li>
-        <li><a href="mailto:hello@futuro.tech" data-i18n="footer.email">Email</a></li>
-        <li><a href="#top" data-i18n="footer.top">Haut de page</a></li>
+      <div class="eyebrow">Supports publicitaires</div>
+      <h2>&amp; Impression</h2>
+      <p class="lead">Tout pour porter votre marque : du logo aux supports événementiels.</p>
+      <ul class="list">
+        <li>Carte visite<span>50 €</span></li>
+        <li>Flyers<span>70 €</span></li>
+        <li>Stickers / Autocollants<span>100 €</span></li>
+        <li>Étiquettes produits<span>80 €</span></li>
+        <li>Roll-up<span>80 €</span></li>
+        <li>Affiche<span>80 €</span></li>
+        <li>Dépliants<span>100 €</span></li>
+        <li>Logo<span>150 €</span></li>
+        <li>Mockup<span>15 €</span></li>
       </ul>
     </div>
-  </div>
-</footer>
+  </section>
+
+  <section id="pourquoi">
+    <div class="wrap">
+      <div class="eyebrow">Nos engagements</div>
+      <h2>Pourquoi nous choisir</h2>
+      <p class="lead">Un studio à taille humaine, des délais tenus et un suivi à chaque étape.</p>
+      <div class="why">
+        <div class="reveal"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.600 6.500 19.500l1-6.200L3 8.900 9 8z"/></svg></span><div><h3>Qualité professionnelle</h3><p>Des créations soignées, pensées pour durer et pour convaincre.</p></div></div>
+        <div class="reveal"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><h3>Respect des délais</h3><p>Un calendrier clair, annoncé dès le départ et tenu.</p></div></div>
+        <div class="reveal"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-2a8 8 0 0116 0v2"/><rect x="3" y="13" width="4" height="6" rx="1"/><rect x="17" y="13" width="4" height="6" rx="1"/></svg></span><div><h3>Accompagnement personnalisé</h3><p>Un interlocuteur unique, à l'écoute de vos besoins.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact">
+        <div class="eyebrow" style="color:var(--lime)">Parlons de votre projet</div>
+        <h2>Demandez votre devis gratuit</h2>
+        <p>Décrivez-nous votre besoin, nous revenons vers vous rapidement.</p>
+        <div class="cta">
+          <a class="btn" href="tel:+33769891287">Appeler le 07 69 89 12 87</a>
+          <a class="btn ghost" href="mailto:zineb.ftdesign@gmail.com?subject=Demande%20de%20devis">zineb.ftdesign@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 <b>futuro.tech</b> Design Studio — Votre projet, notre créativité&nbsp;!</div></footer>
 
 <script>
 (function(){
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isTouch = window.matchMedia('(pointer: coarse)').matches;
-
-  /* ---------- preloader ---------- */
-  var plCount = document.getElementById('plCount');
-  var preloader = document.getElementById('preloader');
-  var n = 0;
-  var plInterval = setInterval(function(){
-    n += Math.floor(Math.random()*18)+6;
-    if(n >= 100){ n = 100; clearInterval(plInterval); }
-    plCount.textContent = n + '%';
-    if(n === 100){
-      setTimeout(function(){
-        preloader.style.transition = 'opacity .6s ease, visibility .6s ease';
-        preloader.style.opacity = '0';
-        preloader.style.visibility = 'hidden';
-        startHero();
-      }, 250);
-    }
-  }, 90);
-
-  /* ---------- custom cursor ---------- */
-  if(!isTouch){
-    document.body.classList.remove('no-cursor');
-    var cursor = document.getElementById('cursor');
-    var ring = document.getElementById('cursorRing');
-    var rx=0, ry=0, tx=0, ty=0;
-    window.addEventListener('mousemove', function(e){
-      cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px';
-      tx = e.clientX; ty = e.clientY;
-    });
-    function loop(){
-      rx += (tx-rx)*0.18; ry += (ty-ry)*0.18;
-      ring.style.left = rx+'px'; ring.style.top = ry+'px';
-      requestAnimationFrame(loop);
-    }
-    loop();
-    document.querySelectorAll('a, button, .tilt').forEach(function(el){
-      el.addEventListener('mouseenter', function(){ cursor.classList.add('hover'); ring.classList.add('hover'); });
-      el.addEventListener('mouseleave', function(){ cursor.classList.remove('hover'); ring.classList.remove('hover'); });
-    });
+  var R=document.documentElement,LS=["fr","en","ar","de","zh"];
+  var rows=[["Sites internet", "Websites", "المواقع الإلكترونية", "Webseiten", "网站"], ["Impression", "Print", "الطباعة", "Druck", "印刷"], ["Pourquoi nous", "Why us", "لماذا نحن", "Warum wir", "为什么选择我们"], ["Devis gratuit", "Free quote", "عرض سعر مجاني", "Gratis-Angebot", "免费报价"], ["PROMO", "PROMO", "عرض", "AKTION", "促销"], ["Votre projet,", "Your project,", "مشروعك،", "Ihr Projekt,", "您的项目，"], ["notre créativité !", "our creativity!", "إبداعنا!", "unsere Kreativität!", "我们的创意！"], ["Sites internet sur mesure, logos et supports d'impression : une identité cohérente, du premier écran jusqu'à la dernière carte de visite.", "Custom websites, logos and print materials: a consistent identity from the first screen to the last business card.", "مواقع مخصصة وشعارات ومطبوعات: هوية متناسقة من الشاشة الأولى حتى آخر بطاقة عمل.", "Maßgeschneiderte Websites, Logos und Druckmaterialien: eine einheitliche Identität vom ersten Bildschirm bis zur letzten Visitenkarte.", "定制网站、标志和印刷品：从第一个页面到最后一张名片，保持统一的品牌形象。"], ["Voir les tarifs", "See pricing", "عرض الأسعار", "Preise ansehen", "查看价格"], ["Nous contacter", "Contact us", "اتصل بنا", "Kontakt", "联系我们"], ["Nos prestations", "Our services", "خدماتنا", "Unsere Leistungen", "我们的服务"], ["Site internet", "Website", "موقع إلكتروني", "Website", "网站"], ["Moderne, rapide et adapté à votre activité. Tarifs promotionnels de -35 % sur toutes les formules.", "Modern, fast and tailored to your business. Promotional prices of -35% on all packages.", "حديث وسريع ومناسب لنشاطك. أسعار ترويجية بخصم 35٪ على جميع الباقات.", "Modern, schnell und auf Ihr Geschäft zugeschnitten. 35 % Rabatt auf alle Pakete.", "现代、快速、贴合您的业务。所有套餐享 35% 优惠价。"], ["Vitrine", "Showcase site", "موقع تعريفي", "Präsentationsseite", "展示型网站"], ["Présentez votre activité avec un site clair et professionnel.", "Present your business with a clear, professional site.", "قدّم نشاطك بموقع واضح واحترافي.", "Präsentieren Sie Ihr Unternehmen mit einer klaren, professionellen Seite.", "用清晰专业的网站展示您的业务。"], ["Vitrine + réservation", "Showcase + booking", "موقع تعريفي + حجز", "Präsentation + Buchung", "展示型 + 预约"], ["Vos clients réservent directement en ligne.", "Your customers book directly online.", "عملاؤك يحجزون مباشرة عبر الإنترنت.", "Ihre Kunden buchen direkt online.", "客户可直接在线预约。"], ["Boutique en ligne", "Online shop", "متجر إلكتروني", "Online-Shop", "网上商店"], ["Vendez vos produits 24h/24, partout.", "Sell your products 24/7, anywhere.", "بع منتجاتك على مدار الساعة وفي أي مكان.", "Verkaufen Sie Ihre Produkte rund um die Uhr, überall.", "全天候、随时随地销售您的产品。"], ["Boutique + réservation", "Shop + booking", "متجر + حجز", "Shop + Buchung", "商店 + 预约"], ["Vente en ligne et prise de rendez-vous réunies.", "Online sales and appointment booking combined.", "البيع عبر الإنترنت وحجز المواعيد في مكان واحد.", "Online-Verkauf und Terminbuchung in einem.", "在线销售与预约合二为一。"], ["Mise à jour – maintenance", "Updates & maintenance", "التحديث والصيانة", "Updates & Wartung", "更新与维护"], ["Votre site reste à jour, sécurisé et performant.", "Your site stays up to date, secure and fast.", "يبقى موقعك محدّثًا وآمنًا وسريعًا.", "Ihre Website bleibt aktuell, sicher und schnell.", "让您的网站保持最新、安全、高效。"], ["Supports publicitaires", "Advertising materials", "المواد الإعلانية", "Werbemittel", "宣传物料"], ["& Impression", "& Print", "والطباعة", "& Druck", "与印刷"], ["Tout pour porter votre marque : du logo aux supports événementiels.", "Everything to carry your brand: from the logo to event materials.", "كل ما تحتاجه لإبراز علامتك: من الشعار إلى مواد الفعاليات.", "Alles für Ihre Marke: vom Logo bis zu Event-Materialien.", "展现品牌所需的一切：从标志到活动物料。"], ["Carte visite", "Business card", "بطاقة عمل", "Visitenkarte", "名片"], ["Flyers", "Flyers", "منشورات", "Flyer", "传单"], ["Stickers / Autocollants", "Stickers / Decals", "ملصقات", "Aufkleber", "贴纸"], ["Étiquettes produits", "Product labels", "ملصقات المنتجات", "Produktetiketten", "产品标签"], ["Roll-up", "Roll-up", "رول أب", "Roll-up", "易拉宝"], ["Affiche", "Poster", "ملصق إعلاني", "Plakat", "海报"], ["Dépliants", "Brochures", "كتيبات", "Faltblätter", "折页"], ["Logo", "Logo", "شعار", "Logo", "标志"], ["Mockup", "Mockup", "نموذج عرض", "Mockup", "效果图"], ["Nos engagements", "Our commitments", "التزاماتنا", "Unser Versprechen", "我们的承诺"], ["Pourquoi nous choisir", "Why choose us", "لماذا تختارنا", "Warum uns wählen", "为什么选择我们"], ["Un studio à taille humaine, des délais tenus et un suivi à chaque étape.", "A human-sized studio, deadlines kept and follow-up at every step.", "استوديو بحجم إنساني، ومواعيد محترمة، ومتابعة في كل مرحلة.", "Ein Studio mit persönlicher Note, eingehaltene Fristen und Betreuung bei jedem Schritt.", "小而专业的工作室，按时交付，全程跟进。"], ["Qualité professionnelle", "Professional quality", "جودة احترافية", "Professionelle Qualität", "专业品质"], ["Des créations soignées, pensées pour durer et pour convaincre.", "Polished work, designed to last and to convince.", "تصاميم متقنة صُمّمت لتدوم وتقنع.", "Sorgfältige Arbeiten, gemacht um zu überzeugen und zu halten.", "精心制作，经久耐用，更有说服力。"], ["Respect des délais", "On-time delivery", "احترام المواعيد", "Termintreue", "准时交付"], ["Un calendrier clair, annoncé dès le départ et tenu.", "A clear schedule, announced upfront and kept.", "جدول زمني واضح يُعلن من البداية ويُحترم.", "Ein klarer Zeitplan, von Anfang an genannt und eingehalten.", "时间表清晰，事先告知并严格执行。"], ["Accompagnement personnalisé", "Personalized support", "مرافقة مخصصة", "Persönliche Betreuung", "个性化陪伴"], ["Un interlocuteur unique, à l'écoute de vos besoins.", "A single point of contact who listens to your needs.", "محاور واحد يصغي إلى احتياجاتك.", "Ein fester Ansprechpartner, der auf Ihre Bedürfnisse eingeht.", "唯一对接人，倾听您的需求。"], ["Parlons de votre projet", "Let's talk about your project", "لنتحدث عن مشروعك", "Sprechen wir über Ihr Projekt", "聊聊您的项目"], ["Demandez votre devis gratuit", "Request your free quote", "اطلب عرض السعر المجاني", "Fordern Sie Ihr kostenloses Angebot an", "获取免费报价"], ["Décrivez-nous votre besoin, nous revenons vers vous rapidement.", "Describe your need and we'll get back to you quickly.", "صف لنا احتياجك وسنعاود الاتصال بك بسرعة.", "Beschreiben Sie Ihr Anliegen, wir melden uns schnell.", "告诉我们您的需求，我们会尽快回复。"], ["Appeler le 07 69 89 12 87", "Call 07 69 89 12 87", "اتصل: 07 69 89 12 87", "Anrufen: 07 69 89 12 87", "致电 07 69 89 12 87"], ["Design Studio — Votre projet, notre créativité !", "Design Studio — Your project, our creativity!", "Design Studio — مشروعك، إبداعنا!", "Design Studio — Ihr Projekt, unsere Kreativität!", "Design Studio — 您的项目，我们的创意！"]];
+  function norm(s){return s.replace(/[\s\u00a0]+/g," ").trim()}
+  var dict={};rows.forEach(function(r){dict[norm(r[0])]=r});
+  var nodes=[],w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var t=n.parentNode.nodeName;return(t==="SCRIPT"||t==="OPTION")?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}}),n;
+  while((n=w.nextNode())){var k=norm(n.nodeValue);if(dict[k]){var m=n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);nodes.push({n:n,o:n.nodeValue,r:dict[k],a:m[1],z:m[2]})}}
+  var sel=document.getElementById("lang");
+  function setLang(l){
+    var i=LS.indexOf(l);if(i<0){l="fr";i=0}
+    nodes.forEach(function(x){x.n.nodeValue=i===0?x.o:x.a+x.r[i]+x.z});
+    R.lang=l;R.dir=l==="ar"?"rtl":"ltr";sel.value=l;
+    try{localStorage.setItem("ft-lang",l)}catch(e){}
   }
-
-  /* ---------- nav mobile ---------- */
-  var toggle = document.getElementById('navToggle');
-  var nav = document.getElementById('nav');
-  toggle.addEventListener('click', function(){
-    var open = nav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true':'false');
+  var sl=null,st=null;try{sl=localStorage.getItem("ft-lang");st=localStorage.getItem("ft-theme")}catch(e){}
+  if(!sl){var b=(navigator.language||"fr").slice(0,2);sl=LS.indexOf(b)>-1?b:"fr"}
+  setLang(sl);sel.addEventListener("change",function(){setLang(sel.value)});
+  var mq=window.matchMedia("(prefers-color-scheme: dark)");
+  R.setAttribute("data-theme",st||(mq.matches?"dark":"light"));
+  document.getElementById("theme").addEventListener("click",function(){
+    var t=R.getAttribute("data-theme")==="dark"?"light":"dark";R.setAttribute("data-theme",t);
+    try{localStorage.setItem("ft-theme",t)}catch(e){}
   });
-  document.querySelectorAll('#mobilePanel a').forEach(function(a){
-    a.addEventListener('click', function(){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
-  });
-
-  /* ---------- i18n dictionary ---------- */
-  var I18N = {
-    FR: {
-      'preloader.label':'futuro.tech — chargement',
-      'nav.expertises':'Expertises','nav.projets':'Projets','nav.process':'Process','nav.contact':'Contact','nav.cta':'Démarrer un projet',
-      'mobile.instagram':'Instagram ↗',
-      'hero.eyebrow':'Studio ouvert à de nouveaux projets — 2026',
-      'hero.title':"On- dessine- des- interfaces- qui- donnent- envie- d'y- revenir.",
-      'hero.sub':'futuro_tech_design est un studio de design pour marques tech : identité, produit digital, site web. On construit vite, on construit propre.',
-      'hero.cta1':'Démarrer un projet','hero.cta2':'Voir les projets','hero.scroll':'SCROLL',
-      'marquee.1':'UI/UX Design','marquee.2':'Sites & apps','marquee.3':'Identité de marque','marquee.4':'Motion design','marquee.5':'Prototypage',
-      'manifesto.line1':'La plupart des marques tech se ressemblent.',
-      'manifesto.line2':'On construit des identités <b class="hl grad-text">qu\'on reconnaît</b>',
-      'manifesto.line3':'sans avoir besoin de lire le nom.',
-      'clients.kicker':'Confiance','clients.title':'Clients & partenaires','clients.desc':'Des indépendants aux grands groupes industriels, quelques marques accompagnées.',
-      'expertise.kicker':'Expertises','expertise.title':"Ce qu'on fait le mieux",'expertise.desc':"Quatre disciplines, toujours pensées ensemble pour que le produit, la marque et le site racontent la même histoire.",
-      'expertise.card1.title':'UI/UX Design','expertise.card1.desc':"Interfaces produit pensées pour la clarté et la conversion, wireframes jusqu'au design final.",'expertise.card1.tag2':'Design system',
-      'expertise.card2.title':'Sites & apps','expertise.card2.desc':'Sites vitrines et applications web rapides, animées, responsive dès la première ligne de code.',
-      'expertise.card3.title':'Identité de marque','expertise.card3.desc':'Logo, typographie, palette et système visuel cohérent sur tous vos supports, print et digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Charte',
-      'expertise.card4.title':'Motion & prototypage','expertise.card4.desc':'Micro-interactions et prototypes animés pour tester et vendre une expérience avant de la coder.',
-      'expertise.card1.price':'Sur devis','expertise.card2.price':'À partir de 490€','expertise.card3.price':'À partir de 290€','expertise.card4.price':'Sur devis','expertise.cta':'Demander un devis →',
-      'showcase.kicker':'Projets récents','showcase.title':"Ce qu'on a livré dernièrement",'showcase.desc':'Cinq marques, cinq problèmes différents — un fil conducteur : la clarté.',
-      'showcase.card1.tag':'Identité + site','showcase.card1.sub':"Système d'exploitation cloud",
-      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'App de paiement B2B',
-      'showcase.card3.tag':'Site web','showcase.card3.sub':'Vitrine produit industriel',
-      'showcase.card4.tag':'Branding','showcase.card4.sub':'Studio de recherche IA',
-      'showcase.card5.tag':'Motion','showcase.card5.sub':'Dashboard temps réel',
-      'showcase.hint':'SCROLLEZ POUR DÉPLOYER',
-      'stats.1':'Projets livrés','stats.2':'Pays clients','stats.3':'Clients satisfaits','stats.4':'Note moyenne / 5',
-      'process.kicker':'Process','process.title':'Du brief au lancement',
-      'process.step1.title':'Discovery','process.step1.desc':"On cadre l'objectif, le public et les contraintes techniques du projet.",
-      'process.step2.title':'Design','process.step2.desc':'Direction créative, wireframes puis maquettes détaillées sur toutes les vues clés.',
-      'process.step3.title':'Développement','process.step3.desc':'Intégration fidèle au design, animations, responsive et tests sur tous les écrans.',
-      'process.step4.title':'Lancement','process.step4.desc':'Mise en ligne, passation des fichiers et accompagnement les premières semaines.',
-      'quote.text':'« Le site a été prêt en 3 semaines et il a changé la façon dont on nous perçoit en démo. »',
-      'quote.attr':'— Julia Renn, cofondatrice, Vertex Labs',
-      'contact.title':'Un projet tech en tête ?','contact.desc':'Écrivez-nous, on revient vers vous sous 48h avec une première direction.',
-      'footer.copy':'© 2026 futuro_tech_design — studio de design tech','footer.instagram':'Instagram','footer.email':'Email','footer.top':'Haut de page'
-    },
-    EN: {
-      'preloader.label':'futuro.tech — loading',
-      'nav.expertises':'Expertise','nav.projets':'Work','nav.process':'Process','nav.contact':'Contact','nav.cta':'Start a project',
-      'mobile.instagram':'Instagram ↗',
-      'hero.eyebrow':'Studio open to new projects — 2026',
-      'hero.title':'We design interfaces people want to come back to.',
-      'hero.sub':'futuro_tech_design is a design studio for tech brands: identity, digital product, website. We build fast, we build clean.',
-      'hero.cta1':'Start a project','hero.cta2':'See the work','hero.scroll':'SCROLL',
-      'marquee.1':'UI/UX Design','marquee.2':'Sites & apps','marquee.3':'Brand identity','marquee.4':'Motion design','marquee.5':'Prototyping',
-      'manifesto.line1':'Most tech brands look the same.',
-      'manifesto.line2':'We build identities <b class="hl grad-text">you recognise</b>',
-      'manifesto.line3':'without needing to read the name.',
-      'clients.kicker':'Trust','clients.title':'Clients & partners','clients.desc':'From independents to large industrial groups, a few brands we\'ve worked with.',
-      'expertise.kicker':'Expertise','expertise.title':'What we do best','expertise.desc':'Four disciplines, always thought through together so the product, the brand and the site tell the same story.',
-      'expertise.card1.title':'UI/UX Design','expertise.card1.desc':'Product interfaces designed for clarity and conversion, from wireframes to final design.','expertise.card1.tag2':'Design system',
-      'expertise.card2.title':'Sites & apps','expertise.card2.desc':'Fast, animated, responsive websites and web apps, from the first line of code.',
-      'expertise.card3.title':'Brand identity','expertise.card3.desc':'Logo, typography, palette and a consistent visual system across all your media, print and digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Guidelines',
-      'expertise.card4.title':'Motion & prototyping','expertise.card4.desc':'Micro-interactions and animated prototypes to test and sell an experience before coding it.',
-      'expertise.card1.price':'Custom quote','expertise.card2.price':'From €490','expertise.card3.price':'From €290','expertise.card4.price':'Custom quote','expertise.cta':'Request a quote →',
-      'showcase.kicker':'Recent work','showcase.title':'What we shipped lately','showcase.desc':'Five brands, five different problems — one common thread: clarity.',
-      'showcase.card1.tag':'Identity + site','showcase.card1.sub':'Cloud operating system',
-      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B payments app',
-      'showcase.card3.tag':'Website','showcase.card3.sub':'Industrial product showcase',
-      'showcase.card4.tag':'Branding','showcase.card4.sub':'AI research studio',
-      'showcase.card5.tag':'Motion','showcase.card5.sub':'Real-time dashboard',
-      'showcase.hint':'SCROLL TO UNFOLD',
-      'stats.1':'Projects shipped','stats.2':'Client countries','stats.3':'Happy clients','stats.4':'Average rating / 5',
-      'process.kicker':'Process','process.title':'From brief to launch',
-      'process.step1.title':'Discovery','process.step1.desc':"We frame the goal, the audience and the project's technical constraints.",
-      'process.step2.title':'Design','process.step2.desc':'Creative direction, wireframes then detailed mockups across every key screen.',
-      'process.step3.title':'Development','process.step3.desc':'Pixel-accurate build, animations, responsive behaviour and testing on every screen.',
-      'process.step4.title':'Launch','process.step4.desc':'Going live, file handover and support through the first weeks.',
-      'quote.text':'"The site was ready in 3 weeks and it changed how people see us in demos."',
-      'quote.attr':'— Julia Renn, co-founder, Vertex Labs',
-      'contact.title':'Got a tech project in mind?','contact.desc':'Write to us, we get back to you within 48h with a first direction.',
-      'footer.copy':'© 2026 futuro_tech_design — tech design studio','footer.instagram':'Instagram','footer.email':'Email','footer.top':'Back to top'
-    },
-    AR: {
-      'preloader.label':'futuro.tech — جارٍ التحميل',
-      'nav.expertises':'الخبرات','nav.projets':'المشاريع','nav.process':'المسار','nav.contact':'تواصل معنا','nav.cta':'ابدأ مشروعاً',
-      'mobile.instagram':'إنستغرام ↗',
-      'hero.eyebrow':'الاستوديو مفتوح لمشاريع جديدة — 2026',
-      'hero.title':'-نصمم- واجهات -تجعلك -ترغب -في -العودة -إليها.',
-      'hero.sub':'futuro_tech_design استوديو تصميم للعلامات التقنية: الهوية، المنتج الرقمي، الموقع الإلكتروني. نبني بسرعة، ونبني بإتقان.',
-      'hero.cta1':'ابدأ مشروعاً','hero.cta2':'شاهد المشاريع','hero.scroll':'مرّر للأسفل',
-      'marquee.1':'تصميم UI/UX','marquee.2':'مواقع وتطبيقات','marquee.3':'هوية العلامة','marquee.4':'موشن غرافيك','marquee.5':'نمذجة أولية',
-      'manifesto.line1':'معظم العلامات التقنية تتشابه.',
-      'manifesto.line2':'نبني هويات <b class="hl grad-text">تُعرف من أول نظرة</b>',
-      'manifesto.line3':'دون الحاجة لقراءة الاسم.',
-      'clients.kicker':'الثقة','clients.title':'العملاء والشركاء','clients.desc':'من المستقلين إلى المجموعات الصناعية الكبرى، بعض العلامات التي رافقناها.',
-      'expertise.kicker':'الخبرات','expertise.title':'ما نُتقنه أكثر','expertise.desc':'أربعة تخصصات، مُفكَّر فيها دائماً معاً حتى يروي المنتج والعلامة والموقع القصة نفسها.',
-      'expertise.card1.title':'تصميم UI/UX','expertise.card1.desc':'واجهات منتج مصمَّمة من أجل الوضوح والتحويل، من الرسومات التخطيطية إلى التصميم النهائي.','expertise.card1.tag2':'نظام التصميم',
-      'expertise.card2.title':'مواقع وتطبيقات','expertise.card2.desc':'مواقع وتطبيقات ويب سريعة ومتحركة ومتجاوبة منذ أول سطر برمجي.',
-      'expertise.card3.title':'هوية العلامة','expertise.card3.desc':'شعار، خطوط، ألوان، ونظام بصري متسق على جميع الوسائط، المطبوعة والرقمية.','expertise.card3.tag1':'الشعار','expertise.card3.tag2':'الدليل البصري',
-      'expertise.card4.title':'موشن ونمذجة أولية','expertise.card4.desc':'تفاعلات دقيقة ونماذج متحركة لاختبار وبيع تجربة قبل برمجتها.',
-      'expertise.card1.price':'حسب الطلب','expertise.card2.price':'ابتداءً من 490€','expertise.card3.price':'ابتداءً من 290€','expertise.card4.price':'حسب الطلب','expertise.cta':'← اطلب عرض سعر',
-      'showcase.kicker':'مشاريع حديثة','showcase.title':'ما أنجزناه مؤخراً','showcase.desc':'خمس علامات، خمس مشكلات مختلفة — خيط ناظم واحد: الوضوح.',
-      'showcase.card1.tag':'هوية + موقع','showcase.card1.sub':'نظام تشغيل سحابي',
-      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'تطبيق دفع للشركات',
-      'showcase.card3.tag':'موقع إلكتروني','showcase.card3.sub':'واجهة عرض منتج صناعي',
-      'showcase.card4.tag':'هوية بصرية','showcase.card4.sub':'استوديو أبحاث ذكاء اصطناعي',
-      'showcase.card5.tag':'موشن غرافيك','showcase.card5.sub':'لوحة بيانات لحظية',
-      'showcase.hint':'مرّر للأسفل للانتشار',
-      'stats.1':'مشروع مُنجز','stats.2':'دولة عميلة','stats.3':'عملاء راضون','stats.4':'التقييم المتوسط / 5',
-      'process.kicker':'المسار','process.title':'من البريف إلى الإطلاق',
-      'process.step1.title':'الاستكشاف','process.step1.desc':'نحدّد الهدف والجمهور والقيود التقنية للمشروع.',
-      'process.step2.title':'التصميم','process.step2.desc':'توجيه إبداعي، رسومات تخطيطية ثم نماذج مفصّلة لكل الشاشات الأساسية.',
-      'process.step3.title':'التطوير','process.step3.desc':'تطوير مطابق للتصميم، حركات، تجاوب واختبار على جميع الشاشات.',
-      'process.step4.title':'الإطلاق','process.step4.desc':'النشر، تسليم الملفات ومرافقة خلال الأسابيع الأولى.',
-      'quote.text':'«كان الموقع جاهزاً خلال 3 أسابيع وغيّر الطريقة التي يُنظر بها إلينا في العروض التوضيحية.»',
-      'quote.attr':'— جوليا رين، شريكة مؤسسة، Vertex Labs',
-      'contact.title':'لديك مشروع تقني في ذهنك؟','contact.desc':'راسلنا، وسنعود إليك خلال 48 ساعة باتجاه أولي.',
-      'footer.copy':'© 2026 futuro_tech_design — استوديو تصميم تقني','footer.instagram':'إنستغرام','footer.email':'البريد الإلكتروني','footer.top':'العودة للأعلى'
-    },
-    ZH: {
-      'preloader.label':'futuro.tech — 加载中',
-      'nav.expertises':'专业领域','nav.projets':'项目','nav.process':'流程','nav.contact':'联系我们','nav.cta':'开始一个项目',
-      'mobile.instagram':'Instagram ↗',
-      'hero.eyebrow':'工作室现正接受新项目 — 2026',
-      'hero.title':'我们设计让人想一再回来的界面。',
-      'hero.sub':'futuro_tech_design 是一家专为科技品牌服务的设计工作室：品牌形象、数字产品、网站。我们建造得快，也建造得干净利落。',
-      'hero.cta1':'开始一个项目','hero.cta2':'查看项目','hero.scroll':'向下滚动',
-      'marquee.1':'UI/UX 设计','marquee.2':'网站与应用','marquee.3':'品牌形象','marquee.4':'动效设计','marquee.5':'原型设计',
-      'manifesto.line1':'大多数科技品牌看起来都很相似。',
-      'manifesto.line2':'我们打造<b class="hl grad-text">一眼就能认出的</b>品牌形象',
-      'manifesto.line3':'无需阅读名字。',
-      'clients.kicker':'信任','clients.title':'客户与合作伙伴','clients.desc':'从独立品牌到大型工业集团，这是我们合作过的一些品牌。',
-      'expertise.kicker':'专业领域','expertise.title':'我们最擅长的事','expertise.desc':'四个专业领域，始终协同思考，让产品、品牌和网站讲述同一个故事。',
-      'expertise.card1.title':'UI/UX 设计','expertise.card1.desc':'为清晰度和转化率而设计的产品界面，从线框图到最终设计。','expertise.card1.tag2':'设计系统',
-      'expertise.card2.title':'网站与应用','expertise.card2.desc':'快速、有动效、响应式的网站与网页应用，从第一行代码开始。',
-      'expertise.card3.title':'品牌形象','expertise.card3.desc':'标志、字体、色彩，以及在印刷和数字媒介上保持一致的视觉体系。','expertise.card3.tag1':'标志','expertise.card3.tag2':'品牌规范',
-      'expertise.card4.title':'动效与原型','expertise.card4.desc':'微交互与动态原型，在编码之前先测试并展示体验。',
-      'expertise.card1.price':'按需报价','expertise.card2.price':'起价 490€','expertise.card3.price':'起价 290€','expertise.card4.price':'按需报价','expertise.cta':'获取报价 →',
-      'showcase.kicker':'近期项目','showcase.title':'我们最近交付的作品','showcase.desc':'五个品牌，五个不同的问题——一条共同主线：清晰。',
-      'showcase.card1.tag':'品牌形象 + 网站','showcase.card1.sub':'云操作系统',
-      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B 支付应用',
-      'showcase.card3.tag':'网站','showcase.card3.sub':'工业产品展示站',
-      'showcase.card4.tag':'品牌形象','showcase.card4.sub':'AI 研究工作室',
-      'showcase.card5.tag':'动效设计','showcase.card5.sub':'实时数据看板',
-      'showcase.hint':'滚动以展开',
-      'stats.1':'已交付项目','stats.2':'客户所在国家','stats.3':'满意客户','stats.4':'平均评分 / 5',
-      'process.kicker':'流程','process.title':'从需求到上线',
-      'process.step1.title':'探索','process.step1.desc':'明确项目目标、受众以及技术限制。',
-      'process.step2.title':'设计','process.step2.desc':'创意方向、线框图，随后在所有关键页面上完成详细设计稿。',
-      'process.step3.title':'开发','process.step3.desc':'忠实还原设计的开发、动效、响应式适配，并在所有屏幕上测试。',
-      'process.step4.title':'上线','process.step4.desc':'正式上线、交付文件，并在最初几周提供支持。',
-      'quote.text':'「网站在3周内就绪，改变了我们在演示中给人的印象。」',
-      'quote.attr':'— Julia Renn，联合创始人，Vertex Labs',
-      'contact.title':'有科技项目想法吗？','contact.desc':'写信给我们，我们会在48小时内回复初步方向。',
-      'footer.copy':'© 2026 futuro_tech_design — 科技设计工作室','footer.instagram':'Instagram','footer.email':'邮箱','footer.top':'返回顶部'
-    },
-    DE: {
-      'preloader.label':'futuro.tech — lädt',
-      'nav.expertises':'Leistungen','nav.projets':'Projekte','nav.process':'Prozess','nav.contact':'Kontakt','nav.cta':'Projekt starten',
-      'mobile.instagram':'Instagram ↗',
-      'hero.eyebrow':'Studio offen für neue Projekte — 2026',
-      'hero.title':'Wir gestalten Interfaces, zu denen man gerne zurückkehrt.',
-      'hero.sub':'futuro_tech_design ist ein Designstudio für Tech-Marken: Identität, digitales Produkt, Website. Wir bauen schnell, wir bauen sauber.',
-      'hero.cta1':'Projekt starten','hero.cta2':'Projekte ansehen','hero.scroll':'SCROLLEN',
-      'marquee.1':'UI/UX Design','marquee.2':'Websites & Apps','marquee.3':'Markenidentität','marquee.4':'Motion Design','marquee.5':'Prototyping',
-      'manifesto.line1':'Die meisten Tech-Marken sehen gleich aus.',
-      'manifesto.line2':'Wir bauen Identitäten, <b class="hl grad-text">die man wiedererkennt</b>',
-      'manifesto.line3':'ohne den Namen lesen zu müssen.',
-      'clients.kicker':'Vertrauen','clients.title':'Kunden & Partner','clients.desc':'Von Selbstständigen bis zu großen Industriekonzernen — einige Marken, mit denen wir gearbeitet haben.',
-      'expertise.kicker':'Leistungen','expertise.title':'Was wir am besten können','expertise.desc':'Vier Disziplinen, immer zusammen gedacht, damit Produkt, Marke und Website dieselbe Geschichte erzählen.',
-      'expertise.card1.title':'UI/UX Design','expertise.card1.desc':'Produktoberflächen für Klarheit und Conversion, von Wireframes bis zum finalen Design.','expertise.card1.tag2':'Designsystem',
-      'expertise.card2.title':'Websites & Apps','expertise.card2.desc':'Schnelle, animierte, responsive Websites und Web-Apps ab der ersten Codezeile.',
-      'expertise.card3.title':'Markenidentität','expertise.card3.desc':'Logo, Typografie, Farbpalette und ein konsistentes visuelles System für Print und Digital.','expertise.card3.tag1':'Logo','expertise.card3.tag2':'Styleguide',
-      'expertise.card4.title':'Motion & Prototyping','expertise.card4.desc':'Mikrointeraktionen und animierte Prototypen, um eine Erfahrung zu testen und zu verkaufen, bevor sie programmiert wird.',
-      'expertise.card1.price':'Auf Anfrage','expertise.card2.price':'Ab 490€','expertise.card3.price':'Ab 290€','expertise.card4.price':'Auf Anfrage','expertise.cta':'Angebot anfragen →',
-      'showcase.kicker':'Aktuelle Projekte','showcase.title':'Was wir zuletzt geliefert haben','showcase.desc':'Fünf Marken, fünf unterschiedliche Probleme — ein roter Faden: Klarheit.',
-      'showcase.card1.tag':'Identität + Website','showcase.card1.sub':'Cloud-Betriebssystem',
-      'showcase.card2.tag':'UI/UX','showcase.card2.sub':'B2B-Zahlungs-App',
-      'showcase.card3.tag':'Website','showcase.card3.sub':'Industrielle Produktvitrine',
-      'showcase.card4.tag':'Branding','showcase.card4.sub':'KI-Forschungsstudio',
-      'showcase.card5.tag':'Motion','showcase.card5.sub':'Echtzeit-Dashboard',
-      'showcase.hint':'SCROLLEN ZUM ENTFALTEN',
-      'stats.1':'Gelieferte Projekte','stats.2':'Länder mit Kunden','stats.3':'Zufriedene Kunden','stats.4':'Durchschnittsbewertung / 5',
-      'process.kicker':'Prozess','process.title':'Vom Briefing zum Launch',
-      'process.step1.title':'Discovery','process.step1.desc':'Wir fassen Ziel, Zielgruppe und technische Rahmenbedingungen des Projekts.',
-      'process.step2.title':'Design','process.step2.desc':'Kreativrichtung, Wireframes, dann detaillierte Entwürfe für alle wichtigen Ansichten.',
-      'process.step3.title':'Entwicklung','process.step3.desc':'Präzise Umsetzung des Designs, Animationen, Responsive-Verhalten und Tests auf allen Bildschirmen.',
-      'process.step4.title':'Launch','process.step4.desc':'Livegang, Übergabe der Dateien und Begleitung in den ersten Wochen.',
-      'quote.text':'„Die Website war in 3 Wochen fertig und hat verändert, wie man uns in Demos wahrnimmt."',
-      'quote.attr':'— Julia Renn, Mitgründerin, Vertex Labs',
-      'contact.title':'Ein Tech-Projekt im Kopf?','contact.desc':'Schreiben Sie uns, wir melden uns innerhalb von 48h mit einer ersten Richtung.',
-      'footer.copy':'© 2026 futuro_tech_design — Tech-Designstudio','footer.instagram':'Instagram','footer.email':'E-Mail','footer.top':'Nach oben'
-    }
-  };
-
-  /* ---------- language switcher ---------- */
-  (function(){
-    var switchEl = document.getElementById('langSwitch');
-    var btn = document.getElementById('langBtn');
-    var code = document.getElementById('langCode');
-    var menu = document.getElementById('langMenu');
-    var mobileLang = document.getElementById('mobileLang');
-    var heroTitleEl = document.getElementById('heroTitle');
-
-    function applyDict(lang){
-      var dict = I18N[lang] || I18N.FR;
-      document.querySelectorAll('[data-i18n]').forEach(function(el){
-        var key = el.getAttribute('data-i18n');
-        if(dict[key] !== undefined){ el.textContent = dict[key]; }
-      });
-      document.querySelectorAll('[data-i18n-html]').forEach(function(el){
-        var key = el.getAttribute('data-i18n-html');
-        if(dict[key] !== undefined){ el.innerHTML = dict[key]; }
-      });
-      // hero title needs re-splitting into words for the reveal animation markup
-      if(heroTitleEl && dict['hero.title'] !== undefined){
-        var words = dict['hero.title'].trim().split(' ');
-        heroTitleEl.innerHTML = words.map(function(w){ return '<span class="word"><span>'+w+' </span></span>'; }).join('');
-        gsap.set(heroTitleEl.querySelectorAll('.word span'), { yPercent:0, opacity:1 });
-      }
-    }
-
-    function setLang(lang){
-      code.textContent = lang;
-      document.querySelectorAll('.lang-option').forEach(function(o){
-        o.classList.toggle('active', o.getAttribute('data-lang') === lang);
-      });
-      if(mobileLang){
-        mobileLang.querySelectorAll('button').forEach(function(b){
-          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
-        });
-      }
-      document.documentElement.setAttribute('dir', lang === 'AR' ? 'rtl' : 'ltr');
-      document.documentElement.setAttribute('lang', lang.toLowerCase());
-      applyDict(lang);
-      switchEl.dispatchEvent(new CustomEvent('langchange', { detail:{ lang: lang } }));
-    }
-
-    btn.addEventListener('click', function(e){
-      e.stopPropagation();
-      var open = switchEl.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true':'false');
-    });
-    document.addEventListener('click', function(e){
-      if(!switchEl.contains(e.target)){
-        switchEl.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){ switchEl.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
-    });
-    menu.querySelectorAll('.lang-option').forEach(function(opt){
-      opt.addEventListener('click', function(){
-        setLang(opt.getAttribute('data-lang'));
-        switchEl.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-      });
-    });
-    if(mobileLang){
-      mobileLang.querySelectorAll('button').forEach(function(b){
-        b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
-      });
-    }
-  })();
-
-  /* ---------- magnetic buttons ---------- */
-  if(!isTouch && !reduced){
-    document.querySelectorAll('.magnet').forEach(function(btn){
-      btn.addEventListener('mousemove', function(e){
-        var r = btn.getBoundingClientRect();
-        var mx = e.clientX - r.left - r.width/2;
-        var my = e.clientY - r.top - r.height/2;
-        btn.style.transform = 'translate('+mx*0.25+'px,'+my*0.35+'px)';
-      });
-      btn.addEventListener('mouseleave', function(){ btn.style.transform = 'translate(0,0)'; });
-    });
-  }
-
-  /* ---------- tilt cards ---------- */
-  if(!isTouch && !reduced){
-    document.querySelectorAll('.service-post.tilt').forEach(function(card){
-      var inner = card.querySelector('.inner');
-      card.addEventListener('mousemove', function(e){
-        var r = card.getBoundingClientRect();
-        var px = (e.clientX - r.left)/r.width - 0.5;
-        var py = (e.clientY - r.top)/r.height - 0.5;
-        inner.style.transform = 'rotateY('+(px*8)+'deg) rotateX('+(-py*8)+'deg)';
-      });
-      card.addEventListener('mouseleave', function(){ inner.style.transform = 'rotateY(0) rotateX(0)'; });
-    });
-  }
-
-  /* ---------- hero glow parallax ---------- */
-  if(!isTouch && !reduced){
-    var glow = document.getElementById('heroGlow');
-    window.addEventListener('mousemove', function(e){
-      var px = (e.clientX/window.innerWidth - 0.5) * 40;
-      var py = (e.clientY/window.innerHeight - 0.5) * 40;
-      glow.style.transform = 'translate(calc(-50% + '+px+'px), calc(-50% + '+py+'px))';
-    });
-  }
-
-  /* ---------- hero word reveal ---------- */
-  function startHero(){
-    var title = document.getElementById('heroTitle');
-    var words = title.textContent.trim().split(' ');
-    title.innerHTML = words.map(function(w){ return '<span class="word"><span>'+w+' </span></span>'; }).join('');
-    if(reduced){ return; }
-    gsap.set(title.querySelectorAll('.word span'), {yPercent:120, opacity:0});
-    gsap.to(title.querySelectorAll('.word span'), {
-      yPercent:0, opacity:1, duration:0.9, ease:'power4.out', stagger:0.045, delay:0.1
-    });
-    gsap.from('.hero-eyebrow, .hero-sub, .hero-actions', {
-      y:16, opacity:0, duration:0.7, ease:'power2.out', stagger:0.1, delay:0.5
-    });
-  }
-
-  /* ---------- GSAP scroll stuff ---------- */
-  gsap.registerPlugin(ScrollTrigger);
-
-  /* manifesto line reveal */
-  document.querySelectorAll('.reveal-lines .line span').forEach(function(el){
-    gsap.set(el, reduced ? {} : {yPercent:110});
-  });
-  if(!reduced){
-    gsap.to('.reveal-lines .line span', {
-      yPercent:0, duration:1, ease:'power4.out', stagger:0.15,
-      scrollTrigger:{ trigger:'.manifesto', start:'top 70%' }
-    });
-  }
-
-  /* service cards stagger in */
-  if(!reduced){
-    gsap.from('.service-post', {
-      opacity:0, y:30, duration:0.7, ease:'power2.out', stagger:0.08,
-      scrollTrigger:{ trigger:'.service-grid', start:'top 80%' }
-    });
-  }
-
-  /* ---------- showcase fan deck (Shopify-style spread) ---------- */
-  (function(){
-    var cards = gsap.utils.toArray('.fan-card');
-    if(!cards.length) return;
-
-    // Final fanned layout: spread across the stage, alternating rotation, like a hand of cards.
-    var layout = [
-      { x:-380, y: 26, r:-14, z:1 },
-      { x:-190, y:-10, r:-7,  z:2 },
-      { x:   0, y:-28, r: 0,  z:5 },
-      { x: 190, y:-10, r: 7,  z:2 },
-      { x: 380, y: 26, r: 14, z:1 }
-    ];
-
-    function scale(){
-      var stage = document.getElementById('showcaseStage');
-      var f = stage.clientWidth < 700 ? stage.clientWidth/1040 : 1;
-      return f;
-    }
-
-    cards.forEach(function(card, i){
-      gsap.set(card, { xPercent:-50, yPercent:-50, x:0, y:0, rotation:0, scale:0.92, opacity:0, zIndex:10-i });
-    });
-
-    if(reduced){
-      var f0 = scale();
-      cards.forEach(function(card, i){
-        var l = layout[i];
-        gsap.set(card, { x:l.x*f0, y:l.y*f0, rotation:l.r, scale:1, opacity:1, zIndex:l.z });
-      });
-      return;
-    }
-
-    var tl = gsap.timeline({
-      scrollTrigger:{
-        trigger:'.showcase',
-        start:'top 75%',
-        end:'top 20%',
-        scrub:0.7
-      }
-    });
-
-    cards.forEach(function(card, i){
-      var l = layout[i];
-      var f = scale();
-      tl.to(card, {
-        x: l.x*f, y: l.y*f, rotation: l.r, scale:1, opacity:1, zIndex:l.z,
-        ease:'power2.out', duration:1
-      }, i*0.12);
-    });
-
-    // subtle hover lift on desktop, matching the studio's hand-crafted feel
-    if(!isTouch){
-      cards.forEach(function(card, i){
-        var l = layout[i];
-        card.addEventListener('mouseenter', function(){
-          var f = scale();
-          gsap.to(card, { y:(l.y-18)*f, scale:1.05, zIndex:9, duration:0.35, ease:'power2.out' });
-        });
-        card.addEventListener('mouseleave', function(){
-          var f = scale();
-          gsap.to(card, { y:l.y*f, scale:1, zIndex:l.z, duration:0.35, ease:'power2.out' });
-        });
-      });
-    }
-
-    window.addEventListener('resize', function(){
-      ScrollTrigger.refresh();
-    });
-  })();
-
-  /* stat counters */
-  document.querySelectorAll('.stat .n').forEach(function(el){
-    var target = parseFloat(el.getAttribute('data-count'));
-    var suffix = el.getAttribute('data-suffix') || '';
-    var decimals = el.getAttribute('data-decimals') ? 1 : 0;
-    var obj = {val:0};
-    ScrollTrigger.create({
-      trigger: el,
-      start:'top 85%',
-      once:true,
-      onEnter:function(){
-        gsap.to(obj, {
-          val:target, duration:1.6, ease:'power2.out',
-          onUpdate:function(){ el.textContent = obj.val.toFixed(decimals) + suffix; }
-        });
-      }
-    });
-  });
-
-  /* process line fill */
-  var fill = document.getElementById('processFill');
-  if(!reduced){
-    gsap.to(fill, {
-      height:'100%', ease:'none',
-      scrollTrigger:{ trigger:'.process-track', start:'top 60%', end:'bottom 80%', scrub:0.6 }
-    });
-  } else {
-    fill.style.height = '100%';
-  }
-
+  var els=document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.15});
+  els.forEach(function(e){io.observe(e)});
 })();
 </script>
-
 </body>
 </html>
